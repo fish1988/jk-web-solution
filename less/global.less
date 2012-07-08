@@ -1,0 +1,253 @@
+@import "../bootstrap/less/variables.less";
+.logo-icon{
+    height: 22px; margin-top: -6px;
+}
+.global-nav{
+ margin-bottom:0px;   
+}
+.main-search {
+    margin-top: 0px;
+    padding-left: 40px;
+}
+
+.main-search > input[type=text]{
+    
+ margin-left: 40px; width: 400px; height: 22px; font-size: 18px;   
+}
+
+.main-search .btn-search{
+    margin-left: 20px;
+    width:80px;
+    height:29px;
+}
+.main-search .btn-share{
+    margin-left: 40px;
+    width:80px;
+    height:29px;
+}
+
+.left-nav{
+    
+ margin-left:30px;
+ width:180px;
+ float:left;
+}
+
+.nav-left-text li{
+    line-height: 28px; 
+   a {color:#333;
+    font-size: 15px;
+    }
+}
+.nav-list .selected a{
+    color:darken(@orange,15%);
+    font-weight:bold;
+}
+
+.nav-left-choose> li{
+    a {color:@grayDarker;
+    }
+}
+
+.search-result  {
+    margin-top: -10px;
+ float: left;
+ max-width: 550px;   
+}
+.search-result ul{
+    margin-left:0px;   
+}
+.search-result ul li{
+    list-style:none;
+      margin-top: 10px;
+}
+
+.wide-modal{
+ width:600px;   
+}
+
+.code-summary {
+border-bottom: 1px dotted #DEE;
+overflow: hidden;
+padding: 13px 0px 0px 0px;
+width: 660px;
+float: left;
+}
+
+.summary {
+float: left;
+width: 645px;
+}
+.summary .demo {
+margin: 1px 0px 2px 0px;
+cursor:pointer;
+text-decoration: none;
+    a{
+        color:darken(@green,15%);
+    }
+}
+
+.summary h3 {
+    font-size:16px;
+    line-height: 22px;
+//text-decoration:underline;
+    a {cursor:pointer;
+        
+        color: darken(#07C,4%);
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+             //color: darken(@blue,30%);
+             text-decoration: underline;
+        }
+        &:visited {
+            color: #4A6B82;
+}
+    }
+}
+.mini-counts {
+    height: 25px;
+    font-size: 190%;
+    font-weight: bold;
+}.tags {
+    line-height: 18px;
+    float: left;
+    cursor:pointer;
+}
+.tags a {
+    text-decoration:none;
+&:hover {
+    background-color: #3E6D8E;
+    color: #E0EAF1;
+    border-bottom: 1px solid #37607D;
+    border-right: 1px solid #37607D;
+    text-decoration: none;
+}
+}
+.post-tag, .post-text .post-tag, .wmd-preview a.post-tag {
+    color: #3E6D8E;
+    background-color: #E0EAF1;
+    border-bottom: 1px solid #7F9FB6;
+    border-right: 1px solid #7F9FB6;
+    padding: 3px 4px 3px 4px;
+    margin: 2px 2px 2px 0;
+    text-decoration: none;
+    font-size: 90%;
+    line-height: 2.4;
+    white-space: nowrap;
+}.narrow .started {
+    width: auto;
+    line-height: inherit;
+    padding-top: 4px;
+    white-space: nowrap;
+}.started {
+    width: 185px;
+    color: #999;
+    float: right;
+    text-align: right;
+    line-height: 18px;
+}
+
+.summary .cp {
+float: right;
+font-size:13px;
+margin-top:1px;
+    span{
+        margin-left:5px;
+        &.cp-up{
+            opacity: 0.8;
+            color: darken(@green,20%);
+        }
+         &.cp-like{
+            opacity: 0.8;
+            color: darken(@red,10%);
+        }
+        &.cp-views{
+            opacity: 0.5;
+        }
+    }
+}
+
+// search-date-form
+#search-date-form{
+    .controls{
+        margin-left:30px;
+    }
+    .control-group {
+        margin-bottom: 3px;
+    }
+    .help-block {
+         margin-bottom: 3px;
+         margin-top: 3px;
+    }
+    .control-label{
+        width:30px;
+    }
+}
+
+//share form
+#share-form{
+ // margin-top:55px;   
+  legend{
+    font-weight:bold;
+    margin-left:20px;
+  }
+  #title,#demoUrl,textarea{
+      width:350px;
+  }
+    .form-actions{
+    background:none;
+    }
+}
+
+// details
+.code-details{
+    //margin-top:60px;
+}
+.code-header {
+//width: 960px;
+margin-bottom: 20px;
+border-bottom: 1px solid #555;
+    h1{
+     a {color:@black;
+     font-size:22px;
+     font-weight:bold;
+     cursor:pointer;
+     }
+    }
+}
+#detail-demo{
+ .demo-url{
+     margin:8px 0px 2px 0px;
+ }
+a{
+      // margin:10px 0px;
+      cursor:pointer;
+      font-size:14px;
+  }
+  
+}
+
+.cp-info{
+     float:left;
+     width:60px;
+     text-align:right;
+}
+.code-body{
+  float:left;
+  margin-left:10px;
+  width:700px;
+  //.span8;
+}
+.code-desc{
+   margin-bottom: 6px;  
+   font-size:14px;
+  }
+
+.clear-font-type{
+ font-family: "微软雅黑","lucida Grande",Verdana;   
+}
+.cp-info{
+ float: left; 
+ //padding-left:20px;
+}

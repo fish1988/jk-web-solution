@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Twitter Bootstrap Buttons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+	<!-- IE styles -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<!--[if (IE 8)|(IE 7)]> 
+		<link href="css/ie.css" rel="stylesheet">
+	<![endif]--> 
+ 	<!--[if IE 6]>   
+		<link href="css/ie6.css" rel="stylesheet">
+    <![endif]-->
+  </head>
+
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+
+<!-- Buttons
+================================================== -->
+<section id="buttons">
+  <div class="page-header">
+    <h1>Buttons</h1>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Button</th>
+        <th>class="" or code</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><button class="btn" href="#">默 认</button></td>
+        <td><code>btn</code></td>
+        <td>Standard gray button with gradient</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary" href="#">常 用</button></td>
+        <td><code>btn btn-primary</code></td>
+        <td>Provides extra visual weight and identifies the primary action in a set of buttons</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary disabled" href="#">常 用</button></td>
+        <td><code>btn btn-primary disabled</code></td>
+        <td>disabled</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary btn-large" href="#">常用大</button></td>
+        <td><code>btn btn-primary btn-large</code></td>
+        <td>add btn-large</td>
+      </tr> 
+      <tr>
+        <td><button class="btn btn-primary btn-small" href="#">常用小</button></td>
+        <td><code>btn btn-primary  btn-small</code></td>
+        <td>add btn-small</td>
+      </tr> 
+      <tr>
+        <td><button class="btn btn-primary btn-mini" href="#">常用mini</button></td>
+        <td><code>btn btn-primary  btn-mini</code></td>
+        <td>add btn-mini</td>
+      </tr> 
+	  <tr>
+        <td><button class="btn btn-info" href="#">信 息</button></td>
+        <td><code>btn btn-info</code></td>
+        <td>Used as an alternative to the default styles</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-success" href="#">成 功</button></td>
+        <td><code>btn btn-success</code></td>
+        <td>Indicates a successful or positive action</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-warning" href="#">警 告</button></td>
+        <td><code>btn btn-warning</code></td>
+        <td>Indicates caution should be taken with this action</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-danger" href="#">危 险</button></td>
+        <td><code>btn btn-danger</code></td>
+        <td>Indicates a dangerous or potentially negative action</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-inverse" href="#">反 色</button></td>
+        <td><code>btn btn-inverse</code></td>
+        <td>Alternate dark gray button, not tied to a semantic action or use</td>
+      </tr>
+      <tr>
+        <td>	  <form><br>
+<a class="btn" href="">Link</a><br><br>
+<button class="btn" type="submit">Button</button>shows black border in IE7<br><br>
+<input class="btn" type="button" value="Input"><br><br>
+<input class="btn" type="submit" value="Submit">
+</form></td>
+        <td><pre class="prettyprint linenums">
+&lt;a class="btn" href=""&gt;Link&lt;/a&gt;
+&lt;button class="btn" type="submit"&gt;
+  Button
+&lt;/button&gt;
+&lt;input class="btn" type="button"
+         value="Input"&gt;
+&lt;input class="btn" type="submit"
+         value="Submit"&gt;
+</pre></td>
+        <td>Use the .btn class on an &lt;a&gt;, &lt;button&gt;, or &lt;input&gt; element.<br>One class, multiple tags</td>
+      </tr>
+	  <tr>
+        <td> <button id="fat-btn" data-loading-text="登录ing..." class="btn btn-primary">
+                    登  录
+                  </button></td>
+        
+        <td><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="pln"> </span><span class="atn">data-loading-text</span><span class="pun">=</span><span class="atv">"loading stuff..."</span><span class="pln"> </span><span class="tag">&gt;</span><span class="pln">...</span><span class="tag">&lt;/button&gt;</span></td><td>loading button</td>
+      </tr>
+		  <tr>
+        <td> <button class="btn" data-toggle="button">选 中</button>
+                  </button></td>
+        
+        <td><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"button"</span><span class="tag">&gt;</span><span class="pln">Single Toggle</span><span class="tag">&lt;/button&gt;</span></td><td>Single toggle</td>
+      </tr>
+	  <tr>
+        <td> 	  <div class="btn-group" data-toggle="buttons-checkbox">
+                    <button class="btn btn-primary">左</button>
+                    <button class="btn btn-primary">中</button>
+                    <button class="btn btn-primary">右</button>
+                  </div></td>
+        
+        <td><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"buttons-checkbox"</span><span class="tag">&gt;</span></td><td>checkbox</td>
+      </tr>
+      	  <tr>
+        <td> 	 <div class="btn-group" data-toggle="buttons-radio">
+                    <button class="btn">左</button>
+                    <button class="btn">中</button>
+                    <button class="btn">右</button>
+                  </div></td>
+        
+        <td><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"buttons-radio"</span><span class="tag">&gt;</span></td><td>radio</td>
+      </tr>      
+	  <tr>
+        <td> 	<div class="btn-toolbar"> <div class="btn-group">
+                    <button class="btn">1</button>
+                    <button class="btn">2</button>
+                    <button class="btn">3</button>
+                  </div><div class="btn-group">
+                    <button class="btn">4</button>
+                    <button class="btn">5</button>
+                    <button class="btn">6</button>
+                  </div>
+				 </div></td>
+        
+        <td><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-toolbar"</span><span class="pln"> </span><span class="tag">&gt;</span></td><td>toolbar</td>
+      </tr>   
+	  	  <tr>
+        <td><div class="btn-toolbar" style="margin-top: 18px;">
+        <div class="btn-group">
+       	 <button class="btn btn-info">Action</button>
+         <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+        <div class="btn-group">
+          <button class="btn btn-primary">Action</button>
+          <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+        <div class="btn-group dropup">
+          <button class="btn btn-danger">Action</button>
+          <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+      </div></td>
+        <td><code>btn dropdown-toggle</code><pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn dropdown-toggle"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"dropdown"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    Action</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"caret"</span><span class="tag">&gt;&lt;/span&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;/a&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">    </span><span class="com">&lt;!-- dropdown menu links --&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li></ol></pre></td>
+        <td>dropdown / dropup</td>
+      </tr>
+      
+     <tr>
+        <td>  <div class="span4">
+      <div class="btn-toolbar" style="margin-bottom: 9px">
+        <div class="btn-group">
+          <button class="btn" href="#"><i class="icon-align-left"></i></button>
+          <button class="btn" href="#"><i class="icon-align-center"></i></button>
+          <button class="btn" href="#"><i class="icon-align-right"></i></button>
+          <button class="btn" href="#"><i class="icon-align-justify"></i></button>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> User</button>
+          <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+            <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+            <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="i"></i> Make admin</a></li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        <button class="btn" href="#"><i class="icon-refresh"></i> Refresh</button>
+        <button class="btn btn-success" href="#"><i class="icon-shopping-cart icon-white"></i> Checkout</button>
+        <button class="btn btn-danger" href="#"><i class="icon-trash icon-white"></i> Delete</button>
+      </p>
+      <p>
+        <button class="btn btn-large" href="#"><i class="icon-comment"></i> Comment</button>
+        <button class="btn btn-small" href="#"><i class="icon-cog"></i> Settings</button>
+        <button class="btn btn-small btn-info" href="#"><i class="icon-info-sign icon-white"></i> More Info</button>
+      </p>
+    </div></td><td></td><td></tr>  
+      
+     
+    </tbody>
+  </table>
+</section>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/ie.js"></script>
+    <![endif]-->
+
+    <script>
+
+    // button state demo
+    $('#fat-btn')
+      .click(function () {
+        var btn = $(this);
+        btn.button('loading');
+        setTimeout(function () {
+          btn.button('reset');
+        }, 3000)
+      })
+    </script>
+
+  </body>
+</html>

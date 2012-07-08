@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Twitter Bootstrap Tables</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- styles -->
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+<link href="css/mask.css" rel="stylesheet">
+<link href="css/renderer.css" rel="stylesheet">
+<link href="css/grid.css" rel="stylesheet">
+<link href="css/alert.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
+<link href="css/form.css" rel="stylesheet">
+<link href="css/combobox.css" rel="stylesheet">
+
+<!-- IE styles -->
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<!--[if (IE 8)|(IE 7)]> 
+		<link href="css/ie.css" rel="stylesheet">
+	<![endif]-->
+<!--[if IE 6]>   
+		<link href="css/ie6.css" rel="stylesheet">
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".subnav" data-offset="50">
+
+	<!-- Tables
+================================================== -->
+	<section id="tables">
+		<div class="page-header">
+			<h1>Tables</h1>
+		</div>
+		<div class="container" style="margin-top: 10px">
+			<form class="form-inline form-query" style="margin-bottom:4px;" grid-reload="#myGrid">
+			  <!--<legend>查询</legend>-->
+			  分享标题：<input id="title" name="title" type="text" class="input-small">
+			 分享人： <input id="user" name="user" type="password" class="input-small">
+			  <button type="submit" class="btn"> 查 询 </button>
+			</form>
+
+
+			<table id="myGrid" class="grid" data-url="data.txt" row-id="iso" sort-name="iso"
+				sort-order="asc" checkbox="true" resizable="true" grid-width="960"
+				grid-height="350">
+				<thead>
+					<tr>
+						<td>
+							<div class="btn-toolbar grid-toolbar">
+								<div class="btn-group">
+									<a data-toggle="modal" href="#myModal" class="btn btn-success">
+										<i class="icon-plus icon-white"></i> 新 建
+									</a> <a class="grid-one btn btn-primary" modal-title="编辑分享"
+										href="#myModal" url="item.txt"><i
+										class="icon-edit icon-white"></i> 编 辑 </a> <a
+										class="grid-more btn btn-danger" msg="确认删除{0}项?"
+										url="op.txt"><i class="icon-remove icon-white"></i> 删 除 </a> <a
+										class="grid-refresh btn btn-info"><i class="icon-refresh icon-white"></i> 刷 新
+									</a>
+
+								</div>
+								<div class="btn-group">
+									<button class="btn">5</button>
+									<button class="btn">6</button>
+									<button class="btn">7</button>
+								</div>
+								<div class="btn-group">
+									<button class="btn">8</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th name="iso" sortable="true" width="150" align="right">ISO</th>
+						<th name="name" data-render="statusChange" cls-render="statusClsChange"  sortable="true" width="150">Name</th>
+						<th name="printable_name" sortable="true" width="150">Printable
+							Name</th>
+						<th name="iso3" sortable="true" width="150">ISO3</th>
+						<th name="numcode;iso3" data-render="downloadChange" sortable="true" width="150">Number Code</th>
+					</tr>
+				</thead>
+			</table>
+
+			<div style="height:20px;"></div>
+			<form class="form-inline form-query" style="margin-bottom:4px;" grid-reload="#myGrid2">
+			  <!--<legend>查询</legend>-->
+			  分享标题：<input id="title" name="title" type="text" class="input-small">
+			 分享人： <input id="user" name="user" type="password" class="input-small">
+			  <button type="submit" class="btn"> 查 询 </button>
+			</form>
+
+
+			<table id="myGrid2" class="grid" data-url="data.txt" row-id="iso" sort-name="iso"
+				sort-order="asc" checkbox="true" resizable="false" grid-width="960"
+				grid-height="350">
+				<thead>
+					<tr>
+						<td>
+							<div class="btn-toolbar grid-toolbar">
+								<div class="btn-group">
+									<a data-toggle="modal" href="#myModal" class="btn btn-success">
+										<i class="icon-plus icon-white"></i> 新 建
+									</a> <a class="grid-one btn btn-primary" modal-title="编辑分享"
+										href="#myModal" url="item.txt"><i
+										class="icon-edit icon-white"></i> 编 辑 </a> <a
+										class="grid-more btn btn-danger" msg="确认删除{0}项?"
+										url="op.txt"><i class="icon-remove icon-white"></i> 删 除 </a> <a
+										class="grid-refresh btn btn-info"><i class="icon-refresh icon-white"></i> 刷 新
+									</a>
+
+								</div>
+								<div class="btn-group">
+									<button class="btn">5</button>
+									<button class="btn">6</button>
+									<button class="btn">7</button>
+								</div>
+								<div class="btn-group">
+									<button class="btn">8</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="group-header">
+						<th colspan="3">group1</th>
+						<th colspan="3">group2</th>
+					</tr>
+					<tr>
+						<th name="iso" sortable="true" width="150" align="right">ISO</th>
+						<th name="name" data-render="statusChange" cls-render="statusClsChange"  sortable="true" width="150">Name</th>
+						<th name="printable_name" sortable="true" width="150">Printable
+							Name</th>
+						<th name="iso3" sortable="true" width="150">ISO3</th>
+						<th name="numcode;iso3" data-render="downloadChange" sortable="true" width="150">Number Code</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div id="myModal" class="modal hide fade wide-modal">
+			<form id="share-form" action="data.txt"  grid-reload="#myGrid"
+				class="highlight form-horizontal">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal">×</button>
+					<span class="loader"></span>
+					<h3>新的分享</h3>
+				</div>
+				<div class="modal-body">
+
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="name">语言</label>
+							<div class="controls">
+								<select id="lan-select" name="lan-select" required>
+									<option value=""></option>
+									<option value="0">Jquery</option>
+									<option value="1">Extjs</option>
+									<option>Node.js</option>
+									<option>CSS</option>
+									<option>Canvas</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="iso">标题</label>
+							<div class="controls">
+								<input type="text" class="input-xlarge" name="iso" id="iso"
+									required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="demoUrl">演示地址</label>
+							<div class="controls">
+								<input type="url" class="input-xlarge use-one" name="demoUrl"
+									id="demoUrl" value="http://jsfiddle.net/">
+								<p class="help-block">请输入jsfiddle或github地址</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="srcFile">代码上传</label>
+							<div class="controls">
+								<input class="uploadJs input-file use-one demoJs" id="srcFile"
+									name="srcFile" type="file">
+								<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="iso3">代码说明</label>
+							<div class="controls">
+								<textarea class="input-xlarge" name="iso3" " id="iso3" rows="3">test</textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="tags">标签</label>
+							<div class="controls">
+								<input class="span1 fill-one" id="tag1" type="text"> <input
+									class="span1 fill-one" id="tag2" type="text"> <input
+									class="span1 fill-one" id="tag3" type="text"> <input
+									class="span1 fill-one" id="tag4" type="text"> <input
+									class="span1 fill-one tags" id="tag5" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="testRadio">是否原创</label>
+							<div class="controls">
+								<label class="radio inline"> <input type="radio"
+									name="testRadio" id="testRadio" value="0">原创
+								</label><label class="radio inline"> <input type="radio"
+									name="testRadio" id="testRadio" value="1">非原创
+								</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="testCheckbox">代码说明</label>
+							<div class="controls">
+								<label class="checkbox inline"><input type="checkbox"
+									name="testCheckbox" id="testCheckbox" value="0" checked>原创
+								</label><label class="checkbox inline"><input type="checkbox"
+									name="testCheckbox" id="testCheckbox" value="1">非原创</label>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-1">combo-1</label>
+							<div class="controls">
+								<select id="combo-1" name="combo-1" class="combobox" multiple="multiple" width="200" required
+									child-id="combo-2" data-url="data/data.txt?pid="
+									autoload="true" val="1,2;1,2">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-2">combo-2</label>
+							<div class="controls">
+								<select id="combo-2" name="combo-2" multiple="multiple" class="combobox not-set-value" width="160" required
+									data-url="data/data.txt?pid=" child-id="combo-3">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-3">combo-3</label>
+							<div class="controls">
+								<select id="combo-3" name="combo-3"  class="combobox not-set-value" width="200" required
+									data-url="data/data2.txt?pid=">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-4">不是级联</label>
+							<div class="controls">
+								<select id="combo-4" class="combobox" name="combo-4" width="200" required
+									autoload="true" data-url="data/data2.txt?pid=">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+					</fieldset>
+
+				</div>
+				<div class="modal-footer">
+
+					<button class="btn" data-dismiss="modal">取 消</button>
+					<button type="submit" class="btn btn-primary">&nbsp;分
+						&nbsp;&nbsp;享&nbsp;</button>
+				</div>
+			</form>
+		</div>
+
+	</section>
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="jquery/jquery.json.js"></script>
+	<script src="jquery/jquery.cookie.js"></script>
+	<script src="jquery/jquery.mask.js"></script>
+
+	<script src="js/jason-msg.js"></script>
+	<!-- no dependence -->
+	<script src="js/jason-base.js"></script>
+	<!-- no dependence -->
+	<script src="js/jason-renderer.js"></script>
+	<script src="js/jason-alert.js"></script>
+	<!-- <script src="node/node.async.js"></script> -->
+
+	<!-- no dependence -->
+	<script src="js/jason-data.js"></script>
+	<!-- no dependence -->
+
+	<script src="js/jason-button.js"></script>
+	<script src="jquery/jquery.flexigrid.js"></script>
+	<script src="js/jason-grid.js"></script>
+
+	<script src="js/jason-modal.js"></script>
+
+	<!-- no dependence -->
+	<script src="js/jason-form.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/jason-combobox.js"></script>
+
+	<script src="jquery/jquery.validate.js"></script>
+	<!-- no dependence -->
+	<script src="jquery/jquery.validate.jason.js"></script>
+	<script src="jquery/jquery.form.js"></script>
+
+	<!--[if lt IE 9]>
+		<script src="js/ie.js"></script>
+    <![endif]-->
+
+	<script>
+		$().ready(function() {
+		})
+	</script>
+</body>
+</html>
