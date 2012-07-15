@@ -377,8 +377,7 @@
 			this.$clear.on('click', function(e) {
 						e.stopPropagation()
 						e.preventDefault()
-						me.$menu.hide()
-						me.shown = false
+
 						console.log('clear ' + me.$target.attr('id'))
 						var val = me.$target.val();
 
@@ -626,13 +625,13 @@
 	}
 	$.fn.combobox.defaults = {
 		template : '<div class="combobox-container"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"/></span><span class="add-on combobox-clear">×</span></div>',
-		menu : '<ul class="typeahead typeahead-long dropdown-menu"></ul>', 
+		menu : '<ul class="typeahead typeahead-long dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>',
 		placeholder : null
 	}
 
 	$.fn.combobox.multiDefaults = {
-		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"/></span><span class="add-on combobox-clear">×</span></div>',
+		template : '<div class="combobox-container"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"/></span><span class="add-on combobox-clear">×</span></div>',
 		menu : '<ul class="typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
 		item : '<li><input type="checkbox"><a href="#"></a></li>',
 		placeholder : null

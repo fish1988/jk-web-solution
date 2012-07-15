@@ -2,3 +2,12 @@
 label.valid{width:20px;height:20px;background:url(../img/valid.png) center center no-repeat;display:inline-block;text-indent:-9999px;margin-bottom:0px;}
 label.error{display:inline-block;font-weight:bold;color:red;padding-left:8px;}
 .control-group.error .help-block{color:#555;}
+.query-form-display{display:inline-block;position:absolute;}
+.query-btn{display:inline-block;position:absolute;float:left;}
+.query-container{display:inline-block;float:left;width:550px;background:white;border:1px solid #D9D9D9;border-top:1px solid silver;height:27px;top:5px;margin-left:40px;}.query-container .query-params{display:inline-block;position:absolute;}.query-container .query-params .query-item{float:left;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background:none repeat scroll 0 0 #DAE4F6;border:1px solid #DAE4F6;color:#222;cursor:default;height:23px;line-height:23px;margin:1px;outline:medium none;padding:0;vertical-align:top;display:inline-block;}.query-container .query-params .query-item .query-item-label{font-size:12px;height:23px;padding:0 0 0 5px;text-align:middle;vertical-align:top;}
+.query-container .query-params .query-item .query-item-clear{color:#444;cursor:pointer;font-size:17px;font-weight:700;height:23px;padding:1px 4px;text-align:center;vertical-align:top;}
+.query-container .query-input{display:inline-block;position:absolute;}.query-container .query-input input{display:inline-block;position:absolute;}
+.query-container .query-input .query-clear{right:-10px;top:6px;display:inline-block;position:absolute;}.query-container .query-input .query-clear .clear{font-size:180%;opacity:.4;cursor:pointer;}.query-container .query-input .query-clear .clear:hover{opacity:.9;}
+.query-container .query-input .query-trigger{position:absolute;background:url(//ssl.gstatic.com/ui/v1/disclosure/light-grey-disclosure-arrow-down.png) center no-repeat;height:22px;width:24px;cursor:pointer;right:-30px;top:5px;}.query-container .query-input .query-trigger:hover{opacity:.9;}
+.query-detail{-webkit-box-shadow:0 4px 16px rgba(0, 0, 0, 0.2);-moz-box-shadow:0 4px 16px rgba(0, 0, 0, 0.2);-ms-box-shadow:0 4px 16px rgba(0, 0, 0, 0.2);box-shadow:0 4px 16px rgba(0, 0, 0, 0.2);background:white;border:1px solid #ACACAC;color:#222;left:205px;line-height:27px;min-width:220px;padding:8px 16px 16px;position:absolute;right:1px;z-index:986;width:514px;top:96px;}
+.no-radius{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
