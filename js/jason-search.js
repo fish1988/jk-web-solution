@@ -21,6 +21,8 @@
 			this.$menu.css('width', this.options.menuWidth)
 		}
 		this.source = this.options.source
+		console.log(24, this.source)
+		this.loadSource(this.options.comboIds)
 		this.shown = false
 		this.listen()
 	}
@@ -33,6 +35,43 @@
 	Search.prototype = $.extend({}, $.fn.typeahead.Constructor.prototype, {
 
 		constructor : Search,
+		loadSource : function(comboIds) {
+			var comboArr = comboIds.split(';')
+			var me = this
+			if (comboArr.length) {
+				var url0 = $.jStore.getUrl($('#' + comboArr[0],
+						$(this.targetForm)).attr('data-url'))
+				$.getJSON(url0, function(data, x, y) {
+					for ( var j = 0; j < data.length; j++) {
+						data[j].target = comboArr[0]
+						me.source.push(data[j])
+					}
+				})
+				if (comboArr.length == 1)
+					return
+
+				var url1 = $.jStore.getUrl($('#' + comboArr[1],
+						$(this.targetForm)).attr('data-url'))
+				$.getJSON(url1, function(data, x, y) {
+					for ( var j = 0; j < data.length; j++) {
+						data[j].target = comboArr[1]
+						me.source.push(data[j])
+					}
+				})
+				if (comboArr.length == 2)
+					return
+
+				var url2 = $.jStore.getUrl($('#' + comboArr[2],
+						$(this.targetForm)).attr('data-url'))
+				$.getJSON(url2, function(data, x, y) {
+					for ( var j = 0; j < data.length; j++) {
+						data[j].target = comboArr[2]
+						me.source.push(data[j])
+					}
+				})
+			}
+
+		},
 		adjust : function() {
 			var search = this.$container
 			var offsetX = parseInt(search.find('.query-params').css('width'))
@@ -96,7 +135,7 @@
 				record[label.attr('data-type')] = label.attr('data-id')
 			})
 			$.jForm.loadRecord($(this.targetForm), record)
-			
+
 			console.log(record)
 			return this.hide()
 		}
@@ -209,8 +248,9 @@
 			var $this = $(this), mySearch
 			mySearch = new Search(this, {
 				// source : $.parseJSON($this.attr('data-source')) || [],
+				comboIds : $this.attr('combo-select'),
 				formId : $this.attr('target-form'),
-				source : [ {
+				/*source : [ {
 					id : 1,
 					name : "Alabama",
 					target : 'userId'
@@ -238,7 +278,7 @@
 					id : 8,
 					name : "acds",
 					target : 'userName'
-				} ],
+				} ],*/
 				menuWidth : $this.css('width')
 			})
 		})
@@ -255,6 +295,8 @@
 
 	$.fn.search.Constructor = Search
 
-	$('.search').search()
+	//$(function() {
+		$('.search').search()
+	//})
 
 }(window.jQuery)

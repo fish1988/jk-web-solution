@@ -16,7 +16,7 @@
 <link href="css/form.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
-
+<link href="css/combobox.css" rel="stylesheet">
 <!-- IE styles -->
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -92,7 +92,7 @@
 		<img class="search-logo" src="img/search-logo.png" style="float: left" />
 
 		<input type="text" id="query-txt" name="query-txt" autocomplete="off"
-			class="search input-medium search-query valid no-radius" target-form="#share-form">
+			class="search input-medium search-query valid no-radius" target-form="#share-form" combo-select="userId;userName">
 		<div class="query-detail hidden">
 			<div>
 				<form id="share-form" action="data.aspx"
@@ -103,18 +103,16 @@
 						<div class="control-group">
 							<label class="control-label" for="userId">userId</label>
 							<div class="controls">
-								<select id="userId" name="userId">
-									<option value="1">Alabama</option>
-									<option value="4">Arkansas</option>
+								<select class="combobox" id="userId" name="userId" data-url="combo1" autoload="true">
+									<option value=""></option>
 								</select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="userName">userName</label>
 							<div class="controls">
-								<select id="userName" name="userName">
-									<option value="7">axxx</option>
-									<option value="8">acds</option>
+								<select class="combobox" id="userName" name="userName" data-url="combo2" autoload="true">
+									<option value=""></option>
 								</select>
 							</div>
 						</div>
@@ -431,7 +429,9 @@
 	<script src="js/bootstrap/jason-datepicker.js"></script>
 
 	<script src="js/jason-base.js"></script>
+	<script src="js/jason-store.js"></script>
 	<script src="js/jason-dom.js"></script>
+	<script src="js/jason-combobox.js"></script>
 	<script src="js/jason-form.js"></script>
 	<script src="js/jason-modal.js"></script>
 	<script src="js/jason-search.js"></script>

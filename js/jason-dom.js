@@ -16,6 +16,7 @@
 
 		$('.show-hide-switch,.show-switch,.hide-switch').click(
 				function() {
+					console.log($(this))
 					var targets = $(this).attr('show-hide');
 					var showType = $(this).hasClass('show-switch') ? 1
 							: $(this).hasClass('hide-switch') ? 2 : 0;
