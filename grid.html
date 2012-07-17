@@ -231,7 +231,7 @@
 							<label class="control-label" for="combo-1">combo-1</label>
 							<div class="controls">
 								<select id="combo-1" name="combo-1" class="combobox" multiple="multiple" width="200" required
-									child-id="combo-2" data-url="data/data.txt?pid="
+									child-id="combo-2" data-url="combo1"
 									autoload="true" val="1,2;1,2">
 									<option value="" class="fixed"></option>
 								</select>
@@ -242,7 +242,7 @@
 							<label class="control-label" for="combo-2">combo-2</label>
 							<div class="controls">
 								<select id="combo-2" name="combo-2" multiple="multiple" class="combobox not-set-value" width="160" required
-									data-url="data/data.txt?pid=" child-id="combo-3">
+									data-url="combo2" child-id="combo-3">
 									<option value="" class="fixed"></option>
 								</select>
 							</div>
@@ -252,7 +252,7 @@
 							<label class="control-label" for="combo-3">combo-3</label>
 							<div class="controls">
 								<select id="combo-3" name="combo-3"  class="combobox not-set-value" width="200" required
-									data-url="data/data2.txt?pid=">
+									data-url="combo3">
 									<option value="" class="fixed"></option>
 								</select>
 							</div>
@@ -262,7 +262,7 @@
 							<label class="control-label" for="combo-4">不是级联</label>
 							<div class="controls">
 								<select id="combo-4" class="combobox" name="combo-4" width="200" required
-									autoload="true" data-url="data/data2.txt?pid=">
+									autoload="true" data-url="combo2">
 									<option value="" class="fixed"></option>
 								</select>
 							</div>
@@ -293,6 +293,7 @@
 	<script src="js/jason-msg.js"></script>
 	<!-- no dependence -->
 	<script src="js/jason-base.js"></script>
+	<script src="js/jason-store.js"></script>
 	<!-- no dependence -->
 	<script src="js/jason-renderer.js"></script>
 	<script src="js/jason-alert.js"></script>

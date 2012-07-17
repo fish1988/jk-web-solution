@@ -61,6 +61,7 @@
 				if (comboArr.length == 2)
 					return
 
+
 				var url2 = $.jStore.getUrl($('#' + comboArr[2],
 						$(this.targetForm)).attr('data-url'))
 				$.getJSON(url2, function(data, x, y) {
@@ -81,12 +82,19 @@
 			})
 			console.log(offsetX + 'px')
 
+			var inputWidth = parseInt(search.css('width')) - offsetX - 30
+					+ 'px'
 			search.find('.query-input').css({
-				width : parseInt(search.css('width')) - offsetX - 30 + 'px'
+				width : inputWidth
 			})
 			this.$element.css({
-				width : parseInt(search.css('width')) - offsetX - 30 + 'px'
+				width : inputWidth
 			})
+
+			$('ul.search.dropdown-menu').css({
+				width : inputWidth
+			})
+			console.log(97, $('ul.search.dropdown-menu').css('width'))
 		},
 		setup : function(element) {
 			var input = $(element), search = $(this.options.template)
@@ -95,7 +103,7 @@
 			input.css('width', parseInt(search.css('width')) - 30)
 			search.find('.query-input').css('width',
 					parseInt(search.css('width')) - 30).prepend(input)
-			$('.query-clear .clear').click(function() {
+			$('.query-clear .search-clear').click(function() {
 				input.val('')
 			})
 			return search
@@ -110,15 +118,17 @@
 			this.$element.val(this.updater(val)).change()
 
 			var search = this.$container
-
+			$('.search-clear', search).addClass('hidden')
 			var similar = $('span[data-type=' + dataType + ']', search)
 			if (similar.length) {
 				similar.attr('data-value', val).attr('data-id', dataId).attr(
-						'data-type', dataType).text(val)
+						'data-type', dataType)
+				$('.jlabel-inner', similar).text(val)
 			} else {
-				var addOn = $.jString
-						.format(this.$addOn, val, dataId, dataType)
+				var addOn = $.jString.format(this.$addOn, val, dataId,
+						dataType, 'icon-user')
 				search.find('.query-params').append(addOn)
+
 				$('.query-item-clear', search).unbind('click').click(
 						function() {
 							$(this).parent().remove();
@@ -159,9 +169,28 @@
 			this.$menu.show()
 			this.shown = true
 			return this
-		}
+		},
+		listen : function() {
+			var me = this, el = this.$element
+			this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
+					$.proxy(this.keypress, this)).on('keyup focus',
+					$.proxy(this.keyup, this)).on('keyup blur', function() {
+				if (el.val() == '' || el.val() == el.attr('placeholder')) {
+					console.log(190, el.val())
+					$('.search-clear', me.$container).addClass('hidden')
 
-		,
+				} else {
+					$('.search-clear', me.$container).removeClass('hidden')
+				}
+			})
+
+			if ($.browser.webkit || $.browser.msie) {
+				this.$element.on('keydown', $.proxy(this.keypress, this))
+			}
+
+			this.$menu.on('click', $.proxy(this.click, this)).on('mouseenter',
+					'li', $.proxy(this.mouseenter, this))
+		},
 		lookup : function(event) {
 			var that = this, items, q
 
@@ -250,35 +279,14 @@
 				// source : $.parseJSON($this.attr('data-source')) || [],
 				comboIds : $this.attr('combo-select'),
 				formId : $this.attr('target-form'),
-				/*source : [ {
-					id : 1,
-					name : "Alabama",
-					target : 'userId'
-				}, {
-					id : 2,
-					name : "Alaska",
-					target : 'userId'
-				}, {
-					id : 3,
-					name : "Arizona",
-					target : 'userId'
-				}, {
-					id : 4,
-					name : "Arkansas",
-					target : 'userId'
-				}, {
-					id : 5,
-					name : "Alabama",
-					target : 'userId'
-				}, {
-					id : 7,
-					name : "axxx",
-					target : 'userName'
-				}, {
-					id : 8,
-					name : "acds",
-					target : 'userName'
-				} ],*/
+				/*
+				 * source : [ { id : 1, name : "Alabama", target : 'userId' }, {
+				 * id : 2, name : "Alaska", target : 'userId' }, { id : 3, name :
+				 * "Arizona", target : 'userId' }, { id : 4, name : "Arkansas",
+				 * target : 'userId' }, { id : 5, name : "Alabama", target :
+				 * 'userId' }, { id : 7, name : "axxx", target : 'userName' }, {
+				 * id : 8, name : "acds", target : 'userName' } ],
+				 */
 				menuWidth : $this.css('width')
 			})
 		})
@@ -287,16 +295,16 @@
 	$.fn.search.defaults = {
 		source : [],
 		items : 8,
-		addOn : '<div class="query-item"><span data-id="{1}" data-type="{2}" data-value="{0}"  class="query-item-label">{0}</span><span class="query-item-clear">×</span></div>',
-		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="clear">×</div></div><div class="query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
+		addOn : '<div class="query-item"><span data-id="{1}" data-type="{2}" data-value="{0}"  class="query-item-label"><i class="{3}"></i> <span class="jlabel-inner">{0}</span></span><span class="query-item-clear">×</span></div>',
+		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" show-hide="search-clear" >×</div></div><div class="query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
 		menu : '<ul class="search dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>'
 	}
 
 	$.fn.search.Constructor = Search
 
-	//$(function() {
-		$('.search').search()
-	//})
+	// $(function() {
+	$('.search').search()
+	// })
 
 }(window.jQuery)
