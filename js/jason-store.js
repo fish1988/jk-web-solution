@@ -15,7 +15,7 @@
 				
 				$.jStore = {
 					combo1 : 'data/data.txt?pid=',
-					combo2 : 'data/data.txt?pid=',
+					combo2 : 'data/data2.txt?pid=',
 					combo3 : 'data/data.txt?pid='
 				}
 					

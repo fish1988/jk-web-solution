@@ -37,8 +37,55 @@
 		constructor : Search,
 		loadSource : function(comboIds) {
 			var comboArr = comboIds.split(';')
-			var me = this
+			var me = this, search = me.$container
+
 			if (comboArr.length) {
+				// form -> search
+				for ( var i = 0; i < comboArr.length; i++) {
+					var combo = $('#' + comboArr[i])
+					// console.log(comboArr[i],combo)
+					combo.bind('change',
+							function() {
+								// console.log(48,'do
+								// change',comboArr,comboArr[0],combo.val())
+								// modify query item
+								var $this = $(this), targetItemLabel = $(
+										'.query-item-label[data-type='
+												+ $this.attr('id') + ']',
+										search), targetItemLabelText = $(
+										'option:selected', $this).text()
+								if (targetItemLabel.length) {
+									if ($this.val() == '') {
+										// console.log(51,'remove',$this.attr('id'),$('.query-item-label[data-type='+$this.attr('id')+']',search))
+										targetItemLabel.parent().remove()
+
+									} else {
+
+										targetItemLabel.attr('data-id',
+												$this.val()).attr('data-value',
+												targetItemLabelText)
+										$('.jlabel-inner', targetItemLabel)
+												.text(targetItemLabelText)
+									}
+								} else {
+									// add item
+
+									var addOn = $.jString.format(me.$addOn,
+											targetItemLabelText,$this.val(), $this.attr('id'),
+											'icon-user')
+									search.find('.query-params').append(addOn)
+
+									$('.query-item-clear', search).unbind(
+											'click').click(function() {
+										$(this).parent().remove();
+									})
+								}
+								me.adjust()
+
+							})
+				}
+
+				// search -> form
 				var url0 = $.jStore.getUrl($('#' + comboArr[0],
 						$(this.targetForm)).attr('data-url'))
 				$.getJSON(url0, function(data, x, y) {
@@ -49,6 +96,20 @@
 				})
 				if (comboArr.length == 1)
 					return
+
+				
+
+								
+
+				
+
+												
+
+				
+
+								
+
+				
 
 				var url1 = $.jStore.getUrl($('#' + comboArr[1],
 						$(this.targetForm)).attr('data-url'))
@@ -61,6 +122,27 @@
 				if (comboArr.length == 2)
 					return
 
+				
+
+								
+
+				
+
+												
+
+				
+
+								
+
+				
+
+												
+
+				
+
+								
+
+				
 
 				var url2 = $.jStore.getUrl($('#' + comboArr[2],
 						$(this.targetForm)).attr('data-url'))
@@ -269,7 +351,7 @@
 		}
 	})
 	/*
-	 * COMBOBOX PLUGIN DEFINITION ===========================
+	 * SEARCH PLUGIN DEFINITION ===========================
 	 */
 
 	$.fn.search = function() {
