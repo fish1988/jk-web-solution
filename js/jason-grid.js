@@ -105,12 +105,13 @@
 			$.jgrid = {}
 			// grid buttons
 			$.jgrid.getGrid = function(toolbtn) {
-				return $(toolbtn).parent().parent().parent().parent()
+				return $(toolbtn).parents('.grid')
 			}
 
 			// many items
 			$.jgrid.gridItemsFn = function(dom) {
 				var grid = $.jgrid.getGrid(dom)
+				console.log(114,grid)
 				var rows = grid.find('.bDiv').find('.trSelected')
 				if (rows.length < 1) {
 					$.jAlert.alert('请选择记录')

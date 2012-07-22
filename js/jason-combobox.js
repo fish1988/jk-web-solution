@@ -8,17 +8,17 @@
 	$.combobox = {};
 	$.combobox.initValues = [];
 	var Combobox = function(element, options) {
-		this.multiSelect = ($(element).attr('multiple') === 'multiple' || $(
-				element).attr('multiple') === 'true')
-		this.options = $.extend({},
-				this.multiSelect ? $.fn.combobox.multiDefaults
+		this.multiSelect = ($(element).attr('multiple') === 'multiple' || $(element)
+				.attr('multiple') === 'true')
+		this.options = $.extend({}, this.multiSelect
+						? $.fn.combobox.multiDefaults
 						: $.fn.combobox.defaults, options)
 		this.width = this.options.width; // default width
 		this.$container = this.setup(element)
 		this.$element = this.$container.find('input')
 		this.$element.css({
-			width : this.width
-		})
+					width : this.width
+				})
 
 		this.$button = this.$container.find('.dropdown-toggle')
 		this.$clear = this.$container.find('.combobox-clear')
@@ -28,8 +28,8 @@
 		this.highlighter = this.options.highlighter || this.highlighter
 		this.$menu = $(this.options.menu).appendTo('body')
 		this.$menu.css({
-			width : this.width
-		})
+					width : this.width
+				})
 		this.placeholder = this.options.placeholder
 		this.initValue = this.options.initValue // default width
 
@@ -65,7 +65,7 @@
 			var op = sel.find('option');
 			var val = this.$element.val();
 			// console.log(op);
-			for ( var i = 0; i < op.length; i++) {
+			for (var i = 0; i < op.length; i++) {
 				if (op[i].innerHTML == val) {
 					return op[i];
 				}
@@ -82,12 +82,13 @@
 				while (arrValues.length - i) {
 					if (id) {
 						$.combobox.initValues.push({
-							'id' : id,
-							'value' : arrValues[i++],
-							'parent' : parent,
-							'loadChild' : arrValues.length - i === 0 ? true
-									: false
-						})
+									'id' : id,
+									'value' : arrValues[i++],
+									'parent' : parent,
+									'loadChild' : arrValues.length - i === 0
+											? true
+											: false
+								})
 					}
 					parent = id
 					id = $('#' + id).attr('child-id')
@@ -96,7 +97,7 @@
 			}
 
 			// set values
-			for ( var i = 0; i < $.combobox.initValues.length; i++) {
+			for (var i = 0; i < $.combobox.initValues.length; i++) {
 				var item = $.combobox.initValues[i]
 				// load and setValue
 				$.combobox[item.id].load(true, item.parent, item.value)
@@ -115,7 +116,7 @@
 
 			var arr = v.split(',')
 			var targetVals = [], elementText = ''
-			for ( var i = 0; i < arr.length; i++) {
+			for (var i = 0; i < arr.length; i++) {
 				var val = arr[i]
 				var found = this.$target.find('option[value="' + val + '"]')
 
@@ -144,12 +145,12 @@
 		parse : function() {
 			var map = {}, source = [], selected = false
 			this.$target.find('option').each(function() {
-				var option = $(this)
-				map[option.text()] = option.val()
-				source.push(option.text())
-				if (option.attr('selected'))
-					selected = option.html()
-			})
+						var option = $(this)
+						map[option.text()] = option.val()
+						source.push(option.text())
+						if (option.attr('selected'))
+							selected = option.html()
+					})
 			this.map = map
 			if (selected) {
 				this.$element.val(selected)
@@ -232,7 +233,7 @@
 
 				var selectLi = this.$menu.find('.li-selected')
 				var text = '', dataValues = []
-				for ( var i = 0; i < selectLi.length; i++) {
+				for (var i = 0; i < selectLi.length; i++) {
 					dataValues
 							.push(this.map[$(selectLi[i]).attr('data-value')])
 					text += $('a', $(selectLi[i])).text()
@@ -276,9 +277,9 @@
 			this.query = this.$element.val()
 
 			items = $.grep(this.source, function(item) {
-				if (that.matcher(item))
-					return item
-			})
+						if (that.matcher(item))
+							return item
+					})
 
 			items = this.sorter(items)
 
@@ -287,15 +288,15 @@
 			}
 
 			this.render(items.slice(0, this.options.items)).show()
-			this.$menu.find('li').removeClass('active').removeClass(
-					'li-selected')
+			this.$menu.find('li').removeClass('active')
+					.removeClass('li-selected')
 
 			console.log('lookup')
 			if (this.multiSelect) {
 				console.log('oldVal', oldVal)
 				var arr = oldVal.split(';')
 
-				for ( var i = 0; i < arr.length; i++) {
+				for (var i = 0; i < arr.length; i++) {
 					if (arr[i] === '')
 						continue
 					var activeLi = this.$menu.find('li[data-value="' + arr[i]
@@ -322,9 +323,9 @@
 			this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
 					$.proxy(this.keypress, this)).on('keyup',
 					$.proxy(this.keyup, this)).on('focus', function() {
-				if ($(this).val() == me.placeholder)
-					$(this).val('');
-			})
+						if ($(this).val() == me.placeholder)
+							$(this).val('');
+					})
 
 			if ($.browser.webkit || $.browser.msie) {
 				this.$element.on('keydown', $.proxy(this.keypress, this))
@@ -334,75 +335,77 @@
 					'li', $.proxy(this.mouseenter, this))
 			if (this.multiSelect)
 				this.$menu.on('mouseleave', function() {
-					setTimeout(function() {
-						console.log('mouseout')
-						me.hide()
-					}, 300)
-				})
+							setTimeout(function() {
+										console.log('mouseout')
+										me.hide()
+									}, 300)
+						})
 
 			var child = this.$target.attr('child-id')
 			if (child) {
 				this.$target.on('change', function() {
-					console.log($(this).attr('id') + ' change');
-					var combo = $.combobox[child]
+							console.log($(this).attr('id') + ' change');
+							var combo = $.combobox[child]
 
-					if (!combo)
-						return;
-					var val = combo.$target.val();
+							if (!combo)
+								return;
+							var val = combo.$target.val();
 
-					combo.$element.val('');
-					combo.$target.val(combo.multiSelect ? [] : '');
+							combo.$element.val('');
+							combo.$target.val(combo.multiSelect ? [] : '');
 
-					if (combo.multiSelect)
-						combo.$target.trigger('change')
+							if (combo.multiSelect)
+								combo.$target.trigger('change')
 
-					if ($(this).val() !== '' && $(this).val() !== null) {
-						combo.load(true, me.multiSelect ? $(this).val().join(
-								';') : $(this).val());
-					} else {
-						console.log('remove')
-						combo.$target.find('option:not(.fixed)').remove();
-						combo.refresh();
+							if ($(this).val() !== '' && $(this).val() !== null) {
+								combo.load(true, me.multiSelect ? $(this).val()
+												.join(	';') : $(this).val());
+							} else {
+								console.log('remove')
+								combo.$target.find('option:not(.fixed)')
+										.remove();
+								combo.refresh();
 
-					}
-					combo.$element.trigger('blur')
-					if (me.multiSelect && $(this).val() === null)
-						me.$element.val(me.placeholder)
-					if (combo.multiSelect)
-						combo.$element.val(combo.placeholder)
-				})
+							}
+							combo.$element.trigger('blur')
+							if (me.multiSelect && $(this).val() === null)
+								me.$element.val(me.placeholder)
+							if (combo.multiSelect)
+								combo.$element.val(combo.placeholder)
+						})
 			}
 			this.$button.on('click', $.proxy(this.toggle, this))
 
 			this.$clear.on('click', function(e) {
-				e.stopPropagation()
-				e.preventDefault()
-				me.$menu.hide()
-				me.shown = false
-				console.log('clear ' + me.$target.attr('id'))
-				var val = me.$target.val();
+						e.stopPropagation()
+						e.preventDefault()
+						me.$menu.hide()
+						me.shown = false
+						console.log('clear ' + me.$target.attr('id'))
+						var val = me.$target.val();
 
-				var val2 = me.$element.val();
+						var val2 = me.$element.val();
 
-				if (val2 === me.placeholder || val2 === '') {
-					console.log('no clear');
-					me.$element.val(me.placeholder)
-					return;
-				}
-				if (me.multiSelect) {
-					me.$element.val(me.placeholder)
-				} else {
-					me.$element.val('').focus();
-				}
-				me.$target.val(me.multiSelect ? [] : '');
+						if (val2 === me.placeholder || val2 === '') {
+							console.log('no clear');
+							me.$element.val(me.placeholder)
+							//me.$target.trigger('change')
+							return;
+						}
+						if (me.multiSelect) {
+							me.$element.val(me.placeholder)
+						} else {
+							me.$element.val('').focus();
+						}
+						me.$target.val(me.multiSelect ? [] : '');
 
-				if (me.multiSelect) {
-					if (val !== null)
-						me.$target.trigger('change')
-				} else if (val.length || val2.length)
-					me.$target.trigger('change')
+						if (me.multiSelect) {
+							if (val !== null)
+								me.$target.trigger('change')
+						} else if (val.length || val2.length)
+							me.$target.trigger('change')
 
-			})
+					})
 		}
 
 		// modified typeahead function to clear on type and prevent on
@@ -411,33 +414,33 @@
 		keyup : function(e) {
 
 			switch (e.keyCode) {
-			case 40: // down arrow
-			case 39: // right arrow
-			case 38: // up arrow
-			case 37: // left arrow
-			case 36: // home
-			case 35: // end
-			case 16: // shift
-				break
+				case 40 : // down arrow
+				case 39 : // right arrow
+				case 38 : // up arrow
+				case 37 : // left arrow
+				case 36 : // home
+				case 35 : // end
+				case 16 : // shift
+					break
 
-			case 9: // tab
-			case 13: // enter
-				if (!this.shown)
-					return
+				case 9 : // tab
+				case 13 : // enter
+					if (!this.shown)
+						return
 
-				this.select()
-				break
+					this.select()
+					break
 
-			case 27: // escape
-				if (!this.shown)
-					return
+				case 27 : // escape
+					if (!this.shown)
+						return
 
-				this.hide()
-				break
+					this.hide()
+					break
 
-			default:
-				this.clearTarget()
-				this.lookup()
+				default :
+					this.clearTarget()
+					this.lookup()
 			}
 
 			var found = this.findText(this.$element.val())
@@ -482,18 +485,18 @@
 				if (that.shown)
 					setTimeout(function() {
 
-						that.hide()
-						that.shown = false;
-						if (that.$element.val() == ''
-								|| !that.findText(that.$element.val()))
-							that.$element.val(that.placeholder);
-					}, 150)
+								that.hide()
+								that.shown = false;
+								if (that.$element.val() == ''
+										|| !that.findText(that.$element.val()))
+									that.$element.val(that.placeholder);
+							}, 150)
 				else
 					setTimeout(function() {
-						if (that.$element.val() == ''
-								|| !that.findText(that.$element.val()))
-							that.$element.val(that.placeholder);
-					}, 150)
+								if (that.$element.val() == ''
+										|| !that.findText(that.$element.val()))
+									that.$element.val(that.placeholder);
+							}, 150)
 			}
 
 			e.stopPropagation()
@@ -525,30 +528,30 @@
 
 				// get data
 				$.get(url, function(data) {
-					// console.log(combo.$target.attr('id') + '
-					// ' + url);
-					combo.$target.find('option:not(.fixed)').remove()
-					var arr = [];
-					for ( var i = 0; i < data.length; i++) {
-						arr.push('<option value="' + data[i].id + '">'
-								+ data[i].name + '</option>');
-					}
-					combo.$target.append(arr.join(""));
-					var val = combo.$target.val();
+							// console.log(combo.$target.attr('id') + '
+							// ' + url);
+							combo.$target.find('option:not(.fixed)').remove()
+							var arr = [];
+							for (var i = 0; i < data.length; i++) {
+								arr.push('<option value="' + data[i].id + '">'
+										+ data[i].name + '</option>');
+							}
+							combo.$target.append(arr.join(""));
+							var val = combo.$target.val();
 
-					combo.$element.val('');
-					// if (val.length)
-					// combo.$target.trigger('change');
-					combo.$target.val(combo.multiSelect ? [] : '')
-					combo.$element.val(combo.placeholder)
-					combo.refresh();
+							combo.$element.val('');
+							// if (val.length)
+							// combo.$target.trigger('change');
+							combo.$target.val(combo.multiSelect ? [] : '')
+							combo.$element.val(combo.placeholder)
+							combo.refresh();
 
-					if (initValue) {
-						combo.setSingleValue(initValue);
-						// console.log(combo.$target.attr('id'),initValue);
-					}
+							if (initValue) {
+								combo.setSingleValue(initValue);
+								// console.log(combo.$target.attr('id'),initValue);
+							}
 
-				}, 'json');
+						}, 'json');
 			}
 
 		}
@@ -559,61 +562,63 @@
 
 	$.fn.combobox = function() {
 		this.each(function() {
-			var $this = $(this), combo
+					var $this = $(this), combo
 
-			// console.log($(this).attr('val'));
-			combo = new Combobox(this, {
-				width : $(this).attr('width') || 220,
-				placeholder : $(this).attr('placeholder') || '请选择'
-			})
-			combo.$element.val(combo.placeholder)
-			$this.data('combobox', combo)
+					// console.log($(this).attr('val'));
+					combo = new Combobox(this, {
+								width : $(this).attr('width') || 220,
+								placeholder : $(this).attr('placeholder')
+										|| '请选择'
+							})
+					combo.$element.val(combo.placeholder)
+					$this.data('combobox', combo)
 
-			var initValues = $(this).attr('val')
-			var arrValues = initValues ? initValues.split(';') : [];
+					var initValues = $(this).attr('val')
+					var arrValues = initValues ? initValues.split(';') : [];
 
-			// console.log(initValues,arrValues)
-			if (initValues && arrValues.length) {
-				var i = 0;
-				var parent = '#'
-				var id = $this.attr('id')
-				while (arrValues.length - i) {
-					if (id) {
-						// var valueObj = {};
-						// valueObj['id'] = arrValues[i++]
-						$.combobox.initValues.push({
-							'id' : id,
-							'value' : arrValues[i++],
-							'parent' : parent,
-							'loadChild' : arrValues.length - i === 0 ? true
-									: false
-						})
-						// console.log(id);
+					// console.log(initValues,arrValues)
+					if (initValues && arrValues.length) {
+						var i = 0;
+						var parent = '#'
+						var id = $this.attr('id')
+						while (arrValues.length - i) {
+							if (id) {
+								// var valueObj = {};
+								// valueObj['id'] = arrValues[i++]
+								$.combobox.initValues.push({
+											'id' : id,
+											'value' : arrValues[i++],
+											'parent' : parent,
+											'loadChild' : arrValues.length - i === 0
+													? true
+													: false
+										})
+								// console.log(id);
+							}
+							parent = id;
+							id = $('#' + id).attr('child-id');
+
+						}
+
 					}
-					parent = id;
-					id = $('#' + id).attr('child-id');
+					// console.log($.combobox.initValues);
 
-				}
+					if (typeof option == 'string')
+						combo[option]()
+					// console.log(combo);
+					if ($this.attr('id')) {
+						$.combobox[$this.attr('id')] = combo;
+					}
 
-			}
-			// console.log($.combobox.initValues);
+					if ($this.attr('data-url')) {
+						// need load data? and init paramid/ids..
+						combo.load($(this).attr('autoload'), '#');
+					}
 
-			if (typeof option == 'string')
-				combo[option]()
-				// console.log(combo);
-			if ($this.attr('id')) {
-				$.combobox[$this.attr('id')] = combo;
-			}
-
-			if ($this.attr('data-url')) {
-				// need load data? and init paramid/ids..
-				combo.load($(this).attr('autoload'), '#');
-			}
-
-		})
+				})
 
 		// set values
-		for ( var i = 0; i < $.combobox.initValues.length; i++) {
+		for (var i = 0; i < $.combobox.initValues.length; i++) {
 			var item = $.combobox.initValues[i]
 			// load and setValue
 			$.combobox[item.id].load(true, item.parent, item.value)
@@ -642,8 +647,8 @@
 
 	$.fn.combobox.Constructor = Combobox
 
-	//$(function() {
-		$('.combobox').combobox()
-	//})
+	// $(function() {
+	$('.combobox').combobox()
+	// })
 
 }(window.jQuery)

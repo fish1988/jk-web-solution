@@ -10,12 +10,9 @@ margin-bottom: -2px;
 
 /* CSS Document */
 .flexigrid {
-    //font-family: Arial, Helvetica, sans-serif;
-	//font-size: 11px;
 	position: relative;
 	border: 0px solid #eee;
 	overflow: hidden;
-	//color: #000;
 }
 
 .flexigrid.hideBody {
@@ -24,12 +21,13 @@ margin-bottom: -2px;
 }
 
 .ie6fullwidthbug {
-	border-right: 0px solid #ccc;
+	//border-right: 0px solid #ccc;
 	padding-right: 2px;
 }
 
 .flexigrid div.nDiv {
-	background: #eee url(../img/line.gif) repeat-y -1px top;
+	background: #fff ;
+    //url(../img/line.gif) repeat-y -1px top;
 	border: 1px solid #ccc;
 	border-top: 0px;
 	overflow: auto;
@@ -59,32 +57,33 @@ margin-bottom: -2px;
 
 .flexigrid div.nDiv td {
 	padding: 2px 3px;
-	border: 1px solid #eee;
+	//border: 1px solid #eee;
 	cursor: default;
 }
 
 .flexigrid div.nDiv tr:hover td,.flexigrid div.nDiv tr.ndcolover td {
-	background: #d5effc url(../img/hl.png) repeat-x top;
-	border: 1px solid #a8d8eb;
+    background: #d5effc;
+//	background: #d5effc url(../img/hl.png) repeat-x top;
+	//border: 1px solid #a8d8eb;
 }
 
 .flexigrid div.nDiv td.ndcol1 {
-	border-right: 1px solid #ccc;
+//	border-right: 1px solid #ccc;
 }
 
 .flexigrid div.nDiv td.ndcol2 {
-	border-left: 1px solid #fff;
+//	border-left: 1px solid #fff;
 	padding-right: 10px;
 }
 
 .flexigrid div.nDiv tr:hover td.ndcol1,.flexigrid div.nDiv tr.ndcolover td.ndcol1
 	{
-	border-right: 1px solid #d2e3ec;
+//	border-right: 1px solid #d2e3ec;
 }
 
 .flexigrid div.nDiv tr:hover td.ndcol2,.flexigrid div.nDiv tr.ndcolover td.ndcol2
 	{
-	border-left: 1px solid #eef8ff;
+//	border-left: 1px solid #eef8ff;
 }
 
 .flexigrid div.nBtn {
@@ -92,9 +91,10 @@ margin-bottom: -2px;
 	height: 24px;
 	width: 14px;
 	z-index: 900;
-	background: #fafafa url(../img/fhbg.gif) repeat-x bottom;
-	border: 0px solid #ccc;
+	//background: #fafafa url(../img/fhbg.gif) repeat-x bottom;
+//	border: 0px solid #ccc;
 	border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 	top: 0px;
 	left: 0px;
 	margin-top: 1px;
@@ -105,19 +105,20 @@ margin-bottom: -2px;
 .flexigrid div.nBtn div {
 	height: 24px;
 	width: 12px;
-	border-left: 1px solid #fff;
+//	border-left: 1px solid #ccc;
+    //border-right: 1px solid #ccc;
 	float: left;
 	background: url(../img/ddn.png) no-repeat center;
 }
 
 .flexigrid div.nBtn.srtd {
-	background: url(../img/wbg.gif) repeat-x 0px -1px;
+//	background: url(../img/wbg.gif) repeat-x 0px -1px;
 }
 
 .flexigrid div.mDiv {
 	//background: url(../img/wbg.gif) repeat-x top;
-	border: 1px solid #ccc;
-	border-bottom: 0px;
+	//border: 1px solid #ccc;
+	//border-bottom: 0px;
 	//border-top: 0px;
 	font-weight: bold;
 	display: block;
@@ -150,8 +151,8 @@ margin-bottom: -2px;
 
 .flexigrid div.mDiv div.ptogtitle span {
 	display: block;
-	border-left: 1px solid #eee;
-	border-top: 1px solid #fff;
+	//border-left: 1px solid #eee;
+	//border-top: 1px solid #fff;
 	border-bottom: 1px solid #ddd;
 	width: 14px;
 	height: 14px;
@@ -164,9 +165,10 @@ margin-bottom: -2px;
 
 .flexigrid div.tDiv {
 	//background: #fafafa url(../img/bg.gif) repeat-x top;
+    display:none;
 	position: relative;
-	border: 1px solid #ccc;
-	border-bottom: 0px;
+	//border: 1px solid #ccc;
+	//border-bottom: 0px;
 	overflow: hidden;
 }
 
@@ -179,8 +181,8 @@ margin-bottom: -2px;
 .flexigrid div.sDiv /*toolbar*/ {
 	background: #fafafa url(../img/bg.gif) repeat-x top;
 	position: relative;
-	border: 1px solid #ccc;
-	border-top: 0px;
+	//border: 1px solid #ccc;
+	//border-top: 0px;
 	overflow: hidden;
 	display: none;
 }
@@ -238,15 +240,15 @@ margin-bottom: -2px;
 
 /* end toolbar*/
 .flexigrid div.hDiv {
-	background: #fafafa url(../img/fhbg.gif) repeat-x bottom;
+	//background: #fafafa url(../img/fhbg.gif) repeat-x bottom;
 	position: relative;
-	border: 1px solid #ccc;
-	border-bottom: 0px;
+	border-bottom: 1px solid #ccc;
+	//border-bottom: 0px;
 	overflow: hidden;
 }
 
 .flexigrid div.hDiv table {
-	border-right: 1px solid #fff;
+	//border-right: 1px solid #fff;
 }
 
 .flexigrid div.cDrag {
@@ -271,7 +273,7 @@ margin-bottom: -2px;
 }
 
 .flexigrid div.iDiv {
-	border: 1px solid #316ac5;
+	//border: 1px solid #316ac5;
 	position: absolute;
 	overflow: visible;
 	background: none;
@@ -293,15 +295,15 @@ margin-bottom: -2px;
 }
 
 .flexigrid div.bDiv {
-	border: 1px solid #ccc;
-	border-top: 0px;
+	//border: 1px solid #ccc;
+	//border-top: 0px;
 	background: #fff;
 	overflow: auto;
 	position: relative;
 }
 
 .flexigrid div.bDiv table {
-	border-bottom: 1px solid #ccc;
+	//border-bottom: 1px solid #ccc;
 }
 
 .flexigrid div.hGrip {
@@ -316,7 +318,7 @@ margin-bottom: -2px;
 }
 
 .flexigrid div.hGrip:hover,.flexigrid div.hGrip.hgOver {
-	border-right: 1px solid #999;
+	//border-right: 1px solid #999;
 	margin-right: 0px;
 }
 
@@ -325,8 +327,8 @@ margin-bottom: -2px;
 	overflow: hidden;
 	position: relative;
 	background: #fafafa url(../img/wbg.gif) repeat-x 0px -1px;
-	border: 1px solid #ccc;
-	border-top: 0px;
+	//border: 1px solid #ccc;
+	//border-top: 0px;
 	text-align: center;
 	cursor: row-resize;
 }
@@ -337,16 +339,16 @@ margin-bottom: -2px;
 	width: 20px;
 	height: 1px;
 	overflow: hidden;
-	border-top: 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
+	//border-top: 1px solid #aaa;
+//	border-bottom: 1px solid #aaa;
 	background: none;
 }
 
 .flexigrid div.hDiv th,.flexigrid  div.bDiv td
 	/* common cell properties*/ {
 	text-align: center;
-	border-right: 1px solid #ddd;
-	border-left: 1px solid #fff;
+	//border-right: 1px solid #ddd;
+	//border-left: 1px solid #fff;
 	overflow: hidden;
 	vertical-align: top !important;
 	padding-left: 0;
@@ -356,11 +358,11 @@ margin-bottom: -2px;
 .flexigrid div.hDiv th div,.flexigrid  div.bDiv td  div,div.colCopy div
 	/* common inner cell properties*/ {
 	padding: 5px;
-	border-left: 0px solid #fff;
+	//border-left: 0px solid #fff;
 }
 
 .flexigrid div.hDiv th,div.colCopy {
-	font-weight: normal;
+	//font-weight: normal;
 	height: 24px;
 	cursor: pointer;
 	white-space: nowrap;
@@ -368,17 +370,17 @@ margin-bottom: -2px;
 }
 
 div.colCopy {
-	font-family: Arial, Helvetica, sans-serif;
+	/*font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	background: #fafafa url(../img/fhbg.gif) repeat-x bottom;
 	border: 1px solid #ccc;
-	border-bottom: 0px;
+	border-bottom: 0px;*/
 	overflow: hidden;
 }
 
 .flexigrid div.hDiv th.sorted {
-	background: url(../img/wbg.gif) repeat-x 0px -1px;
-	border-bottom: 0px solid #ccc;
+	//background: url(../img/wbg.gif) repeat-x 0px -1px;
+	//border-bottom: 0px solid #ccc;
 }
 
 .flexigrid div.hDiv th.thOver {
@@ -392,7 +394,8 @@ div.colCopy {
 }
 
 .flexigrid div.hDiv th.sorted div {
-	border-bottom: 0px solid #ccc;
+	//border-bottom: 0px solid #ccc;
+        color:orangeRed;
 	padding-bottom: 5px;
 }
 
@@ -402,7 +405,7 @@ div.colCopy {
 }
 
 .flexigrid div.hDiv th.sorted.thMove div {
-	border-bottom: 1px solid #fff;
+	//border-bottom: 1px solid #fff;
 	padding-bottom: 4px
 }
 
@@ -418,9 +421,9 @@ div.colCopy {
 	background: url(../img/up.png) no-repeat center top;
 }
 
-.flexigrid div.bDiv td {
-	border-bottom: 1px solid #fff;
-	vertical-align: top;
+.flexigrid div.bDiv td,.flexigrid div.bDiv th {
+	border-bottom: 1px solid #ccc;
+	//vertical-align: top;
 	white-space: nowrap;
 }
 
@@ -451,14 +454,14 @@ div.colCopy {
 }
 
 .flexigrid div.bDiv td div {
-	border-top: 0px solid #fff;
+	//border-top: 0px solid #fff;
 	padding-bottom: 4px;
 }
 
 .flexigrid tr td.sorted {
-	background: #f3f3f3;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #f3f3f3;
+//	background: #f3f3f3;
+	//border-right: 1px solid #ddd;
+//	border-bottom: 1px solid #f3f3f3;
 }
 
 .flexigrid tr td.sorted div {
@@ -467,12 +470,12 @@ div.colCopy {
 
 .flexigrid tr.erow td {
 	background: #f7f7f7;
-	border-bottom: 1px solid #f7f7f7;
+	border-bottom: 1px solid #ccc;
 }
 
 .flexigrid tr.erow td.sorted {
-	background: #e3e3e3;
-	border-bottom: 1px solid #e3e3e3;
+	//background: #e3e3e3;
+	//border-bottom: 1px solid #e3e3e3;
 }
 
 .flexigrid tr.erow td.sorted div {
@@ -482,56 +485,58 @@ div.colCopy {
 .flexigrid div.bDiv tr:hover td,.flexigrid div.bDiv tr:hover td.sorted,.flexigrid div.bDiv tr.trOver td.sorted,.flexigrid div.bDiv tr.trOver td
 	{
 	background: #d9ebf5;
-	border-left: 1px solid #eef8ff;
-	border-bottom: 1px dotted #a8d8eb;
+	//border-left: 1px solid #eef8ff;
+	//border-bottom: 1px dotted #a8d8eb;
 }
 
 .flexigrid div.bDiv tr.trSelected:hover td,.flexigrid div.bDiv tr.trSelected:hover td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td,.flexigrid tr.trSelected td.sorted,.flexigrid tr.trSelected td
 	{
-	background: #d5effc url(../img/hl.png) repeat-x top;
-	border-right: 1px solid #d2e3ec;
-	border-left: 1px solid #eef8ff;
-	border-bottom: 1px solid #a8d8eb;
+     background: #d5effc;
+	//background: #d5effc url(../img/hl.png) repeat-x top;
+	//border-right: 1px solid #d2e3ec;
+	//border-left: 1px solid #eef8ff;
+	//border-bottom: 1px solid #a8d8eb;
 }
 
 /* novstripe adjustments */
 .flexigrid.novstripe .bDiv table {
-	border-bottom: 1px solid #ccc;
-	border-right: 1px solid #ccc;
+	//border-bottom: 1px solid #ccc;
+	//border-right: 1px solid #ccc;
 }
 
 .flexigrid.novstripe  div.bDiv td {
-	border-right-color: #fff;
+	//border-right-color: #fff;
 }
 
 .flexigrid.novstripe div.bDiv tr.erow td.sorted {
-	border-right-color: #e3e3e3;
+//	border-right-color: #e3e3e3;
 }
 
 .flexigrid.novstripe div.bDiv tr td.sorted {
-	border-right-color: #f3f3f3;
+	//border-right-color: #f3f3f3;
 }
 
 .flexigrid.novstripe  div.bDiv tr.erow td {
-	border-right-color: #f7f7f7;
-	border-left-color: #f7f7f7;
+	//border-right-color: #f7f7f7;
+	//border-left-color: #f7f7f7;
 }
 
 .flexigrid.novstripe div.bDiv tr.trSelected:hover td,.flexigrid.novstripe div.bDiv tr.trSelected:hover td.sorted,.flexigrid.novstripe div.bDiv tr.trOver.trSelected td.sorted,.flexigrid.novstripe div.bDiv tr.trOver.trSelected td,.flexigrid.novstripe tr.trSelected td.sorted,.flexigrid.novstripe tr.trSelected td
 	{
-	border-right: 1px solid #0066FF;
-	border-left: 1px solid #0066FF;
+	//border-right: 1px solid #0066FF;
+	//border-left: 1px solid #0066FF;
 }
 
 .flexigrid.novstripe div.bDiv tr.trOver td,.flexigrid.novstripe div.bDiv tr:hover td
 	{
-	border-left-color: #d9ebf5;
-	border-right-color: #d9ebf5;
+	//border-left-color: #d9ebf5;
+//	border-right-color: #d9ebf5;
 }
 
 /* end novstripe */
 .flexigrid div.pDiv {
 	//background: url(../img/wbg.gif) repeat-x 0 -1px;
+     display:none;
 	border: 1px solid #ccc;
 	border-top: 0px;
 	overflow: hidden;
@@ -594,8 +599,8 @@ div.pGroup {
 	{
 	width: 19px;
 	height: 19px;
-	border-top: 1px solid #fff;
-	border-left: 1px solid #fff;
+	//border-top: 1px solid #fff;
+	//-left: 1px solid #fff;
 }
 
 .flexigrid .pSearch {
@@ -640,8 +645,6 @@ div.pGroup {
 
 .flexigrid td.cth, .flexigrid th.cth,{
     width:22px;  
-    border-right: 1px solid 
-#EEE;
-border-left: 1px solid 
-white;
+    //border-bottom: 1px solid #ccc;
+    //border-left: 1px solid white;
 }

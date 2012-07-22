@@ -11,12 +11,18 @@
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
+<link href="css/mask.css" rel="stylesheet">
+<link href="css/renderer.css" rel="stylesheet">
 <link href="css/navbar.css" rel="stylesheet">
 <link href="css/datepicker.css" rel="stylesheet">
+<link href="css/combobox.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
+<link href="css/grid.css" rel="stylesheet">
+<link href="css/alert.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
-<link href="css/combobox.css" rel="stylesheet">
+
 <!-- IE styles -->
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -38,8 +44,8 @@
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a>
-				<!-- <a class="brand" href="./index.html">代码分享</a> -->
+				</a><a class="brand" href="./index.html"><img src="img/logo.png"
+					class="logo-icon">软件分发系统</a>
 				<div class="btn-group pull-right">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="icon-user"></i> Jason <span class="caret"></span>
@@ -52,34 +58,16 @@
 				</div>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="#"><i
-								class="icon-home icon-white"></i>首 页</a></li>
-						<li><a href="#">Jquery</a></li>
-						<li><a href="#">Extjs4</a></li>
-						<li><a href="#">Node.js</a></li>
-						<li><a href="#">CSS3</a></li>
-						<li><a href="#">Canvas</a></li>
+						<li class="active"><a href="#">产品管理</a></li>
+						<li><a href="#">应用列表</a></li>
+						<li><a href="#">广告相关</a></li>
+						<li><a href="#">统计查询</a></li>
+						<li><a href="#">字典设置</a></li>
 
 					</ul>
 					<ul class="nav pull-right">
-						<li><a href="share.html"> <!-- <i class="add-on icon-share"></i> -->新分享
-						</a></li>
+						<li><a href="share.html">新分享 </a></li>
 						<li><a href="#">我的分享</a></li>
-
-						<!--<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">我的分享 <b class="caret"></b>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">鸡冻</a></li>
-								<li><a href="#">不要鸡冻</a></li>
-								<li><a href="#">再鸡冻</a></li>
-								<li class="divider"></li>
-								<li class="nav-header">看一看</li>
-								<li><a href="#">不知道</a></li>
-								<li><a href="#">看不出~</a></li>
-							</ul></li>-->
-						<!-- 						<li><a href="#">我的收藏</a></li>
-						<li><a id="my-favorite" href="#">我最喜欢</a></li> -->
 						<li class="divider-vertical"></li>
 					</ul>
 				</div>
@@ -88,22 +76,23 @@
 	</div>
 
 	<!-- <form id="search-form" class="well form-search main-search"> -->
-	<div class="well form-search main-search">
-		<img class="search-logo" src="img/search-logo.png" style="float: left" />
-
-		<input type="text" id="query-txt" name="query-txt" autocomplete="off"
-			class="search input-medium search-query valid no-radius" target-form="#share-form" combo-select="userId;userName">
+	<div class="form-query well form-search main-search" >
+		<img class="search-logo" src="img/search-logo.png"
+			style="float: left; margin-top: -10px;" /> <input type="text"
+			id="query-txt" name="query-txt" autocomplete="off"
+			class="search input-medium search-query valid no-radius"
+			target-form="#share-form">
 		<div class="query-detail hidden">
 			<div>
-				<form id="share-form" action="data.aspx"
-					class="highlight">
+				<form id="share-form" action="data.txt" class="form-query highlight" grid-reload="#myGrid">
 					<a class="close show-hide-switch" show-hide="query-detail">×</a>
 
 					<fieldset>
 						<div class="control-group">
 							<label class="control-label" for="userId">userId</label>
 							<div class="controls">
-								<select class="combobox" id="userId" name="userId" data-url="combo1" autoload="true">
+								<select class="combobox" id="userId" name="userId"
+									data-url="combo1" autoload="true">
 									<option value="" class="fixed"></option>
 								</select>
 							</div>
@@ -111,9 +100,36 @@
 						<div class="control-group">
 							<label class="control-label" for="userName">userName</label>
 							<div class="controls">
-								<select class="combobox" id="userName" name="userName" data-url="combo2" autoload="true">
+								<select class="combobox" id="userName" name="userName"
+									data-url="combo2" autoload="true" child-id="userName2">
 									<option value="" class="fixed"></option>
 								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="userName2">userName2</label>
+							<div class="controls">
+								<select class="combobox" id="userName2" name="userName2"
+									data-url="combo3">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="channelId">channelId</label>
+							<div class="controls">
+								<input class="j-search-item" title="渠道号" id="channelId"
+									name="channelId">
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="channelName">channelName</label>
+							<div class="controls">
+								<input class="j-search-item" title="渠道名" id="channelName"
+									name="channelName">
 							</div>
 						</div>
 					</fieldset>
@@ -129,166 +145,36 @@
 		</div>
 	</div>
 
-	<!-- </form> -->
 
-	<!-- share modal -->
-	<!--
-	<div id="shareModal" class="modal hide fade wide-modal">
-		<form id="share-form" action="data.aspx" class="highlight form-horizontal">
-			<div class="modal-header">
-				<button class="close" data-dismiss="modal">×</button>
-				<h3>新的分享</h3>
-			</div>
-			<div class="modal-body">
-
-				<fieldset>
-					<div class="control-group">
-						<label class="control-label" for="name">语言</label>
-						<div class="controls">
-							<select id="lan-select">
-								<option>Jquery</option>
-								<option>Extjs</option>
-								<option>Node.js</option>
-								<option>CSS</option>
-								<option>Canvas</option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="title">标题</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="title" id="title"
-								required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="tags">标签</label>
-						<div class="controls">
-							<input class="span1 fill-one" id="tag1" type="text"> <input
-								class="span1 fill-one" id="tag2" type="text"> <input
-								class="span1 fill-one tags" id="tag3" type="text">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="demoUrl">演示地址</label>
-						<div class="controls">
-							<input type="url" class="input-xlarge" name="demoUrl"
-								id="demoUrl" value="http://jsfiddle.net/">
-							<p class="help-block">请输入jsfiddle地址</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="srcFile">代码上传</label>
-						<div class="controls">
-							<input class="uploadJs input-file" id="srcFile" name="srcFile"
-								type="file">
-							<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="content">代码说明</label>
-						<div class="controls">
-							<textarea class="input-xlarge" name="content" " id="content"
-								rows="3"></textarea>
-						</div>
-				</fieldset>
-
-			</div>
-			<div class="modal-footer">
-				<button type="submit" id="share-form-submit" class="btn btn-primary">&nbsp;分
-					&nbsp;&nbsp;享&nbsp;</button>
-				<button id="share-form-cancel" class="btn" data-dismiss="modal">取
-					消</button>
-			</div>
-		</form>
-	</div>
-	-->
-	<!-- 
-	  <div id="gbfwa" class="gbqfwa "
-			style="display: inline-block; width: 550px;">
-			<div id="gbqfqw" class="gbqfqw search-input-focused"
-				style="background: white; border: 1px solid #D9D9D9; border-top: 1px solid silver; -moz-border-radius: 1px; -webkit-border-radius: 1px; border-radius: 1px; height: 27px; position: relative;">
-				<div id="gbqfaa" style="position: absolute; left: 0;">
-					<div class="goog-inline-block search-filters-container"
-						id="search-filters-container"
-						style="display: inline-block; position: relative; height: 27px;">
-						<table class="filter-banner-table"
-							style="height: 21px; line-height: 21px; vertical-align: top; border-collapse: collapse; border-spacing: 0; zoom: 1;">
-							<tbody>
-								<tr>
-									<td><div class="goog-inline-block filter-banner"
-											style="position: relative; display: -moz-inline-box; display: inline-block;">
-											<div class="goog-inline-block filter-chip" tabindex="0"
-												title="Anyone with the link filter.  Use backspace or delete to remove"
-												style="-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; background: none repeat scroll 0 0 #DAE4F6; border: 1px solid #DAE4F6; color: #222; cursor: default; height: 23px; line-height: 23px; margin: 1px; outline: medium none; padding: 0; vertical-align: top; display: inline-block;">
-												<span class="goog-inline-block filter-chip-label">Anyone
-													with the link</span><span class="goog-inline-block filter-chip-x">×</span>
-											</div>
-											<div class="goog-inline-block filter-chip" tabindex="0"
-												title="Anyone with the link filter.  Use backspace or delete to remove"
-												style="-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; background: none repeat scroll 0 0 #DAE4F6; border: 1px solid #DAE4F6; color: #222; cursor: default; height: 23px; line-height: 23px; margin: 1px; outline: medium none; padding: 0; vertical-align: top; display: inline-block;">
-												<span class="goog-inline-block filter-chip-label">Anyone
-													with the link</span><span class="goog-inline-block filter-chip-x">×</span>
-											</div>
-										</div></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div id="gbqfqwb" class="gbqfqwb"
-					style="left: 234px; right: 0px; position: absolute;">
-					<input id="gbqfq" class="gbqfif" name="q" type="text"
-						autocomplete="off" value="" aria-activedescendant=""
-						style="width: 300px;">
-				</div>
-				<div id="gbqfab">
-					<div class="goog-inline-block search-input-clear-container"
-						id="search-input-clear-container">
-						<div class="goog-inline-block search-input-clear" role="button"
-							style="-webkit-user-select: none;" aria-label="Clear search"
-							data-tooltip="Clear search" tabindex="0">
-							<div class="search-input-clear-icon"></div>
-						</div>
-					</div>
-					<div class="goog-inline-block advanced-search-button-container"
-						id="advanced-search-button-container">
-						<div
-							class="goog-inline-block goog-flat-menu-button advanced-search-button advanced-search-button-focused"
-							role="button" style="-webkit-user-select: none;" tabindex="0"
-							aria-haspopup="true" aria-label="Advanced search options"
-							data-tooltip="Advanced search options" aria-expanded="false"
-							aria-activedescendant="">
-							<div class="goog-inline-block goog-flat-menu-button-caption"></div>
-							<div class="goog-inline-block goog-flat-menu-button-dropdown">&nbsp;</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	<div class="left-nav">
-		<ul class="nav nav-list nav-left-text active-switch">
-			<li class="selected"><a href="#">所有结果</a></li>
-			<li><a href="#">Jquery</a></li>
-			<li><a href="#">Extjs4</a></li>
-			<li><a href="#">Node.js</a></li>
-			<li><a href="#">CSS3</a></li>
-			<li><a href="#">Canvas</a></li>
+		<ul data-type="platformId"
+			class="nav nav-list nav-left-text active-switch">
+			<li class="selected"><a data-id="" href="#">所有平台</a></li>
+			<li data-id="1"><a href="#">Android</a></li>
+			<li data-id="2"><a href="#">Iphone</a></li>
+			<li data-id="3"><a href="#">IPad</a></li>
+			<li data-id="4"><a href="#">WinPhone</a></li>
+			<li data-id="5"><a href="#">PC</a></li>
 			<li class="divider"></li>
 		</ul>
 
-		<ul class="nav nav-list nav-left-choose active-switch">
-			<li class="selected hide-switch" show-hide="cp started tags"><a
-				href="#">简洁视图</a></li>
-			<li class="show-switch" show-hide="cp started tags"><a href="#">完整视图</a></li>
-			<li><a href="#">自定义...</a></li>
+		<ul data-type="packStatus"
+			class="nav nav-list nav-left-choose active-switch more-search-tools">
+			<li data-id="1" class="selected"><a href="#">外部显示</a></li>
+			<li data-id="2"><a href="#">显示全部</a></li>
 			<li class="divider"></li>
-
 		</ul>
 
+		<ul data-type="status"
+			class="nav nav-list nav-left-choose active-switch more-search-tools">
+			<li class="selected"><a data-id="" href="#">所有状态</a></li>
+			<li data-id="1"><a href="#">有效</a></li>
+			<li data-id="2"><a href="#">无效</a></li>
+			<li class="divider"></li>
+		</ul>
 
 		<ul
-			class="nav nav-list nav-left-choose active-switch more-search-tools hidden">
+			class="nav nav-list nav-left-choose active-switch more-search-tools">
 			<li class="selected"><a href="#">时间不限</a></li>
 			<li><a href="#">最近一周</a></li>
 			<li><a href="#">最近一月</a></li>
@@ -311,135 +197,225 @@
 
 				</form></li>
 			<li class="divider"></li>
-
 		</ul>
 
 
-		<ul
-			class="nav nav-list nav-left-choose active-switch more-search-tools hidden">
-			<li class="selected"><a href="#">最热门</a></li>
-			<li><a href="#">最有用</a></li>
-			<li><a href="#">最有趣</a></li>
-			<li class="divider"></li>
-		</ul>
 
-		<ul class="nav nav-list nav-left-choose">
-			<li class="show-hide-switch" show-hide="more-search-tools"><a
-				href="#"><span class="more-search-tools">显示</span><span
-					class="more-search-tools hidden">隐藏</span>搜索工具</a></li>
-		</ul>
 	</div>
 	<div class="search-result">
 
-		<div class="code-summary narrow">
+		<table id="myGrid" class="grid" data-url="data.txt" row-id="iso"
+			sort-name="iso" sort-order="asc" checkbox="true" resizable="false"
+			grid-width="960" grid-height="350">
+			<thead>
+				<tr>
+					<td>
+						<div class="btn-toolbar grid-toolbar">
+							<div class="btn-group">
+								<a data-toggle="modal" href="#myModal" class="btn">
+									<i class="icon-plus"></i> 新 建
+								</a> <a class="grid-one btn" modal-title="编辑分享"
+									href="#myModal" url="item.txt"><i
+									class="icon-edit"></i> 编 辑 </a> <a
+									class="grid-more btn" msg="确认删除{0}项?" url="op.txt"><i
+									class="icon-remove"></i> 删 除 </a> <a
+									class="grid-refresh btn"><i
+									class="icon-refresh"></i> 刷 新 </a>
 
-			<div class="summary">
-				<div class="cp hidden">
-					<span class="cp-up"><i class="icon-thumbs-up"></i>13</span><span
-						class="cp-like"><i class="icon-star-empty"></i>1</span><span
-						class="cp-views"><i class="icon-eye-open"></i>50</span>
-				</div>
-				<h3>
-					<a target="_blank" href="details.html">仿Path按钮特效</a>
-				</h3>
-				<div class="demo">
-					<a title="show questions tagged 'asp.net-mvc'" rel="tag">jsfiddle.net/SSFFS</a>
-				</div>
-				<div class="desc">在出家一甲子以上的岁月里，陆续于世界各地创建二百余所道场，如西来、南天、南华等寺，分别为北美、澳洲、非洲第一大佛寺。并创办十八所美术馆、二十六所图书馆、四所出版社</div>
-				<div class="tags hidden">
-					<a class="post-tag">asp.net-mvc</a> <a class="post-tag">asp.net-mvc</a>
-					<a class="post-tag">asp.net-mvc</a>
-				</div>
-				<div class="started hidden">
-					<span title="2012-06-11 06:16:35Z" class="relativetime">52秒之前</span>
-					<a href="/users/1063461/surer214">Jasonkou</a>
-				</div>
+							</div>
+							<div class="btn-group">
+								<button class="btn">5</button>
+								<button class="btn">6</button>
+								<button class="btn">7</button>
+							</div>
+							<div class="btn-group">
+								<button class="btn">8</button>
+							</div>
+						</div>
+					</td>
+				</tr>
 
-			</div>
+				<tr>
+					<th name="iso" sortable="true" width="150" align="right">ISO</th>
+					<th name="name" data-render="statusChange"
+						cls-render="statusClsChange" sortable="true" width="150">Name</th>
+					<th name="printable_name" sortable="true" width="150">Printable
+						Name</th>
+					<th name="iso3" sortable="true" width="150">ISO3</th>
+					<th name="numcode;iso3" data-render="downloadChange"
+						sortable="true" width="150">Number Code</th>
+				</tr>
+			</thead>
+		</table>
+		<div id="myModal" class="modal hide fade wide-modal">
+			<form id="share-form" action="data.txt" grid-reload="#myGrid"
+				class="highlight form-horizontal">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal">×</button>
+					<span class="loader"></span>
+					<h3>新的分享</h3>
+				</div>
+				<div class="modal-body">
+
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="name">语言</label>
+							<div class="controls">
+								<select id="lan-select" name="lan-select" required>
+									<option value=""></option>
+									<option value="0">Jquery</option>
+									<option value="1">Extjs</option>
+									<option>Node.js</option>
+									<option>CSS</option>
+									<option>Canvas</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="iso">标题</label>
+							<div class="controls">
+								<input type="text" class="input-xlarge" name="iso" id="iso"
+									required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="demoUrl">演示地址</label>
+							<div class="controls">
+								<input type="url" class="input-xlarge use-one" name="demoUrl"
+									id="demoUrl" value="http://jsfiddle.net/">
+								<p class="help-block">请输入jsfiddle或github地址</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="srcFile">代码上传</label>
+							<div class="controls">
+								<input class="uploadJs input-file use-one demoJs" id="srcFile"
+									name="srcFile" type="file">
+								<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="iso3">代码说明</label>
+							<div class="controls">
+								<textarea class="input-xlarge" name="iso3" " id="iso3" rows="3">test</textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="tags">标签</label>
+							<div class="controls">
+								<input class="span1 fill-one" id="tag1" type="text"> <input
+									class="span1 fill-one" id="tag2" type="text"> <input
+									class="span1 fill-one" id="tag3" type="text"> <input
+									class="span1 fill-one" id="tag4" type="text"> <input
+									class="span1 fill-one tags" id="tag5" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="testRadio">是否原创</label>
+							<div class="controls">
+								<label class="radio inline"> <input type="radio"
+									name="testRadio" id="testRadio" value="0">原创
+								</label><label class="radio inline"> <input type="radio"
+									name="testRadio" id="testRadio" value="1">非原创
+								</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="testCheckbox">代码说明</label>
+							<div class="controls">
+								<label class="checkbox inline"><input type="checkbox"
+									name="testCheckbox" id="testCheckbox" value="0" checked>原创
+								</label><label class="checkbox inline"><input type="checkbox"
+									name="testCheckbox" id="testCheckbox" value="1">非原创</label>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-1">combo-1</label>
+							<div class="controls">
+								<select id="combo-1" name="combo-1" class="combobox"
+									multiple="multiple" width="200" required child-id="combo-2"
+									data-url="combo1" autoload="true" val="1,2;1,2">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-2">combo-2</label>
+							<div class="controls">
+								<select id="combo-2" name="combo-2" multiple="multiple"
+									class="combobox not-set-value" width="160" required
+									data-url="combo2" child-id="combo-3">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-3">combo-3</label>
+							<div class="controls">
+								<select id="combo-3" name="combo-3"
+									class="combobox not-set-value" width="200" required
+									data-url="combo3">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="combo-4">不是级联</label>
+							<div class="controls">
+								<select id="combo-4" class="combobox" name="combo-4" width="200"
+									required autoload="true" data-url="combo2">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+
+					</fieldset>
+
+				</div>
+				<div class="modal-footer">
+
+					<button class="btn" data-dismiss="modal">取 消</button>
+					<button type="submit" class="btn btn-primary">&nbsp;分
+						&nbsp;&nbsp;享&nbsp;</button>
+				</div>
+			</form>
 		</div>
-
-		<div class="code-summary narrow">
-
-			<div class="summary">
-				<div class="cp hidden">
-					<span class="cp-up"><i class="icon-thumbs-up"></i>132</span><span
-						class="cp-like"><i class="icon-star-empty"></i>12</span><span
-						class="cp-views"><i class="icon-eye-open"></i>500</span>
-				</div>
-				<h3>
-					<a>仿Path按钮特效, 仿Path按钮特效仿</a>
-				</h3>
-				<div class="demo">
-					<a title="show questions tagged 'asp.net-mvc'" rel="tag">https://github.com/AlloyTeam/JX/tree/master/demo</a>
-				</div>
-
-				<div class="tags hidden">
-					<a class="post-tag">asp</a> <a class="post-tag">extjs</a> <a
-						class="post-tag">asp.net-mvc</a>
-				</div>
-				<div class="started hidden">
-					<span title="2012-06-11 06:16:35Z" class="relativetime">1天之前</span>
-					<a href="/users/1063461/surer214">Admin</a>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="code-summary narrow">
-
-			<div class="summary">
-				<div class="cp hidden">
-					<span class="cp-up"><i class="icon-thumbs-up"></i>13</span><span
-						class="cp-like"><i class="icon-star-empty"></i>1</span><span
-						class="cp-views"><i class="icon-eye-open"></i>50</span>
-				</div>
-				<h3>
-					<span class="code-jquey"><i class=""
-						style="background: url(img/jquery_icon.png);"></i></span><a>仿Path按钮特效,
-						仿Path按钮特效仿按钮特效仿</a>
-				</h3>
-				<div class="demo">
-					<a title="show questions tagged 'asp.net-mvc'" rel="tag">https://github.com/AlloyTeam/JX/tree/master/demo</a>
-				</div>
-				<div class="desc">佛光星云，江苏江都人，1927年生，12岁于宜兴大觉寺礼志开上人出家。1947年焦山佛学院毕业；1949年赴台，担任《人生杂志》主编、“台湾佛教讲习会”教务主任；1953年任宜兰念佛会导师</div>
-
-
-				<div class="tags hidden">
-					<a class="post-tag">mysql</a> <a class="post-tag">test</a> <a
-						class="post-tag">asp.net-mvc</a>
-				</div>
-				<div class="started hidden">
-					<span title="2012-06-11 06:16:35Z" class="relativetime">52秒之前</span>
-					<a href="/users/1063461/surer214">Test</a>
-				</div>
-
-			</div>
-		</div>
-
 	</div>
 
 	<!-- javascript libs -->
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.json.js"></script>
+	<script src="jquery/jquery.cookie.js"></script>
+	<script src="jquery/jquery.mask.js"></script>
+
 	<script src="jquery/jquery.form.js"></script>
 	<script src="jquery/jquery.validate.js"></script>
 	<script src="jquery/jquery.validate.jason.js"></script>
+	<script src="jquery/jquery.flexigrid.js"></script>
+	
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/jason-datepicker.js"></script>
 
+	<script src="js/jason-msg.js"></script>
 	<script src="js/jason-base.js"></script>
 	<script src="js/jason-store.js"></script>
+	<script src="js/jason-renderer.js"></script>
+	<script src="js/jason-alert.js"></script>
+	<script src="js/jason-data.js"></script>
 	<script src="js/jason-dom.js"></script>
+	<script src="js/jason-button.js"></script>
 	<script src="js/jason-combobox.js"></script>
-	<script src="js/jason-form.js"></script>
-	<script src="js/jason-modal.js"></script>
 	<script src="js/jason-search.js"></script>
-
+	<script src="js/jason-grid.js"></script>
+	<script src="js/jason-modal.js"></script>
+	<script src="js/jason-form.js"></script>
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>
     <![endif]-->
-	<!-- <script src="js/share/global.js"></script> -->
-
 </body>
 </html>

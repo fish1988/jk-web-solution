@@ -9,8 +9,9 @@
 
 	"use strict"; //
 
-	/* FORM Validation
-	 * ============== */
+	/*
+	 * FORM Validation ==============
+	 */
 
 	$(function() {
 
@@ -32,6 +33,54 @@
 
 		$.jForm = {}
 
+		// getInfo form select
+		$.jForm.getDataFromSelect = function(select) {
+			var arr = [], id = select.attr('id'), type = select
+					.attr('data-url')
+			var options = $('option:not(.fixed)', select)
+			// var store = select.attr('data-url')
+			options.each(function(k, opt) {
+						var option = $(opt)
+						arr.push({
+									id : option.val(),
+									name : option.text(),
+									target : id,
+									type : type
+								})
+					})
+			// var selectType =
+
+			return arr
+		}
+
+		// build search source
+		$.jForm.buildSource = function(form, source) {
+			// major selects
+			var mainSelects = $('select[autoload=true]', form)
+			console.log(mainSelects)
+			$.each(mainSelects, function(i, sel) {
+
+						var select = $(sel)
+						if (typeof source[select.attr('id')] == 'undefined') {
+							source[select.attr('id')] = $.jForm
+									.getDataFromSelect(select)
+						}
+					})
+
+			// other selects
+			var otherSelects = $('select:not([autoload=true])', form)
+			console.log(65, otherSelects)
+			$.each(otherSelects, function(i, sel) {
+						var select = $(sel)
+						source[select.attr('id')] = $.jForm
+								.getDataFromSelect(select)
+
+					})
+
+			return source
+		}
+
+		// form defaults
 		$.jForm.setDefault = function(form) {
 			var init = form.serializeObject()
 
@@ -63,7 +112,7 @@
 
 			//
 			form
-					.find('input:text, input:password, input:file,select, textarea')
+					.find(	'input:text, input:password, input:file,select, textarea')
 					.val('')
 			form.find('input:radio,input:checkbox').removeAttr('checked')
 					.removeAttr('selected')
@@ -221,4 +270,3 @@
 	});
 
 }(window.jQuery);
-

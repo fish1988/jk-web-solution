@@ -3,7 +3,7 @@ label.valid{width:20px;height:20px;background:url(../img/valid.png) center cente
 label.error{display:inline-block;font-weight:bold;color:red;padding-left:8px;}
 .control-group.error .help-block{color:#555;}
 .query-form-display{display:inline-block;position:absolute;}
-.query-btn{display:inline-block;position:absolute;float:left;}
+.query-btn{display:inline-block;float:left;}
 .query-container{display:inline-block;float:left;width:550px;background:white;border:1px solid #D9D9D9;border-top:1px solid silver;height:27px;top:5px;margin-left:40px;}.query-container .query-params{display:inline-block;position:absolute;}.query-container .query-params .query-item{float:left;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background:none repeat scroll 0 0 #DAE4F6;border:1px solid #DAE4F6;color:#222;cursor:default;height:23px;line-height:23px;margin:1px;outline:medium none;padding:0;vertical-align:top;display:inline-block;}.query-container .query-params .query-item .query-item-label{font-size:12px;height:23px;padding:0 0 0 5px;text-align:middle;vertical-align:top;}
 .query-container .query-params .query-item .query-item-clear{color:#444;cursor:pointer;font-size:17px;font-weight:700;height:23px;padding:1px 4px;text-align:center;vertical-align:top;}
 .query-container .query-input{display:inline-block;position:absolute;}.query-container .query-input input{display:inline-block;position:absolute;}

@@ -9,6 +9,7 @@
 
 		this.$element = $(element)
 		this.options = $.extend({}, $.fn.search.defaults, options)
+		this.targetForm = this.options.formId
 		this.$container = this.setup(element)
 		this.matcher = this.options.matcher || this.matcher
 		this.sorter = this.options.sorter || this.sorter
@@ -16,13 +17,13 @@
 		this.updater = this.options.updater || this.updater
 		this.$menu = $(this.options.menu).appendTo('body')
 		this.$addOn = this.options.addOn
-		this.targetForm = this.options.formId
+
 		if (this.options.menuWidth) {
 			this.$menu.css('width', this.options.menuWidth)
 		}
 		this.source = this.options.source
 		console.log(24, this.source)
-		this.loadSource(this.options.comboIds)
+		// this.loadSource(this.options.comboIds)
 		this.shown = false
 		this.listen()
 	}
@@ -35,159 +36,161 @@
 	Search.prototype = $.extend({}, $.fn.typeahead.Constructor.prototype, {
 
 		constructor : Search,
-		loadSource : function(comboIds) {
-			var comboArr = comboIds.split(';')
-			var me = this, search = me.$container
+		getAdditionItem : function(query) {
+			var me = this, form = $(me.targetForm), items = []
 
-			if (comboArr.length) {
-				// form -> search
-				for ( var i = 0; i < comboArr.length; i++) {
-					var combo = $('#' + comboArr[i])
-					// console.log(comboArr[i],combo)
-					combo.bind('change',
-							function() {
-								// console.log(48,'do
-								// change',comboArr,comboArr[0],combo.val())
-								// modify query item
-								var $this = $(this), targetItemLabel = $(
-										'.query-item-label[data-type='
-												+ $this.attr('id') + ']',
-										search), targetItemLabelText = $(
-										'option:selected', $this).text()
-								if (targetItemLabel.length) {
-									if ($this.val() == '') {
-										// console.log(51,'remove',$this.attr('id'),$('.query-item-label[data-type='+$this.attr('id')+']',search))
-										targetItemLabel.parent().remove()
+			var inputs = $('input.j-search-item', form)
 
-									} else {
+			inputs.each(function(i, input) {
+						var inp = $(input)
+						items.push({
+									id : query,
+									name : query + ' - ' + inp.attr('title'),
+									target : inp.attr('id')
+								})
+					})
+			return items
+		},
+		addItemRemoveListener : function() {
+			var search = this.$container, me = this
+			$('.query-item-clear', search).off('click').click(function() {
+				// form record
+				var changeId = $('.query-item-label', $(this).parent())
+						.attr('data-type')
 
-										targetItemLabel.attr('data-id',
-												$this.val()).attr('data-value',
-												targetItemLabelText)
-										$('.jlabel-inner', targetItemLabel)
-												.text(targetItemLabelText)
-									}
-								} else {
-									// add item
-
-									var addOn = $.jString.format(me.$addOn,
-											targetItemLabelText,$this.val(), $this.attr('id'),
-											'icon-user')
-									search.find('.query-params').append(addOn)
-
-									$('.query-item-clear', search).unbind(
-											'click').click(function() {
-										$(this).parent().remove();
-									})
-								}
-								me.adjust()
-
-							})
+				if ($.combobox[changeId]) {
+					$.combobox[changeId].setSingleValue('')
+					$.combobox[changeId].$target.trigger('change')
+					var combo = $.combobox[changeId].getChild()
+					while (combo) {
+						combo.setSingleValue('')
+						combo.$target.trigger('change')
+						$('.query-item-label[data-type='
+								+ combo.$target.attr('id') + ']').parent()
+								.remove()
+						combo = combo.getChild()
+					}
+				} else {
+					$('#' + changeId, $(me.targetForm)).val('')
 				}
+				console.log(51, $(this).parent())
+				$(this).parent().remove()
 
-				// search -> form
-				var url0 = $.jStore.getUrl($('#' + comboArr[0],
-						$(this.targetForm)).attr('data-url'))
-				$.getJSON(url0, function(data, x, y) {
-					for ( var j = 0; j < data.length; j++) {
-						data[j].target = comboArr[0]
-						me.source.push(data[j])
-					}
-				})
-				if (comboArr.length == 1)
-					return
-
-				
-
-								
-
-				
-
-												
-
-				
-
-								
-
-				
-
-				var url1 = $.jStore.getUrl($('#' + comboArr[1],
-						$(this.targetForm)).attr('data-url'))
-				$.getJSON(url1, function(data, x, y) {
-					for ( var j = 0; j < data.length; j++) {
-						data[j].target = comboArr[1]
-						me.source.push(data[j])
-					}
-				})
-				if (comboArr.length == 2)
-					return
-
-				
-
-								
-
-				
-
-												
-
-				
-
-								
-
-				
-
-												
-
-				
-
-								
-
-				
-
-				var url2 = $.jStore.getUrl($('#' + comboArr[2],
-						$(this.targetForm)).attr('data-url'))
-				$.getJSON(url2, function(data, x, y) {
-					for ( var j = 0; j < data.length; j++) {
-						data[j].target = comboArr[2]
-						me.source.push(data[j])
-					}
-				})
-			}
-
+				me.adjust()
+			})
 		},
 		adjust : function() {
 			var search = this.$container
 			var offsetX = parseInt(search.find('.query-params').css('width'))
 
 			search.find('.query-input').css({
-				marginLeft : offsetX + 'px'
-			})
+						marginLeft : offsetX + 'px'
+					})
 			console.log(offsetX + 'px')
 
 			var inputWidth = parseInt(search.css('width')) - offsetX - 30
 					+ 'px'
 			search.find('.query-input').css({
-				width : inputWidth
-			})
+						width : inputWidth
+					})
 			this.$element.css({
-				width : inputWidth
-			})
+						width : inputWidth
+					})
 
 			$('ul.search.dropdown-menu').css({
-				width : inputWidth
-			})
+						width : inputWidth
+					})
 			console.log(97, $('ul.search.dropdown-menu').css('width'))
 		},
 		setup : function(element) {
-			var input = $(element), search = $(this.options.template)
+			var input = $(element), search = $(this.options.template), me = this
 			input.before(search)
 
 			input.css('width', parseInt(search.css('width')) - 30)
 			search.find('.query-input').css('width',
 					parseInt(search.css('width')) - 30).prepend(input)
 			$('.query-clear .search-clear').click(function() {
-				input.val('')
-			})
+						input.val('')
+					})
+
+			// form bind
+
+			// inputs
+			var inputs = $('input.j-search-item', $(this.targetForm))
+			inputs.each(function(i, input) {
+						$(input).on('change', function() {
+							var $this = $(this), targetItemLabel = $(
+									'.query-item-label[data-type='
+											+ $this.attr('id') + ']', search), targetItemLabelText = $this
+									.val()+' - '+$this.attr('title')
+							if (targetItemLabel.length) {
+								if ($this.val() == '') {
+									targetItemLabel.parent().remove()
+								}else {
+									targetItemLabel
+												.attr('data-id', $this.val()).attr(
+														'data-value',
+														targetItemLabelText)
+										$('.jlabel-inner', targetItemLabel)
+												.text(targetItemLabelText)
+								}
+							} else {
+
+								var addOn = $.jString.format(me.$addOn,
+										targetItemLabelText, $this.val(), $this
+												.attr('id'), 'icon-user')
+								search.find('.query-params').append(addOn)
+								// add item
+								me.addItemRemoveListener()
+							}
+							me.adjust()
+						})
+					})
+			// combos
+			var selects = $('select', $(this.targetForm))
+			selects.each(function(i, select) {
+						$(select).on('change', function() {
+							console.log('change 107', $(this))
+							var $this = $(this), targetItemLabel = $(
+									'.query-item-label[data-type='
+											+ $this.attr('id') + ']', search), targetItemLabelText = $(
+									'option:selected', $this).text()
+							if (targetItemLabel.length) {
+								if ($this.val() == '') {
+									var changeComboId = $this.attr('id')
+
+									var combo = $.combobox[changeComboId]
+											.getChild()
+									while (combo) {
+										combo.setSingleValue('')
+										combo.$target.trigger('change')
+										$('.query-item-label[data-type='
+												+ combo.$target.attr('id')
+												+ ']').parent().remove()
+										combo = combo.getChild()
+									}
+									targetItemLabel.parent().remove()
+								} else {
+
+									targetItemLabel
+											.attr('data-id', $this.val()).attr(
+													'data-value',
+													targetItemLabelText)
+									$('.jlabel-inner', targetItemLabel)
+											.text(targetItemLabelText)
+								}
+							} else {
+
+								var addOn = $.jString.format(me.$addOn,
+										targetItemLabelText, $this.val(), $this
+												.attr('id'), 'icon-user')
+								search.find('.query-params').append(addOn)
+								// add item
+								me.addItemRemoveListener()
+							}
+							me.adjust()
+						})
+					})
 			return search
 		},
 		select : function() {
@@ -210,12 +213,7 @@
 				var addOn = $.jString.format(this.$addOn, val, dataId,
 						dataType, 'icon-user')
 				search.find('.query-params').append(addOn)
-
-				$('.query-item-clear', search).unbind('click').click(
-						function() {
-							$(this).parent().remove();
-							me.adjust()
-						})
+				me.addItemRemoveListener()
 			}
 			this.adjust()
 			this.$element.val('')// .change()
@@ -223,9 +221,9 @@
 			// form record
 			var record = {}
 			$('.query-item-label', search).each(function() {
-				var label = $(this)
-				record[label.attr('data-type')] = label.attr('data-id')
-			})
+						var label = $(this)
+						record[label.attr('data-type')] = label.attr('data-id')
+					})
 			$.jForm.loadRecord($(this.targetForm), record)
 
 			console.log(record)
@@ -240,13 +238,13 @@
 		,
 		show : function() {
 			var pos = $.extend({}, this.$element.offset(), {
-				height : this.$element[0].offsetHeight
-			})
+						height : this.$element[0].offsetHeight
+					})
 
 			this.$menu.css({
-				top : pos.top + pos.height,
-				left : pos.left
-			})
+						top : pos.top + pos.height,
+						left : pos.left
+					})
 
 			this.$menu.show()
 			this.shown = true
@@ -257,14 +255,17 @@
 			this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
 					$.proxy(this.keypress, this)).on('keyup focus',
 					$.proxy(this.keyup, this)).on('keyup blur', function() {
-				if (el.val() == '' || el.val() == el.attr('placeholder')) {
-					console.log(190, el.val())
-					$('.search-clear', me.$container).addClass('hidden')
+						if (el.val() == ''
+								|| el.val() == el.attr('placeholder')) {
+							console.log(190, el.val())
+							$('.search-clear', me.$container)
+									.addClass('hidden')
 
-				} else {
-					$('.search-clear', me.$container).removeClass('hidden')
-				}
-			})
+						} else {
+							$('.search-clear', me.$container)
+									.removeClass('hidden')
+						}
+					})
 
 			if ($.browser.webkit || $.browser.msie) {
 				this.$element.on('keydown', $.proxy(this.keypress, this))
@@ -274,7 +275,10 @@
 					'li', $.proxy(this.mouseenter, this))
 		},
 		lookup : function(event) {
-			var that = this, items, q
+			var that = this, items = [], q
+			// build
+			this.source = $.jForm.buildSource($(this.targetForm), this.source)
+			console.log(264, this.source)
 
 			this.query = this.$element.val()
 
@@ -282,18 +286,24 @@
 				return this.shown ? this.hide() : this
 			}
 
-			items = $.grep(this.source, function(item) {
-				return that.matcher(item.name)
-			})
+			$.each(this.source, function(k, v) {
+						items = $.merge(items, $.grep(v, function(item) {
+											return that.matcher(item.name)
+										}))
+					})
 
 			console.log(75, items)
 			items = this.sorter(items)
+			if (!items.length) {
+				items = this.getAdditionItem(this.query)
+			}
 
 			if (!items.length) {
 				return this.shown ? this.hide() : this
 			}
 
 			console.log(81, items)
+
 			return this.render(items.slice(0, this.options.items)).show()
 		}
 
@@ -328,21 +338,19 @@
 			var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,
 					'\\$&')
 			return item.replace(new RegExp('(' + query + ')', 'ig'), function(
-					$1, match) {
-				return '<strong>' + match + '</strong>'
-			})
+							$1, match) {
+						return '<strong>' + match + '</strong>'
+					})
 		},
 		render : function(items) {
 			var that = this
 			// console.log(items)
-			items = $(items).map(
-					function(i, item) {
-						i = $(that.options.item).attr('data-id', item.id).attr(
-								'data-value', item.name).attr('data-type',
-								item.target)
-						i.find('a').html(that.highlighter(item.name))
-						return i[0]
-					})
+			items = $(items).map(function(i, item) {
+				i = $(that.options.item).attr('data-id', item.id).attr(
+						'data-value', item.name).attr('data-type', item.target)
+				i.find('a').html(that.highlighter(item.name))
+				return i[0]
+			})
 			console.log(items)
 
 			items.first().addClass('active')
@@ -356,26 +364,27 @@
 
 	$.fn.search = function() {
 		this.each(function() {
-			var $this = $(this), mySearch
-			mySearch = new Search(this, {
-				// source : $.parseJSON($this.attr('data-source')) || [],
-				comboIds : $this.attr('combo-select'),
-				formId : $this.attr('target-form'),
-				/*
-				 * source : [ { id : 1, name : "Alabama", target : 'userId' }, {
-				 * id : 2, name : "Alaska", target : 'userId' }, { id : 3, name :
-				 * "Arizona", target : 'userId' }, { id : 4, name : "Arkansas",
-				 * target : 'userId' }, { id : 5, name : "Alabama", target :
-				 * 'userId' }, { id : 7, name : "axxx", target : 'userName' }, {
-				 * id : 8, name : "acds", target : 'userName' } ],
-				 */
-				menuWidth : $this.css('width')
-			})
-		})
+					var $this = $(this), mySearch
+					mySearch = new Search(this, {
+								// source :
+								// $.parseJSON($this.attr('data-source')) || [],
+								comboIds : $this.attr('combo-select'),
+								formId : $this.attr('target-form'),
+								/*
+								 * source : [ { id : 1, name : "Alabama", target : 'userId' }, {
+								 * id : 2, name : "Alaska", target : 'userId' }, { id : 3, name :
+								 * "Arizona", target : 'userId' }, { id : 4, name : "Arkansas",
+								 * target : 'userId' }, { id : 5, name : "Alabama", target :
+								 * 'userId' }, { id : 7, name : "axxx", target : 'userName' }, {
+								 * id : 8, name : "acds", target : 'userName' } ],
+								 */
+								menuWidth : $this.css('width')
+							})
+				})
 	}
 
 	$.fn.search.defaults = {
-		source : [],
+		source : {},
 		items : 8,
 		addOn : '<div class="query-item"><span data-id="{1}" data-type="{2}" data-value="{0}"  class="query-item-label"><i class="{3}"></i> <span class="jlabel-inner">{0}</span></span><span class="query-item-clear">×</span></div>',
 		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" show-hide="search-clear" >×</div></div><div class="query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
