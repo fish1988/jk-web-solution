@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>代码分享平台</title>
+<title>软件分发系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -10,7 +10,7 @@
 <!-- styles -->
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-
+<link href="css/responsive.css" rel="stylesheet">
 <link href="css/mask.css" rel="stylesheet">
 <link href="css/renderer.css" rel="stylesheet">
 <link href="css/navbar.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 <link href="css/alert.css" rel="stylesheet">
 <link href="css/modal.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
+
 
 <!-- IE styles -->
 <!--[if lt IE 9]>
@@ -47,8 +47,8 @@
 				</a><a class="brand" href="./index.html"><img src="img/logo.png"
 					class="logo-icon">软件分发系统</a>
 				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i> Jason <span class="caret"></span>
+					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
+						href="#"> <i class="icon-user"></i> Jason <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">个人信息</a></li>
@@ -76,15 +76,17 @@
 	</div>
 
 	<!-- <form id="search-form" class="well form-search main-search"> -->
-	<div class="form-query well form-search main-search" >
+	<div class="form-query well form-search main-search">
 		<img class="search-logo" src="img/search-logo.png"
 			style="float: left; margin-top: -10px;" /> <input type="text"
-			id="query-txt" name="query-txt" autocomplete="off"
-			class="search input-medium search-query valid no-radius"
+			title="请输入渠道号、应用名称、打包人..." id="query-txt" name="query-txt"
+			autocomplete="off"
+			class="j-tooltip-b search input-medium search-query valid no-radius"
 			target-form="#share-form">
 		<div class="query-detail hidden">
 			<div>
-				<form id="share-form" action="data.txt" class="form-query highlight" grid-reload="#myGrid">
+				<form id="share-form" action="data.txt" class="form-query highlight"
+					grid-reload="#myGrid">
 					<a class="close show-hide-switch" show-hide="query-detail">×</a>
 
 					<fieldset>
@@ -139,17 +141,17 @@
 		</div>
 
 		<div class="query-btn">
-			<button class="btn btn-primary btn-search">
+			<button title="点击查询" class="btn btn-primary btn-search">
 				<span class="add-on icon-white icon-search"></span>
 			</button>
 		</div>
 	</div>
 
 
-	<div class="left-nav">
+	<div class="left-nav" grid-reload="#myGrid">
 		<ul data-type="platformId"
 			class="nav nav-list nav-left-text active-switch">
-			<li class="selected"><a data-id="" href="#">所有平台</a></li>
+			<li data-id="" class="selected"><a href="#">所有平台</a></li>
 			<li data-id="1"><a href="#">Android</a></li>
 			<li data-id="2"><a href="#">Iphone</a></li>
 			<li data-id="3"><a href="#">IPad</a></li>
@@ -191,7 +193,7 @@
 						<div class="controls">
 							<input id="endTime" class="input-small">
 							<p class="help-block">例如:2012-12-12</p>
-							<button type="submit" class="btn">搜 索</button>
+							<button type="button" class="btn">搜 索</button>
 						</div>
 					</div>
 
@@ -203,14 +205,33 @@
 
 	</div>
 	<div class="search-result">
+		<div class="btn-toolbar grid-toolbar" grid-target="#myGrid">
+			<div class="btn-group">
+				<a data-toggle="modal" href="#myModal" class="btn"> <i
+					class="icon-plus"></i> 新 建
+				</a> <a class="grid-one btn" modal-title="编辑分享" href="#myModal"
+					url="item.txt"><i class="icon-edit"></i> 编 辑 </a> <a
+					class="grid-more btn" msg="确认删除{0}项?" url="op.txt"><i
+					class="icon-remove"></i> 删 除 </a> <a class="grid-refresh btn"><i
+					class="icon-refresh"></i> 刷 新 </a>
 
+			</div>
+			<div class="btn-group">
+				<button class="btn">5</button>
+				<button class="btn">6</button>
+				<button class="btn">7</button>
+			</div>
+			<div class="btn-group">
+				<button class="btn">8</button>
+			</div>
+		</div>
 		<table id="myGrid" class="grid" data-url="data.txt" row-id="iso"
 			sort-name="iso" sort-order="asc" checkbox="true" resizable="false"
 			grid-width="960" grid-height="350">
 			<thead>
-				<tr>
+				<!-- <tr>
 					<td>
-						<div class="btn-toolbar grid-toolbar">
+						<div class="btn-toolbar grid-toolbar" grid-target="#myGrid">
 							<div class="btn-group">
 								<a data-toggle="modal" href="#myModal" class="btn">
 									<i class="icon-plus"></i> 新 建
@@ -234,7 +255,7 @@
 						</div>
 					</td>
 				</tr>
-
+ -->
 				<tr>
 					<th name="iso" sortable="true" width="150" align="right">ISO</th>
 					<th name="name" data-render="statusChange"
@@ -396,7 +417,7 @@
 	<script src="jquery/jquery.validate.js"></script>
 	<script src="jquery/jquery.validate.jason.js"></script>
 	<script src="jquery/jquery.flexigrid.js"></script>
-	
+
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/jason-datepicker.js"></script>
@@ -407,6 +428,7 @@
 	<script src="js/jason-renderer.js"></script>
 	<script src="js/jason-alert.js"></script>
 	<script src="js/jason-data.js"></script>
+	<script src="js/jason-nav.js"></script>
 	<script src="js/jason-dom.js"></script>
 	<script src="js/jason-button.js"></script>
 	<script src="js/jason-combobox.js"></script>
@@ -414,6 +436,8 @@
 	<script src="js/jason-grid.js"></script>
 	<script src="js/jason-modal.js"></script>
 	<script src="js/jason-form.js"></script>
+
+	<script src="js/jason-tooltip.js"></script>
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>
     <![endif]-->

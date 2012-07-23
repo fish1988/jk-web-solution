@@ -105,14 +105,20 @@
 			$.jgrid = {}
 			// grid buttons
 			$.jgrid.getGrid = function(toolbtn) {
-				return $(toolbtn).parents('.grid')
+				var toolbar = $(toolbtn).parents('.grid-toolbar')
+				if (typeof toolbar.attr('grid-target') !== 'undefined') {
+					var grid = $(toolbar.attr('grid-target'))
+				}
+				//console.log('toolbar',toolbar,grid)
+				return grid.length > 0 ? grid :toolbar.parents('.grid')
 			}
 
 			// many items
 			$.jgrid.gridItemsFn = function(dom) {
 				var grid = $.jgrid.getGrid(dom)
-				console.log(114,grid)
-				var rows = grid.find('.bDiv').find('.trSelected')
+				
+				var rows = grid.find('.trSelected')
+				//console.log(114, grid,'rows',rows)
 				if (rows.length < 1) {
 					$.jAlert.alert('请选择记录')
 					return
@@ -139,7 +145,7 @@
 
 			$.jgrid.oneGridItemFn = function(dom) {
 				var grid = $.jgrid.getGrid(dom)
-				var rows = grid.find('.bDiv').find('.trSelected')
+				var rows = grid.find('.trSelected')
 				// console.log(rows)
 				if (rows.length !== 1) {
 					$.jAlert
@@ -180,6 +186,25 @@
 						$.jgrid.getGrid(this).flexReload()
 					})
 
+			// left-nav grid action
+			$('.left-nav li').click(function() {
+
+				var $this = $(this), $grid = $($this.parents('.left-nav')
+						.attr('grid-reload')), param = $this.parents('ul')
+						.attr('data-type')
+				if ($grid.length == 0 || typeof param == 'undefined')
+					return
+				// console.log('click', 'valid')
+				if (typeof $this.attr('data-id') !== 'undefined') {
+					// console.log($grid.p)
+					var params = {}
+					params[param] = $this.attr('data-id')
+					// console.log(params)
+
+					$grid.flexQuery(params).flexReload()
+				}
+
+			})
 		});
 
 	});

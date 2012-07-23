@@ -155,8 +155,9 @@
 						hgo : hgo
 					};
 				} else if (dragtype == 'colMove') {// column header drag
+					return
 					if (p.groupHeader)
-						return;
+						return
 					$(g.nDiv).hide();
 					$(g.nBtn).hide();
 
@@ -1606,6 +1607,13 @@
 						$.extend(this.p, p);
 				});
 	}; // end flexOptions
+	$.fn.flexQuery = function(p) { // function to update query params
+		return this.each(function() {
+					if (this.grid)
+						$.extend(this.p.params, p);
+				});
+	}; // end flexOptions
+	
 	$.fn.flexToggleCol = function(cid, visible) { // function to reload grid
 		return this.each(function() {
 					if (this.grid)

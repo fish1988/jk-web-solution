@@ -88,7 +88,7 @@
 					})
 			console.log(offsetX + 'px')
 
-			var inputWidth = parseInt(search.css('width')) - offsetX - 30
+			var inputWidth = parseInt(search.css('width')) - offsetX - 10
 					+ 'px'
 			search.find('.query-input').css({
 						width : inputWidth
@@ -106,9 +106,9 @@
 			var input = $(element), search = $(this.options.template), me = this
 			input.before(search)
 
-			input.css('width', parseInt(search.css('width')) - 30)
+			input.css('width', parseInt(search.css('width')) - 10)
 			search.find('.query-input').css('width',
-					parseInt(search.css('width')) - 30).prepend(input)
+					parseInt(search.css('width')) - 10).prepend(input)
 			$('.query-clear .search-clear').click(function() {
 						input.val('')
 					})
@@ -387,7 +387,7 @@
 		source : {},
 		items : 8,
 		addOn : '<div class="query-item"><span data-id="{1}" data-type="{2}" data-value="{0}"  class="query-item-label"><i class="{3}"></i> <span class="jlabel-inner">{0}</span></span><span class="query-item-clear">×</span></div>',
-		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" show-hide="search-clear" >×</div></div><div class="query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
+		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" show-hide="search-clear" >×</div></div><div rel="tooltip" title="更多选择..." class="j-tooltip-l query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
 		menu : '<ul class="search dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>'
 	}

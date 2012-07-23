@@ -112,7 +112,7 @@
 
 			//
 			form
-					.find(	'input:text, input:password, input:file,select, textarea')
+					.find('input:text, input:password, input:file,select, textarea')
 					.val('')
 			form.find('input:radio,input:checkbox').removeAttr('checked')
 					.removeAttr('selected')
@@ -251,8 +251,20 @@
 			// query form
 			if (f.hasClass('form-query')) {
 				f.submit(function() {
+							// add left-nav params
+							var leftNavParams = {}
+							$(".left-nav li.selected").each(function(i, li) {
+										var $this = $(li)
+										if(typeof $this.attr('data-id')!=='undefined'){
+											var paramId = $this.parents('ul').attr('data-type')
+											if(typeof paramId !=='undefined'){
+												leftNavParams[paramId] = $this.attr('data-id')
+											}
+										}
+									})
+							console.log('left',leftNavParams)
 							$(f.attr('grid-reload')).flexOptions({
-										params : f.serializeObject()
+										params : $.extend(f.serializeObject(),leftNavParams)
 									}).flexReload()
 							return false
 						}).trigger('submit')
