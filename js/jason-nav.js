@@ -14,7 +14,7 @@
 	$(function() {
 
 				// Disable # links
-				$('a[href=#]').click(function(e) {
+				$('body').on('click.a[href=#]',function(e) {
 							e.preventDefault()
 						})
 			})

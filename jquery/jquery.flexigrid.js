@@ -27,7 +27,7 @@
 			usepager : true,
 			nowrap : true,
 			page : 1, // current page
-			total : 1, // total pages
+			total : 1, // total items
 			useRp : true, // use the results per page select box
 			rp : 15, // results per page
 			rpOptions : [10, 15, 20, 50, 100], // allowed per-page values
@@ -105,11 +105,12 @@
 				var hdHeight = $(this.hDiv).height();
 				$('div', this.cDrag).each(function() {
 							$(this).height(newH + hdHeight);
+							//console.log(108,newH + hdHeight)
 						});
 				var nd = parseInt($(g.nDiv).height());
-				if (nd > newH)
+				/*if (nd > newH)
 					$(g.nDiv).height(newH).width(200);
-				else
+				else*/
 					$(g.nDiv).height('auto').width('auto');
 				$(g.block).css({
 							height : newH,
@@ -125,6 +126,7 @@
 			dragStart : function(dragtype, e, obj) { // default drag function
 				// start
 				if (dragtype == 'colresize') {// column resize
+					this.fixHeight()
 					$(g.nDiv).hide();
 					$(g.nBtn).hide();
 					var n = $('div', this.cDrag).index(obj);
@@ -396,7 +398,7 @@
 			addData : function(data) { // parse data
 				if (p.dataType == 'json') {
 					data = $.extend({
-								rows : [],
+								items : [],
 								page : 0,
 								total : 0
 							}, data);
@@ -411,6 +413,7 @@
 					return false;
 				}
 				p.total = data.total;
+				//console.log(416,p.total)
 				if (p.total == 0) {
 					$('tr, a, td, div', t).unbind();
 					$(t).empty();
@@ -421,15 +424,18 @@
 					return false;
 				}
 				p.pages = Math.ceil(p.total / p.rp);
+				if(p.pages > 1){
+					$('.pagination',g.pDiv).removeClass('hidden')
+				}
 				p.page = data.page;
 				this.buildpager();
 				// build new body
 				var tbody = document.createElement('tbody');
 				var me = this
 				if (p.dataType == 'json') {
-					$.each(data.rows, function(i, row) {
+					$.each(data.items, function(i, row) {
 								// console.log(380, row)
-								var dataValue = data.rows[i]
+								var dataValue = data.items[i]
 								var tr = document.createElement('tr');
 								if (i % 2 && p.striped)
 									tr.className = 'erow';
@@ -642,6 +648,20 @@
 				p.qtype = $('select[name=qtype]', g.sDiv).val();
 				p.newp = 1;
 				this.populate();
+			},
+			changePageNum : function(pageNum){
+				if (this.loading) {
+					return true;
+				}
+				p.newp = pageNum
+				if (p.newp == p.page) {
+					return false;
+				}
+				if (p.onChangePage) {
+					p.onChangePage(p.newp);
+				} else {
+					this.populate();
+				}
 			},
 			changePage : function(ctype) { // change page
 				if (this.loading) {
@@ -1299,15 +1319,25 @@
 		}
 		// add pager
 		if (p.usepager) {
+			
 			g.pDiv.className = 'pDiv';
-			g.pDiv.innerHTML = '<div class="pDiv2"></div>';
-			$(g.bDiv).after(g.pDiv);
+			g.pDiv.innerHTML = '<div class="pagination hidden"></div><div class="pDiv2"></div>';
+			var paginationHtml  = '<ul><li><a href="#">Prev</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">Next</a></li></ul>'
+			
+			$(g.bDiv).after(g.pDiv)
+			
+
+			$('.pagination',g.pDiv).html(paginationHtml)
+			//if(p.pages <= 1){
+				//$('.pagination',g.pDiv).css({display:'none'})
+				//console.log(1329,p.total,p.pages,p.rp,'page false')
+			//}
 			var html = ' <div class="pGroup"> <div class="pFirst pButton"><span></span></div><div class="pPrev pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">'
 					+ p.pagetext
 					+ ' <input type="text" size="4" value="1" /> '
 					+ p.outof
 					+ ' <span> 1 </span>  页 </span></div> <div class="btnseparator"></div> <div class="pGroup"> <div class="pNext pButton"><span></span></div><div class="pLast pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"> <div class="pReload pButton"><span></span></div> </div> <div class="btnseparator"></div> ';
-			$('div', g.pDiv).html(html);
+			$('.pDiv2', g.pDiv).html(html);
 			$('.pReload', g.pDiv).click(function() {
 						g.populate()
 					});
@@ -1407,8 +1437,9 @@
 				$(g.bDiv).after(g.sDiv);
 			}
 		}
-		$(g.pDiv, g.sDiv)
-				.append("<div class='pGroup' style='float:right;'><span class='pPageStat'></span></div><div style='clear:both'></div>");
+		//$(g.pDiv, g.sDiv)
+		$(g.pDiv)
+				.append("<div class='pGroup' style='float:right;display:none;'><span class='pPageStat'></span></div><div style='clear:both'></div>");
 		// add title
 		if (p.title) {
 			g.mDiv.className = 'mDiv';

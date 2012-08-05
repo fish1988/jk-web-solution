@@ -2,7 +2,7 @@
 @charset "UTF-8";
 .grid{display:none;}
 .grid-toolbar{margin-top:1px;margin-bottom:-2px;}
-.flexigrid{position:relative;border:0px solid #eee;overflow:hidden;}
+.flexigrid{position:relative;border:0px solid #eee;}.flexigrid .pagination{margin:0;text-align:center;}
 .flexigrid.hideBody{height:26px !important;border-bottom:1px solid #ccc;}
 .ie6fullwidthbug{padding-right:2px;}
 .flexigrid div.nDiv{background:#fff ;border:1px solid #ccc;border-top:0px;overflow:auto;left:0px;position:absolute;z-index:999;float:left;}
@@ -62,8 +62,8 @@ div.colCopy{overflow:hidden;}
 .flexigrid tr.erow td{background:#f7f7f7;border-bottom:1px solid #ccc;}
 .flexigrid div.bDiv tr:hover td,.flexigrid div.bDiv tr:hover td.sorted,.flexigrid div.bDiv tr.trOver td.sorted,.flexigrid div.bDiv tr.trOver td{background:#d9ebf5;}
 .flexigrid div.bDiv tr.trSelected:hover td,.flexigrid div.bDiv tr.trSelected:hover td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td,.flexigrid tr.trSelected td.sorted,.flexigrid tr.trSelected td{background:#d5effc;}
-.flexigrid div.pDiv{display:none;border:1px solid #ccc;border-top:0px;overflow:hidden;white-space:nowrap;position:relative;}
-.flexigrid div.pDiv div.pDiv2{margin:2px 2px 2px 0px;float:left;}
+.flexigrid div.pDiv{overflow:hidden;white-space:nowrap;position:relative;}
+.flexigrid div.pDiv div.pDiv2{display:none;margin:2px 2px 2px 0px;float:left;}
 div.pGroup{float:left;background:none;height:24px;margin:0px 5px;}
 .flexigrid div.pDiv .pPageStat,.flexigrid div.pDiv .pcontrol{position:relative;top:5px;overflow:visible;}
 .flexigrid div.pDiv input{vertical-align:text-top;position:relative;top:-6px;width:30px;height:14px;}
