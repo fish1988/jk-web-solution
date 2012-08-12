@@ -12,6 +12,7 @@
 		if (t.grid)
 			return false; // return if already exist
 		p = $.extend({ // apply default properties
+			// id : Math.random(100),
 			rowId : 'id',
 			height : 200, // default height
 			width : 'auto', // auto width
@@ -29,10 +30,11 @@
 			page : 1, // current page
 			total : 1, // total items
 			useRp : true, // use the results per page select box
-			rp : 15, // results per page
+			rp : 20, // results per page
 			rpOptions : [10, 15, 20, 50, 100], // allowed per-page values
+			showPageNumbers : 10,
 			title : false,
-			pagestat : '显示  {from} - {to} 条，共  {total} 条',
+			pagestat : '显示  {from} - {to} 条，共  {total} 条记录 ( {time} 秒 )',
 			pagetext : '第',
 			outof : '页，共',
 			findtext : '查找',
@@ -104,14 +106,15 @@
 					newH = $(g.bDiv).height();
 				var hdHeight = $(this.hDiv).height();
 				$('div', this.cDrag).each(function() {
-							$(this).height(newH + hdHeight);
-							//console.log(108,newH + hdHeight)
-						});
+					$(this).height((newH + hdHeight > 400 ? 400 : newH
+							+ hdHeight));
+						// console.log(108,newH + hdHeight)
+				});
 				var nd = parseInt($(g.nDiv).height());
-				/*if (nd > newH)
-					$(g.nDiv).height(newH).width(200);
-				else*/
-					$(g.nDiv).height('auto').width('auto');
+				/*				if (nd > newH)
+									$(g.nDiv).height('auto').width(200);
+								else*/
+				$(g.nDiv).height('auto').width(200);
 				$(g.block).css({
 							height : newH,
 							marginBottom : (newH * -1)
@@ -124,8 +127,10 @@
 						});
 			},
 			dragStart : function(dragtype, e, obj) { // default drag function
+
 				// start
 				if (dragtype == 'colresize') {// column resize
+
 					this.fixHeight()
 					$(g.nDiv).hide();
 					$(g.nBtn).hide();
@@ -413,22 +418,27 @@
 					return false;
 				}
 				p.total = data.total;
-				//console.log(416,p.total)
+
 				if (p.total == 0) {
 					$('tr, a, td, div', t).unbind();
 					$(t).empty();
+					console.log($(t).html('<tr><td><div>没有记录</div></td></tr>'))
 					p.pages = 1;
 					p.page = 1;
-					this.buildpager();
-					$('.pPageStat', this.pDiv).html(p.nomsg);
-					return false;
+					$('.pagination', g.pDiv).addClass('hidden')
+					setTimeout(function() {
+								$('.page-loading').hide()
+							}, 300)
+					//$(g.gDiv).addClass('hidden')		
+					return false
 				}
 				p.pages = Math.ceil(p.total / p.rp);
-				if(p.pages > 1){
-					$('.pagination',g.pDiv).removeClass('hidden')
+				if (p.pages > 1) {
+					$('.pagination', g.pDiv).removeClass('hidden')
+				} else {
+					$('.pagination', g.pDiv).addClass('hidden')
 				}
-				p.page = data.page;
-				this.buildpager();
+				this.buildPager();
 				// build new body
 				var tbody = document.createElement('tbody');
 				var me = this
@@ -544,9 +554,87 @@
 					this.populate();
 				}
 			},
-			buildpager : function() { // rebuild pager based on new properties
-				$('.pcontrol input', this.pDiv).val(p.page);
-				$('.pcontrol span', this.pDiv).html(p.pages);
+			buildPager : function() { // rebuild pager based on new properties
+				var curPage = p.page, totalPage = p.pages, leftPos = 1, rightPos = 1, pageHtml = '', numberArr = [], pageCount = (totalPage > p.showPageNumbers)
+						? p.showPageNumbers
+						: totalPage, next = parseInt(p.showPageNumbers / 2), prev = (pageCount
+						% 2 === 0 ? next - 1 : next), me = this
+				if (prev < curPage) {
+					leftPos = curPage - prev
+				}
+				if (curPage <= totalPage - next) {
+					rightPos = curPage + next
+				} else {
+					rightPos = totalPage
+				}
+
+				if (rightPos - leftPos + 1 < pageCount) {
+					while (leftPos > 1 && rightPos - leftPos + 1 < pageCount)
+						leftPos--
+					while (rightPos < pageCount
+							&& rightPos - leftPos + 1 < pageCount)
+						rightPos++
+
+				}
+				var template = '<li><a href="#" page-index="{0}">{0}</a><li>', pageArr = []
+				for (var i = leftPos; i <= rightPos; i++) {
+					pageArr.push($.jString.format(template, i))
+				}
+				pageHtml = pageArr.join('')
+				$('.pagination .page-numbers', this.pDiv).html(pageHtml)
+				$('.pagination .page-numbers a[page-index=' + curPage + ']',
+						this.pDiv).parent().addClass('active')
+
+				console.log(prev, next, curPage, totalPage, leftPos, rightPos,
+						pageCount/*, pageArr,
+				pageHtml*/)
+
+				if (curPage > 1) {
+					$('.pagination .prev-page', g.pDiv).removeClass('hidden')
+				} else {
+					$('.pagination .prev-page', g.pDiv).addClass('hidden')
+				}
+				if (curPage === totalPage) {
+					$('.pagination .next-page', g.pDiv).addClass('hidden')/*.css(
+					{
+					display : 'none'
+					})*/
+				} else {
+					$('.pagination .next-page', g.pDiv).removeClass('hidden')
+					/*.css({
+								display : 'inline-block'
+							})*/
+				}
+
+				$('.pagination a', this.pDiv).off('click')
+				$('.pagination .page-numbers a', this.pDiv).click(function() {
+							if ($(this).parent().hasClass('active'))
+								return
+							var page = parseInt($(this).attr('page-index'))
+							window.scrollTo(0)
+							me.changePageNum(page)
+							p.page = page
+							console.log('change page', p.page)
+						})
+				$('.pagination .next-page a', this.pDiv).click(function() {
+							window.scrollTo(0)
+							me.changePageNum(p.page + 1)
+							if (p.page < p.pages) {
+								p.page += 1
+							}
+
+							console.log('change page', p.page)
+						})
+				$('.pagination .prev-page a', this.pDiv).click(function() {
+							window.scrollTo(0)
+							me.changePageNum(p.page - 1)
+							if (p.page > 1) {
+								p.page -= 1
+							}
+							console.log('change page', p.page)
+						})
+
+				// set result stat
 				var r1 = (p.page - 1) * p.rp + 1;
 				var r2 = r1 + p.rp - 1;
 				if (p.total < r2) {
@@ -556,9 +644,16 @@
 				stat = stat.replace(/{from}/, r1);
 				stat = stat.replace(/{to}/, r2);
 				stat = stat.replace(/{total}/, p.total);
-				$('.pPageStat', this.pDiv).html(stat);
+
+				p.lastQueryTime = (new Date().getTime() - p.startTime)
+				stat = stat.replace(/{time}/, p.lastQueryTime / 1000);
+				$('.grid-toolbar[grid-target=#' + p.id + ']')
+						.find('.grid-result-stat').html(stat)//
+				$('.page-loading').hide()
 			},
 			populate : function() { // get latest data
+				p.startTime = new Date().getTime()
+				$('.page-loading').show()
 				if (this.loading) {
 					return true;
 				}
@@ -597,25 +692,7 @@
 					dir : p.sortorder, // dir
 					query : p.query,
 					qtype : p.qtype
-				}/*[{
-				name : 'page',
-				value : p.newp
-				}, {
-				name : 'rp',
-				value : p.rp
-				}, {
-				name : 'sortname',
-				value : p.sortname
-				}, {
-				name : 'sortorder',
-				value : p.sortorder
-				}, {
-				name : 'query',
-				value : p.query
-				}, {
-				name : 'qtype',
-				value : p.qtype
-				}]*/
+				}
 				if (p.params) {
 					for (var i in p.params) {
 						param[i] = p.params[i]
@@ -629,6 +706,7 @@
 							dataType : p.dataType,
 							success : function(data) {
 								g.addData(data);
+
 								if (p.checkbox)
 									$('input', g.hDiv)[0].checked = '';
 							},
@@ -643,13 +721,7 @@
 							}
 						});
 			},
-			doSearch : function() {
-				p.query = $('input[name=q]', g.sDiv).val();
-				p.qtype = $('select[name=qtype]', g.sDiv).val();
-				p.newp = 1;
-				this.populate();
-			},
-			changePageNum : function(pageNum){
+			changePageNum : function(pageNum) {
 				if (this.loading) {
 					return true;
 				}
@@ -896,7 +968,6 @@
 		};
 		if (p.colModel) { // create model if any
 			thead = document.createElement('thead');
-			
 
 			// create group header if any
 			if (p.groupHeader) {
@@ -923,7 +994,6 @@
 				}
 				$(thead).append(tr);
 			}
-			
 
 			var tr = document.createElement('tr');
 			for (var i = 0; i < p.colModel.length; i++) {
@@ -947,7 +1017,7 @@
 					if (cm.width) {
 						$(th).attr('width', cm.width);
 					}
-					if ($(cm).attr('hide')) {
+					if (cm.hidden) {
 						th.hidden = true;
 					}
 					if (cm.process) {
@@ -984,7 +1054,7 @@
 		}
 		g.hTable = document.createElement('table');
 		g.gDiv.className = 'flexigrid';
-		g.gDiv.id = p.id;
+		g.gDiv.id = 'flexigrid-' + p.id;
 		if (p.width != 'auto') {
 			g.gDiv.style.width = p.width + 'px';
 		}
@@ -1183,9 +1253,12 @@
 					$(g.nBtn).hide();
 					if (p.groupHeader == false)
 						$(g.nBtn).css({
-									'left' : nl,
-									top : g.hDiv.offsetTop
-								}).show();
+							left : (nl > $(g.hDiv).width()
+									? $(g.hDiv).width()
+									: nl)
+									+ 'px',
+							top : g.hDiv.offsetTop
+						}).show();
 					var ndw = parseInt($(g.nDiv).width());
 					$(g.nDiv).css({
 								top : g.bDiv.offsetTop
@@ -1218,7 +1291,7 @@
 			}); // wrap content
 		});
 		// set bDiv
-		g.bDiv.className = 'bDiv';
+		g.bDiv.className = 'bDiv j-scrollbar';
 		$(t).before(g.bDiv);
 		$(g.bDiv).css({
 					height : (p.height == 'auto') ? 'auto' : p.height + "px"
@@ -1319,20 +1392,18 @@
 		}
 		// add pager
 		if (p.usepager) {
-			
+
 			g.pDiv.className = 'pDiv';
 			g.pDiv.innerHTML = '<div class="pagination hidden"></div><div class="pDiv2"></div>';
-			var paginationHtml  = '<ul><li><a href="#">Prev</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">Next</a></li></ul>'
-			
-			$(g.bDiv).after(g.pDiv)
-			
+			var paginationHtml = '<ul class="prev-page hidden"><li><a href="#">上一页</a></li></ul>&nbsp;&nbsp;&nbsp;'
+					+ '<ul class="page-numbers"></ul>'
+					+ '&nbsp;&nbsp;&nbsp;<ul class="next-page"><li><a href="#">下一页</a></li></ul>'
 
-			$('.pagination',g.pDiv).html(paginationHtml)
-			//if(p.pages <= 1){
-				//$('.pagination',g.pDiv).css({display:'none'})
-				//console.log(1329,p.total,p.pages,p.rp,'page false')
-			//}
-			var html = ' <div class="pGroup"> <div class="pFirst pButton"><span></span></div><div class="pPrev pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">'
+			$(g.bDiv).after(g.pDiv)
+
+			$('.pagination', g.pDiv).html(paginationHtml)
+
+			/*var html = ' <div class="pGroup"> <div class="pFirst pButton"><span></span></div><div class="pPrev pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">'
 					+ p.pagetext
 					+ ' <input type="text" size="4" value="1" /> '
 					+ p.outof
@@ -1386,58 +1457,9 @@
 								g.populate();
 							}
 						});
-			}
-			// add search button
-			if (p.searchitems) {
-				$('.pDiv2', g.pDiv)
-						.prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnseparator'></div>");
-				$('.pSearch', g.pDiv).click(function() {
-					$(g.sDiv).slideToggle('fast', function() {
-						$('.sDiv:visible input:first', g.gDiv).trigger('focus');
-					});
-				});
-				// add search box
-				g.sDiv.className = 'sDiv';
-				var sitems = p.searchitems;
-				var sopt = '', sel = '';
-				for (var s = 0; s < sitems.length; s++) {
-					if (p.qtype == '' && sitems[s].isdefault == true) {
-						p.qtype = sitems[s].name;
-						sel = 'selected="selected"';
-					} else {
-						sel = '';
-					}
-					sopt += "<option value='" + sitems[s].name + "' " + sel
-							+ " >" + sitems[s].display
-							+ "&nbsp;&nbsp;</option>";
-				}
-				if (p.qtype == '') {
-					p.qtype = sitems[0].name;
-				}
-				$(g.sDiv).append("<div class='sDiv2'>" + p.findtext
-						+ " <input type='text' value='" + p.query
-						+ "' size='30' name='q' class='qsbox' /> "
-						+ " <select name='qtype'>" + sopt + "</select></div>");
-				// Split into separate selectors because of bug in jQuery 1.3.2
-				$('input[name=q]', g.sDiv).keydown(function(e) {
-							if (e.keyCode == 13) {
-								g.doSearch();
-							}
-						});
-				$('select[name=qtype]', g.sDiv).keydown(function(e) {
-							if (e.keyCode == 13) {
-								g.doSearch();
-							}
-						});
-				$('input[value=Clear]', g.sDiv).click(function() {
-							$('input[name=q]', g.sDiv).val('');
-							p.query = '';
-							g.doSearch();
-						});
-				$(g.bDiv).after(g.sDiv);
-			}
+			}*/
 		}
-		//$(g.pDiv, g.sDiv)
+		// $(g.pDiv, g.sDiv)
 		$(g.pDiv)
 				.append("<div class='pGroup' style='float:right;display:none;'><span class='pPageStat'></span></div><div style='clear:both'></div>");
 		// add title
@@ -1644,7 +1666,7 @@
 						$.extend(this.p.params, p);
 				});
 	}; // end flexOptions
-	
+
 	$.fn.flexToggleCol = function(cid, visible) { // function to reload grid
 		return this.each(function() {
 					if (this.grid)
@@ -1687,11 +1709,5 @@
 							$(this).removeAttr('unselectable', 'on');
 					});
 		}
-	}; // end noSelect
-	$.fn.flexSearch = function(p) { // function to search grid
-		return this.each(function() {
-					if (this.grid && this.p.searchitems)
-						this.grid.doSearch();
-				});
-	}; // end flexSearch
-})(jQuery);
+	}
+})(jQuery)

@@ -1,12 +1,47 @@
 @import "../bootstrap/less/variables.less";
+.page-loading{
+    position: absolute;
+    z-index: 1000;
+    top: 0px;
+    left: 500px;
+    display:none;
+    span{
+        color: white;
+        background: #C44;
+        font-size: 75%;
+        padding: 2px 16px
+    }
+}
+
+
 .logo-icon{
     height: 22px; margin-top: -6px;
 }
 .global-nav{
  margin-bottom:0px;   
 }
+
+.page-title {
+border-bottom: 1px solid #EBEBEB;
+height: 29px;
+line-height: 29px;
+padding: 12px 14px;
+}
+.page-title a {
+font-size: 19px;
+color: #76965E;
+text-decoration: none;
+font-weight: bold;
+}
+.page-toolbar {
+padding: 12px 14px 12px 0;
+border-bottom: 1px solid #EBEBEB;
+height: 30px;
+margin-bottom: 2px;
+}
+
 .main-search {
-    margin-top: 0px;
+    margin: 0px;
     padding-left: 40px;
     height:28px;
 }
@@ -30,7 +65,7 @@
 .left-nav{
     
  margin-left:30px;
- width:180px;
+ //width:173px;
  float:left;
 }
 
@@ -52,8 +87,10 @@
 
 .search-result  {
     margin-top: -10px;
- float: left;
- max-width: 550px;   
+    margin-left: 0px;
+   float: left;
+   position: relative;
+ //max-width: 550px;   
 }
 .search-result ul{
     margin-left:0px;   

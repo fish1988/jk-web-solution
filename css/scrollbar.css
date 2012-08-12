@@ -1,0 +1,5 @@
+/* CSS crunched with Crunch - http://crunchapp.net/ */
+.j-scrollbar::-webkit-scrollbar{height:16px;overflow:visible;width:16px;}
+.j-scrollbar::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0, 0, 0, 0.3);border-radius:1px;}
+.j-scrollbar::-webkit-scrollbar-thumb{border-radius:1px;background-color:rgba(181, 199, 181, 0.2);-webkit-box-shadow:inset 0 0 6px rgba(173, 168, 168, 0.5);border:1px solid #CCC;}
+.j-scrollbar::-webkit-scrollbar-corner{background-clip:padding-box;background-color:whiteSmoke;border:solid white;border-width:3px 0 0 3px;box-shadow:inset 1px 1px 0 rgba(0, 0, 0, 0.14);}

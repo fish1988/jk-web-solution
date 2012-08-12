@@ -1,16 +1,16 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
 @charset "UTF-8";
 .grid{display:none;}
-.grid-toolbar{margin-top:1px;margin-bottom:-2px;}
-.flexigrid{position:relative;border:0px solid #eee;}.flexigrid .pagination{margin:0;text-align:center;}
+.grid-result-stat{color:#999;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:right;padding-top:10px;display:inline-block;}
+.flexigrid{position:relative;border:0px solid #eee;}.flexigrid .pagination{margin:0;text-align:right;}
 .flexigrid.hideBody{height:26px !important;border-bottom:1px solid #ccc;}
 .ie6fullwidthbug{padding-right:2px;}
 .flexigrid div.nDiv{background:#fff ;border:1px solid #ccc;border-top:0px;overflow:auto;left:0px;position:absolute;z-index:999;float:left;}
-.flexigrid div.nDiv table{margin:2px;}
+.flexigrid div.nDiv table{margin:2px;width:99%;}
 .flexigrid div.hDivBox{float:left;padding-right:40px;}
 .flexigrid div.bDiv table{margin-bottom:10px;}
 .flexigrid div.bDiv table.autoht{border-bottom:0px;margin-bottom:0px;}
-.flexigrid div.nDiv td{padding:2px 3px;cursor:default;}
+.flexigrid div.nDiv td{padding:2px 1px;cursor:default;}
 .flexigrid div.nDiv tr:hover td,.flexigrid div.nDiv tr.ndcolover td{background:#d5effc;}
 .flexigrid div.nDiv td.ndcol2{padding-right:10px;}
 .flexigrid div.nBtn{position:absolute;height:24px;width:14px;z-index:900;border-left:1px solid #ccc;border-right:1px solid #ccc;top:0px;left:0px;margin-top:1px;cursor:pointer;display:none;}

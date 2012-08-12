@@ -1,12 +1,17 @@
 @charset "UTF-8";
 .grid{
  display:none;   
-
 }
 
-.grid-toolbar{
- margin-top: 1px;
-margin-bottom: -2px;   
+.grid-result-stat {
+    color: #999;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: right;
+    padding-top: 10px;
+    display: inline-block;
 }
 
 /* CSS Document */
@@ -15,7 +20,7 @@ margin-bottom: -2px;
 	border: 0px solid #eee;
       .pagination{
         margin:0;
-        text-align:center;
+        text-align:right;
      }
 	//overflow: hidden;
 }
@@ -44,6 +49,7 @@ margin-bottom: -2px;
 
 .flexigrid div.nDiv table {
 	margin: 2px;
+    width:99%;
 }
 
 .flexigrid div.hDivBox {
@@ -61,7 +67,7 @@ margin-bottom: -2px;
 }
 
 .flexigrid div.nDiv td {
-	padding: 2px 3px;
+	padding: 2px 1px;
 	//border: 1px solid #eee;
 	cursor: default;
 }

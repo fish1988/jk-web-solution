@@ -36,59 +36,20 @@
 							dataRender : $(ths[i]).attr('data-render'),
 							clsRender : $(ths[i]).attr('cls-render'),
 							width : $(ths[i]).css('width').replace('px', ''),
-							align : $(ths[i]).css('text-align')
+							align : $(ths[i]).css('text-align'),
+							hidden: $(ths[i]).attr('hidden')
 						})
 			}
 			ths.remove()
 			// console.log(btns,btnArr)
-			// console.log(cm);
+			console.log(cm);
 			// console.log(grid.attr('checkbox'),!!grid.attr('checkbox'));
 
 			grid.flexigrid({
+						id : grid.attr('id'),
 						url : grid.attr('data-url'),// 'data.txt'
 						rowId : grid.attr('row-id'),
-						colModel : cm/*[{
-						display : 'ISO',
-						name : 'iso',
-						width : 40,
-						sortable : true,
-						align : 'center'
-						}, {
-						display : 'Name',
-						name : 'name',
-						width : 180,
-						sortable : true,
-						align : 'left'
-						}, {
-						display : 'Printable Name',
-						name : 'printable_name',
-						width : 120,
-						sortable : true,
-						align : 'left'
-						}, {
-						display : 'ISO3',
-						name : 'iso3',
-						width : 130,
-						sortable : true,
-						align : 'left',
-						hide : true
-						}, {
-						display : 'Number Code',
-						name : 'numcode',
-						width : 80,
-						sortable : true,
-						align : 'right'
-						}]*/,
-
-						/*
-						searchitems : [ {
-							display : 'ISO',
-							name : 'iso'
-						}, {
-							display : 'Name',
-							name : 'name',
-							isdefault : true
-						} ],*/
+						colModel : cm,
 						toolbar : toolbar,
 						width : parseInt(grid.attr('grid-width')),
 						height : parseInt(grid.attr('grid-height')),
