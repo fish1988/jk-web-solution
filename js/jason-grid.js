@@ -161,8 +161,9 @@
 					var params = {}
 					params[param] = $this.attr('data-id')
 					// console.log(params)
-
+					var s = new Date().getTime()
 					$grid.flexQuery(params).flexReload()
+					console.log(new Date().getTime() -s +'ms')
 				}
 
 			})

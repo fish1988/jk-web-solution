@@ -411,10 +411,10 @@
 				if (p.preProcess) {
 					data = p.preProcess(data);
 				}
-				$('.pReload', this.pDiv).removeClass('loading');
+				//$('.pReload', this.pDiv).removeClass('loading');
 				this.loading = false;
 				if (!data) {
-					$('.pPageStat', this.pDiv).html(p.errormsg);
+					//$('.pPageStat', this.pDiv).html(p.errormsg);
 					return false;
 				}
 				p.total = data.total;
@@ -667,8 +667,8 @@
 				if (!p.url) {
 					return false;
 				}
-				$('.pPageStat', this.pDiv).html(p.procmsg);
-				$('.pReload', this.pDiv).addClass('loading');
+				//$('.pPageStat', this.pDiv).html(p.procmsg);
+				//$('.pReload', this.pDiv).addClass('loading');
 				$(g.block).css({
 							top : g.bDiv.offsetTop
 						});
@@ -1056,7 +1056,7 @@
 		g.gDiv.className = 'flexigrid';
 		g.gDiv.id = 'flexigrid-' + p.id;
 		if (p.width != 'auto') {
-			g.gDiv.style.width = p.width + 'px';
+			$(g.gDiv).width(p.width)
 		}
 		// add conditional classes
 		if ($.browser.msie) {

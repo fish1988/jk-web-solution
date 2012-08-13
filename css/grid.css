@@ -1,7 +1,7 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
 @charset "UTF-8";
 .grid{display:none;}
-.grid-result-stat{color:#999;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:right;padding-top:10px;display:inline-block;}
+.grid-result-stat{color:#999;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:absolute;right:0px;padding-top:10px;display:inline-block;}
 .flexigrid{position:relative;border:0px solid #eee;}.flexigrid .pagination{margin:0;text-align:right;}
 .flexigrid.hideBody{height:26px !important;border-bottom:1px solid #ccc;}
 .ie6fullwidthbug{padding-right:2px;}
