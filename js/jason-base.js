@@ -33,7 +33,10 @@
 														+ "\\}", "g"), n);
 							});
 					return source;
-
+				}
+				
+				$.jString.byteLen = function(str){
+					return str.replace(/([u0391-uFFE5])/gi, 'jk').length
 				}
 			})
 }(window.jQuery);

@@ -58,7 +58,7 @@ div.colCopy{overflow:hidden;}
 .flexigrid div.bDiv td,.flexigrid div.bDiv th{border-bottom:1px solid #ccc;white-space:nowrap;}
 .flexigrid span.cdropleft{display:block;background:url(../img/prev.gif) no-repeat -4px center;width:24px;height:24px;position:relative;top:-24px;margin-bottom:-24px;z-index:3;}
 .flexigrid div.hDiv span.cdropright{display:block;background:url(../img/next.gif) no-repeat 12px center;width:24px;height:24px;float:right;position:relative;top:-24px;margin-bottom:-24px;}
-.flexigrid div.bDiv td div{padding-bottom:4px;}
+.flexigrid div.bDiv td div{overflow:hidden;text-overflow:ellipsis;padding-bottom:4px;}
 .flexigrid tr.erow td{background:#f7f7f7;border-bottom:1px solid #ccc;}
 .flexigrid div.bDiv tr:hover td,.flexigrid div.bDiv tr:hover td.sorted,.flexigrid div.bDiv tr.trOver td.sorted,.flexigrid div.bDiv tr.trOver td{background:#d9ebf5;}
 .flexigrid div.bDiv tr.trSelected:hover td,.flexigrid div.bDiv tr.trSelected:hover td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td,.flexigrid tr.trSelected td.sorted,.flexigrid tr.trSelected td{background:#d5effc;}

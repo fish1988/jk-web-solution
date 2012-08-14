@@ -37,14 +37,19 @@
 							clsRender : $(ths[i]).attr('cls-render'),
 							width : $(ths[i]).css('width').replace('px', ''),
 							align : $(ths[i]).css('text-align'),
-							hidden: $(ths[i]).attr('hidden')
+							hidden : $(ths[i]).attr('hidden')
 						})
 			}
 			ths.remove()
 			// console.log(btns,btnArr)
-			console.log(cm);
+			//console.log(cm);
 			// console.log(grid.attr('checkbox'),!!grid.attr('checkbox'));
-
+			if ($.timer) {
+						$.timer.clearTimer(grid.attr('id'))
+						$.timer.addTimer(grid.attr('id'), function() {
+									
+								})
+					}
 			grid.flexigrid({
 						id : grid.attr('id'),
 						url : grid.attr('data-url'),// 'data.txt'
@@ -70,16 +75,16 @@
 				if (typeof toolbar.attr('grid-target') !== 'undefined') {
 					var grid = $(toolbar.attr('grid-target'))
 				}
-				//console.log('toolbar',toolbar,grid)
-				return grid.length > 0 ? grid :toolbar.parents('.grid')
+				// console.log('toolbar',toolbar,grid)
+				return grid.length > 0 ? grid : toolbar.parents('.grid')
 			}
 
 			// many items
 			$.jgrid.gridItemsFn = function(dom) {
 				var grid = $.jgrid.getGrid(dom)
-				
+
 				var rows = grid.find('.trSelected')
-				//console.log(114, grid,'rows',rows)
+				// console.log(114, grid,'rows',rows)
 				if (rows.length < 1) {
 					$.jAlert.alert('请选择记录')
 					return
@@ -149,7 +154,7 @@
 
 			// left-nav grid action
 			$('.left-nav li').click(function() {
-
+				// var timer
 				var $this = $(this), $grid = $($this.parents('.left-nav')
 						.attr('grid-reload')), param = $this.parents('ul')
 						.attr('data-type')
@@ -161,9 +166,11 @@
 					var params = {}
 					params[param] = $this.attr('data-id')
 					// console.log(params)
-					var s = new Date().getTime()
-					$grid.flexQuery(params).flexReload()
-					console.log(new Date().getTime() -s +'ms')
+					if ($.jTimer) {
+						$.jTimer.addTimer($grid.attr('id'), function() {
+									$grid.flexQuery(params).flexReload()
+								})
+					}
 				}
 
 			})
