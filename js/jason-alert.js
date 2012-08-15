@@ -33,7 +33,7 @@
 						$('.modal-backdrop').remove()
 					})
 			me.modal('show')
-			$('.modal-backdrop').not(':first').remove()
+			$('.modal-backdrop').not(':last').remove()
 			// $('.btn-primary', me).focus()
 
 			if (t == 'confirm') {

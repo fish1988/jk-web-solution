@@ -34,7 +34,8 @@
 			rpOptions : [10, 15, 20, 50, 100], // allowed per-page values
 			showPageNumbers : 10,
 			title : false,
-			pagestat : '显示  {from} - {to} 条，共  {total} 条记录 ( {time} 秒 )',
+			pagestat : '<b>{from}</b> - <b>{to}</b> 条，共  <b>{total}</b> 条 '
+					+ '( <b>{time}</b> 秒 )',
 			pagetext : '第',
 			outof : '页，共',
 			findtext : '查找',
@@ -362,7 +363,7 @@
 				}
 
 				var tdDiv = document.createElement('div')
-				
+
 				// console.log(655,n,p.colModel)
 				var pth = $('tr:last th:eq(' + pos + ')', g.hDiv).get(0);
 				if (pth != null) {
@@ -382,7 +383,7 @@
 					$(tdDiv).css('white-space', 'normal');
 				}
 
-				//var s = new Date().getTime()
+				// var s = new Date().getTime()
 				// data renderer
 				if ($.jRenderer && typeof dataRenderer != 'undefined'
 						&& $.jRenderer[dataRenderer]) {
@@ -407,7 +408,8 @@
 				return td
 			},
 			addData : function(data) { // parse data
-				console.log('addData 411 ', new Date().getTime() - p.startTime + ' ms')
+				console.log('addData 411 ', new Date().getTime() - p.startTime
+								+ ' ms')
 				if (p.dataType == 'json') {
 					data = $.extend({
 								items : [],
@@ -450,7 +452,7 @@
 				var me = this
 
 				if (p.dataType == 'json') {
-					
+
 					var dataValue, tr, tdEl, cm, cth, cthch, objTr, cthDiv, idx, td
 					$.each(data.items, function(i, row) {
 								// console.log(380, row)
@@ -520,7 +522,7 @@
 							});
 
 				}
-				
+
 				// console.log('addData 514 ', new Date().getTime() - s + ' ms')
 
 				$('tr', t).unbind();
@@ -542,9 +544,10 @@
 				if ($.browser.opera) {
 					$(t).css('visibility', 'visible');
 				}
-				console.log('addData 545 ', new Date().getTime() - p.startTime + ' ms')
+				console.log('addData 545 ', new Date().getTime() - p.startTime
+								+ ' ms')
 				this.buildPager();
-				//console.log('addData ', new Date().getTime() - s + ' ms')
+				// console.log('addData ', new Date().getTime() - s + ' ms')
 			},
 			changeSort : function(th) { // change sortorder
 				if (this.loading) {
@@ -605,21 +608,21 @@
 						pageCount/*, pageArr,
 				pageHtml*/)
 
+				var $clearPager = $('.grid-toolbar[grid-target=#' + p.id + ']')
+						.find('.grid-result-pager')
 				if (curPage > 1) {
 					$('.pagination .prev-page', g.pDiv).removeClass('hidden')
+					$('.prev-page', $clearPager).removeClass('disabled')
 				} else {
 					$('.pagination .prev-page', g.pDiv).addClass('hidden')
+					$('.prev-page', $clearPager).addClass('disabled')
 				}
 				if (curPage === totalPage) {
-					$('.pagination .next-page', g.pDiv).addClass('hidden')/*.css(
-					{
-					display : 'none'
-					})*/
+					$('.pagination .next-page', g.pDiv).addClass('hidden')
+					$('.next-page', $clearPager).addClass('disabled')
 				} else {
 					$('.pagination .next-page', g.pDiv).removeClass('hidden')
-					/*.css({
-								display : 'inline-block'
-							})*/
+					$('.next-page', $clearPager).removeClass('disabled')
 				}
 
 				$('.pagination a', this.pDiv).off('click')
@@ -632,14 +635,25 @@
 							p.page = page
 							console.log('change page', p.page)
 						})
-				$('.pagination .next-page a', this.pDiv).click(function() {
-							window.scrollTo(0)
+				
+				$('.btn', $clearPager).off('click')
+				$('.prev-page', $clearPager).click(function() {
+							if ($(this).hasClass('disabled'))
+								return
+							me.changePageNum(p.page - 1)
+							if (p.page > 1) {
+								p.page -= 1
+							}
+							console.log('change page 647 ', p.page)
+						})
+				$('.next-page', $clearPager).click(function() {
+							if ($(this).hasClass('disabled'))
+								return
 							me.changePageNum(p.page + 1)
 							if (p.page < p.pages) {
 								p.page += 1
 							}
-
-							console.log('change page', p.page)
+							console.log('change page 656', p.page)
 						})
 				$('.pagination .prev-page a', this.pDiv).click(function() {
 							window.scrollTo(0)
@@ -647,7 +661,13 @@
 							if (p.page > 1) {
 								p.page -= 1
 							}
-							console.log('change page', p.page)
+						})
+				$('.pagination .next-page a', this.pDiv).click(function() {
+							window.scrollTo(0)
+							me.changePageNum(p.page + 1)
+							if (p.page < p.pages) {
+								p.page += 1
+							}
 						})
 
 				// set result stat
@@ -662,7 +682,7 @@
 				stat = stat.replace(/{total}/, p.total);
 
 				p.lastQueryTime = (new Date().getTime() - p.startTime)
-				stat = stat.replace(/{time}/, p.lastQueryTime / 1000);
+				stat = stat.replace(/{time}/, p.lastQueryTime/1000);
 				$('.grid-toolbar[grid-target=#' + p.id + ']')
 						.find('.grid-result-stat').html(stat)//
 				$('.page-loading').hide()
@@ -721,7 +741,9 @@
 							data : param,
 							dataType : p.dataType,
 							success : function(data) {
-								setTimeout(function(){g.addData(data)},0);
+								setTimeout(function() {
+											g.addData(data)
+										}, 0);
 
 								if (p.checkbox)
 									$('input', g.hDiv)[0].checked = '';
@@ -927,13 +949,13 @@
 			},
 			// Add title attribute to div if cell contents is truncated
 			addTitleToCell : function(tdDiv) {
-				
+
 				// var s = new Date().getTime()
 				if (p.addTitleToCell) {
 					$div = (tdDiv instanceof jQuery) ? tdDiv : $(tdDiv)
-					//if ( $.jString.byteLen($div.text()) * 13 > $div.width())
+					// if ( $.jString.byteLen($div.text()) * 13 > $div.width())
 					var txt = $div.text()
-					if(txt.length > 6)
+					if (txt.length > 6)
 						$div.attr('title', txt);
 					/*
 					var $span = $('<span />').css('display', 'none'), $div = (tdDiv instanceof jQuery)
@@ -1032,8 +1054,8 @@
 					if( $.cookie(cookie_width) != undefined ) {
 						cm.width = $.cookie(cookie_width);
 					}*/
-					if (cm.display != undefined) {
-						th.innerHTML = cm.display;
+					if (typeof cm.display != 'undefined') {
+						th.innerHTML = cm.display
 					}
 					if (cm.name && cm.sortable) {
 						$(th).attr('abbr', cm.name);
@@ -1051,7 +1073,7 @@
 						th.process = cm.process;
 					}
 				} else {
-					th.innerHTML = "";
+					th.innerHTML = "&nbsp;"
 					$(th).attr('width', 30);
 				}
 				$(tr).append(th);

@@ -32,7 +32,7 @@
 				cm.push({
 							display : $(ths[i]).text(),
 							name : $(ths[i]).attr('name'),
-							sortable : $(ths[i]).attr('sortable'),
+							sortable : $(ths[i]).attr('sortable')=== 'true',
 							dataRender : $(ths[i]).attr('data-render'),
 							clsRender : $(ths[i]).attr('cls-render'),
 							width : $(ths[i]).css('width').replace('px', ''),
