@@ -60,8 +60,8 @@ div.colCopy{overflow:hidden;}
 .flexigrid div.hDiv span.cdropright{display:block;background:url(../img/next.gif) no-repeat 12px center;width:24px;height:24px;float:right;position:relative;top:-24px;margin-bottom:-24px;}
 .flexigrid div.bDiv td div{overflow:hidden;text-overflow:ellipsis;padding-bottom:4px;}
 .flexigrid tr.erow td{background:#f7f7f7;border-bottom:1px solid #ccc;}
-.flexigrid div.bDiv tr:hover td,.flexigrid div.bDiv tr:hover td.sorted,.flexigrid div.bDiv tr.trOver td.sorted,.flexigrid div.bDiv tr.trOver td{background:#d9ebf5;}
-.flexigrid div.bDiv tr.trSelected:hover td,.flexigrid div.bDiv tr.trSelected:hover td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td.sorted,.flexigrid div.bDiv tr.trOver.trSelected td,.flexigrid tr.trSelected td.sorted,.flexigrid tr.trSelected td{background:#d5effc;}
+.flexigrid div.bDiv tr:hover td,.flexigrid div.bDiv tr:hover td,.flexigrid div.bDiv tr.trOver td,.flexigrid div.bDiv tr.trOver td,.flexigrid div.bDiv tr:hover th,.flexigrid div.bDiv tr:hover th,.flexigrid div.bDiv tr.trOver th,.flexigrid div.bDiv tr.trOver th{background:#d9ebf5;}
+.flexigrid div.bDiv tr.trSelected:hover td,.flexigrid div.bDiv tr.trOver.trSelected td,.flexigrid div.bDiv tr.trOver.trSelected td,.flexigrid tr.trSelected td,.flexigrid tr.trSelected td,.flexigrid div.bDiv tr.trSelected:hover th,.flexigrid div.bDiv tr.trOver.trSelected th,.flexigrid div.bDiv tr.trOver.trSelected th,.flexigrid tr.trSelected th,.flexigrid tr.trSelected th{background:#d9ebf5;}
 .flexigrid div.pDiv{overflow:hidden;white-space:nowrap;position:relative;}
 .flexigrid div.pDiv div.pDiv2{display:none;margin:2px 2px 2px 0px;float:left;}
 div.pGroup{float:left;background:none;height:24px;margin:0px 5px;}

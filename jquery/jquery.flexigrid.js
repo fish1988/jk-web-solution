@@ -353,6 +353,28 @@
 				this.hDiv.scrollLeft = this.bDiv.scrollLeft;
 				this.rePosDrag();
 			},
+			checkToolBarStat : function() {
+				var selectRows = $('tbody tr.trSelected', g.bDiv), $toolbar = $('.grid-toolbar[grid-target=#'
+						+ p.id + ']'), $checkbox = $(':checkbox', g.hDiv), $allRows = $(
+						'tbody tr', g.bDiv)
+				if ($toolbar.length == 0) {
+					return
+				}
+				if (selectRows.length == 0) {
+					$('.grid-one,.grid-more', $toolbar).addClass('disabled')
+				} else if (selectRows.length == 1) {
+					$('.grid-one,.grid-more', $toolbar).removeClass('disabled')
+				} else {
+					$('.grid-more', $toolbar).removeClass('disabled')
+					$('.grid-one', $toolbar).addClass('disabled')
+				}
+
+				if ($allRows.length === selectRows.length) {
+					$checkbox[0].checked = true
+				} else {
+					$checkbox[0].checked = false
+				}
+			},
 			cellRender : function(pos, cm, row) {
 
 				var dataRenderer = cm.dataRender, clsRenderer = cm.clsRender, dataIndex = cm.name
@@ -477,12 +499,15 @@
 									cthch.addClass("noborder").click(
 											function() {
 												if (this.checked) {
-													objTr
+													$(this)
+															.parents('tr')
 															.addClass('trSelected');
 												} else {
-													objTr
+													$(this)
+															.parents('tr')
 															.removeClass('trSelected');
 												}
+												me.checkToolBarStat()
 											})
 									cthDiv = $('<div style="width:22px;"/>');
 									cth.addClass("cth").append(cthDiv
@@ -635,7 +660,7 @@
 							p.page = page
 							console.log('change page', p.page)
 						})
-				
+
 				$('.btn', $clearPager).off('click')
 				$('.prev-page', $clearPager).click(function() {
 							if ($(this).hasClass('disabled'))
@@ -682,12 +707,13 @@
 				stat = stat.replace(/{total}/, p.total);
 
 				p.lastQueryTime = (new Date().getTime() - p.startTime)
-				stat = stat.replace(/{time}/, p.lastQueryTime/1000);
+				stat = stat.replace(/{time}/, p.lastQueryTime / 1000);
 				$('.grid-toolbar[grid-target=#' + p.id + ']')
 						.find('.grid-result-stat').html(stat)//
 				$('.page-loading').hide()
 			},
 			populate : function() { // get latest data
+				var me = this
 				p.startTime = new Date().getTime()
 				$('.page-loading').show()
 				if (this.loading) {
@@ -744,7 +770,7 @@
 								setTimeout(function() {
 											g.addData(data)
 										}, 0);
-
+								me.checkToolBarStat()
 								if (p.checkbox)
 									$('input', g.hDiv)[0].checked = '';
 							},
@@ -882,6 +908,7 @@
 				};
 			},
 			addRowProp : function() {
+				var me = this
 				$('tbody tr', g.bDiv).each(function() {
 					$(this).click(function(e) {
 								var obj = (e.target || e.srcElement);
@@ -902,26 +929,31 @@
 											.removeClass('trSelected');
 									$(this).toggleClass('trSelected');
 								}
+								me.checkToolBarStat()
 							}).mousedown(function(e) {
 								if (e.shiftKey) {
 									$(this).toggleClass('trSelected');
 									g.multisel = true;
 									this.focus();
 									$(g.gDiv).noSelect();
+									me.checkToolBarStat()
 								}
 								if (e.ctrlKey) {
 									$(this).toggleClass('trSelected');
 									g.multisel = true;
 									this.focus();
+									me.checkToolBarStat()
 								}
 							}).mouseup(function() {
 								if (g.multisel && !e.ctrlKey) {
 									g.multisel = false;
 									$(g.gDiv).noSelect(false);
+									me.checkToolBarStat()
 								}
 							}).hover(function(e) {
 								if (g.multisel && e.shiftKey) {
 									$(this).toggleClass('trSelected');
+									me.checkToolBarStat()
 								}
 							}, function() {
 							});
@@ -1564,6 +1596,7 @@
 								$(this).removeClass('trSelected').find('input')[0].checked = false;
 							})
 						}
+						g.checkToolBarStat()
 					})
 					var cthDiv = $('<div style="width:22px;"/>');
 					cth.addClass("cth").append(cthDiv.append(cthch));
