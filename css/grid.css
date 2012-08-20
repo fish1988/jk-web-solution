@@ -45,7 +45,7 @@
 .flexigrid div.vGrip{height:5px;overflow:hidden;position:relative;background:#fafafa url(../img/wbg.gif) repeat-x 0px -1px;text-align:center;cursor:row-resize;}
 .flexigrid div.vGrip span{display:block;margin:1px auto;width:20px;height:1px;overflow:hidden;background:none;}
 .flexigrid div.hDiv th,.flexigrid div.bDiv td{text-align:center;overflow:hidden;vertical-align:top !important;padding-left:0;padding-right:0;}
-.flexigrid div.hDiv th div,.flexigrid div.bDiv td div,div.colCopy div{padding:5px;}
+.flexigrid div.hDiv th div,.flexigrid div.bDiv td div,div.colCopy div{padding:5px 15px 5px 5px;}
 .flexigrid div.hDiv th,div.colCopy{height:24px;cursor:pointer;white-space:nowrap;overflow:hidden;}
 div.colCopy{overflow:hidden;}
 .flexigrid div.hDiv th.thOver div,.flexigrid div.hDiv th.sorted.thOver div{border-bottom:1px solid orange;padding-bottom:4px;}
@@ -53,8 +53,9 @@ div.colCopy{overflow:hidden;}
 .flexigrid div.hDiv th.thMove{background:#fff;color:#fff;}
 .flexigrid div.hDiv th.sorted.thMove div{padding-bottom:4px;}
 .flexigrid div.hDiv th.thMove div{background:#fff !important;}
-.flexigrid div.hDiv th div.sdesc{background:url(../img/dn.png) no-repeat center top;}
-.flexigrid div.hDiv th div.sasc{background:url(../img/up.png) no-repeat center top;}
+.flexigrid div.hDiv th div.sdesc span{background:url(../img/dn.png) no-repeat center center;}
+.flexigrid div.hDiv th div.sasc span{background:url(../img/up.png) no-repeat center center;}
+.flexigrid div.hDiv th div span{padding:2px 18px 0px 0px;}
 .flexigrid div.bDiv td,.flexigrid div.bDiv th{border-bottom:1px solid #ccc;white-space:nowrap;}
 .flexigrid span.cdropleft{display:block;background:url(../img/prev.gif) no-repeat -4px center;width:24px;height:24px;position:relative;top:-24px;margin-bottom:-24px;z-index:3;}
 .flexigrid div.hDiv span.cdropright{display:block;background:url(../img/next.gif) no-repeat 12px center;width:24px;height:24px;float:right;position:relative;top:-24px;margin-bottom:-24px;}

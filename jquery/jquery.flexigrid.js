@@ -1090,10 +1090,12 @@
 						th.innerHTML = cm.display
 					}
 					if (cm.name && cm.sortable) {
-						$(th).attr('abbr', cm.name);
+						$(th).append('<span></span>')
+						$(th).attr('abbr', cm.name)
 					}
 					if (cm.align) {
-						th.align = 'center'/*cm.align;*/
+						$(th).css({'text-align': cm.align.indexOf('right')>=0?'center':cm.align});//= cm.align/*(cm.align.indexOf('right')?'center':cm.align)*/
+						console.log(1098,cm.align)
 					}
 					if (cm.width) {
 						$(th).attr('width', cm.width);
