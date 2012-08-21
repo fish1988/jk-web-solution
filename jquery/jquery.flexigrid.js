@@ -951,11 +951,14 @@
 									me.checkToolBarStat()
 								}
 							}).hover(function(e) {
+								
+								console.log($(this),'show pop')
 								if (g.multisel && e.shiftKey) {
 									$(this).toggleClass('trSelected');
 									me.checkToolBarStat()
 								}
 							}, function() {
+								console.log('hide pop')
 							});
 					if ($.browser.msie && $.browser.version < 7.0) {
 						$(this).hover(function() {
@@ -1674,6 +1677,7 @@
 								$(g.nDiv).hide()
 							}, 100)
 					$(g.nBtn).hide();
+					
 				}, function() {
 					if (g.multisel) {
 						g.multisel = false;
