@@ -12,6 +12,7 @@
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
 <link href="css/mask.css" rel="stylesheet">
+<link href="css/opacity.css" rel="stylesheet">
 <link href="css/tooltip.css" rel="stylesheet">
 <link href="css/button.css" rel="stylesheet">
 <link href="css/renderer.css" rel="stylesheet">
@@ -21,19 +22,19 @@
 <link href="css/form.css" rel="stylesheet">
 <link href="css/grid.css" rel="stylesheet">
 <link href="css/alert.css" rel="stylesheet">
+<link href="css/popover.css" rel="stylesheet">
 <link href="css/modal.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href="css/scrollbar.css" rel="stylesheet">
 
-<!-- <script src="http://css3-mediaqueries-js.googlecode.com/files/css3-mediaqueries.js"></script> -->
 <!-- IE styles -->
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		
-		<link href="css/ie.css" rel="stylesheet">
+		<script src="js/respond.min.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
     <![endif]-->
 <!--[if (IE 8)|(IE 7)]> 
-		
+		<link href="css/ie.css" rel="stylesheet">
 	<![endif]-->
 <!--[if IE 6]>   
 		<link href="css/ie6.css" rel="stylesheet">
@@ -61,7 +62,7 @@
 				</div>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li><a href="#">首页</a></li>
+						<li><a href="#" style="padding-left: 5px;">首页</a></li>
 						<li class="active"><a href="#">应用管理</a></li>
 						<li><a href="#">应用列表</a></li>
 						<li><a href="#">广告相关</a></li>
@@ -81,7 +82,7 @@
 
 	<!-- <form id="search-form" class="well form-search main-search"> -->
 	<div class="form-query well form-search main-search">
-		<img class="search-logo" src="img/jk-logo.png"
+		<img class="search-logo" src="img/sj-logo.png"
 			style="float: left; margin-top: -10px;" /> <input type="text"
 			title="请输入渠道号、应用名称、打包人..." id="query-txt" name="query-txt"
 			autocomplete="off"
@@ -176,9 +177,10 @@
 
 		<ul data-type="status"
 			class="nav nav-list nav-left-choose active-switch more-search-tools">
-			<li class="selected"><a data-id="" href="#">所有状态</a></li>
-			<li data-id="1"><a href="#">有效</a></li>
+			
+			<li class="selected" data-id="1"><a href="#">有效</a></li>
 			<li data-id="2"><a href="#">无效</a></li>
+			<li ><a data-id="" href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
 
@@ -208,9 +210,8 @@
 			<li class="divider"></li>
 		</ul>
 
-
-
 	</div>
+
 	<div class="search-result span10">
 		<div class="btn-toolbar grid-toolbar page-toolbar"
 			grid-target="#myGrid">
@@ -229,6 +230,8 @@
 			<div class="btn-group">
 				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
 					class="icon-repeat"></i></a>
+					<!-- <a class="grid-preview btn toolbar-icon-btn j-tooltip-b active" data-toggle="button" title="关闭自动预览"><i
+					class="icon-eye-open"></i></a> -->
 			</div>
 			<div class="grid-result-pager btn-group pull-right">
 				<a class="prev-page btn toolbar-icon-btn j-tooltip-b" title="上一页"><i
@@ -245,15 +248,31 @@
 			grid-height="auto">
 			<thead>
 				<tr>
-					<th name="#cmd" sortable="false" html-render="statusChange" width="100" align="right">&nbsp;</th>
-					<th name="iso" sortable="true" width="150" align="left">ISO</th>
+					<th name="iso3" sortable="false" data-render="cmdChange"
+						width="50" align="right">&nbsp;</th>
+					<th name="iso;iso" fixed="true" data-render="downloadChange" sortable="true" width="100" align="left">应用名称</th>
 					<th name="name" data-render="statusChange"
-						cls-render="statusClsChange" sortable="true" width="150" align="left">Name</th>
-					<th name="printable_name" sortable="true" width="150" align="right">Printable
-						Name</th>
-					<th name="iso3" sortable="true" width="150" align="left">ISO3</th>
+						cls-render="statusClsChange" sortable="true" width="100"
+						align="left">应用版本</th>
+					<th name="printable_name" sortable="true" width="150" align="left">发布平台</th>
+					<th name="iso3" sortable="true" width="150" align="left">系统平台</th>
 					<th name="numcode;iso3" data-render="downloadChange"
-						sortable="true" width="170" align="left">Number Code</th>
+						sortable="true" width="100" align="left">下载链接</th>
+					<th name="name" data-render="statusChange"
+						cls-render="statusClsChange" sortable="true" width="100"
+						align="left">打包状态</th>
+					<th name="iso;iso" hidden fixed="true" data-render="downloadChange" sortable="true" width="100" align="left">应用名称</th>
+					<th name="name" hidden data-render="statusChange"
+						cls-render="statusClsChange" sortable="true" width="100"
+						align="left">应用版本</th>
+					<th name="printable_name" hidden sortable="true" width="150" align="left">发布平台</th>
+					<th name="iso3"  hidden sortable="true" width="150" align="left">系统平台</th>
+					<th name="numcode;iso3" hidden data-render="downloadChange"
+						sortable="true" width="100" align="left">下载链接</th>
+					<th name="name" hidden data-render="statusChange"
+						cls-render="statusClsChange" sortable="true" width="100"
+						align="left">打包状态</th>
+						
 				</tr>
 			</thead>
 		</table>
@@ -415,18 +434,19 @@
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/jason-datepicker.js"></script>
-
+	<script src="js/jason-search.js"></script>
 	<script src="js/jason-msg.js"></script>
 	<script src="js/jason-base.js"></script>
 	<script src="js/jason-store.js"></script>
 	<script src="js/jason-renderer.js"></script>
 	<script src="js/jason-alert.js"></script>
+	<script src="js/jason-popover.js"></script>
 	<script src="js/jason-data.js"></script>
 	<script src="js/jason-nav.js"></script>
 	<script src="js/jason-dom.js"></script>
 	<script src="js/jason-button.js"></script>
 	<script src="js/jason-combobox.js"></script>
-	<script src="js/jason-search.js"></script>
+
 	<script src="js/jason-grid.js"></script>
 	<script src="js/jason-modal.js"></script>
 	<script src="js/jason-form.js"></script>

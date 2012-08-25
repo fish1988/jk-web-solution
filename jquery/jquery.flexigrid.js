@@ -13,6 +13,7 @@
 			return false; // return if already exist
 		p = $.extend({ // apply default properties
 			// id : Math.random(100),
+			rendererCache : {},
 			rowId : 'id',
 			height : 200, // default height
 			width : 'auto', // auto width
@@ -44,7 +45,8 @@
 			query : '',
 			qtype : '',
 			nomsg : '没有数据',
-			minColToggle : 1, // minimum allowed column to be hidden
+			minColToggle : 2, // minimum allowed column to be hidden
+			allowPreview : true,
 			showToggleBtn : true, // show or hide column toggle popup
 			hideOnSubmit : true,
 			autoload : false,
@@ -375,58 +377,74 @@
 					$checkbox[0].checked = false
 				}
 			},
-			cellRender : function(pos, cm, row) {
-
-				var dataRenderer = cm.dataRender, clsRenderer = cm.clsRender, dataIndex = cm.name
-						.split(';'), tdVal = [], td = document
-						.createElement('td')
-				for (var i = 0; i < dataIndex.length; i++) {
-					tdVal.push(row[dataIndex[i]])
-				}
-
-				var tdDiv = document.createElement('div')
-
-				// console.log(655,n,p.colModel)
-				var pth = $('tr:last th:eq(' + pos + ')', g.hDiv).get(0);
-				if (pth != null) {
-					if (p.sortname == $(pth).attr('abbr') && p.sortname) {
-						$(td).addClass('sorted')
-					}
-					$(tdDiv).css({
-								textAlign : p.colModel[pos].align,// pth.align,
-								width : $('div:first', pth)[0].style.width
-							});
-
-					if (pth.hidden) {
-						$(td).css('display', 'none');
-					}
-				}
-				if (p.nowrap == false) {
-					$(tdDiv).css('white-space', 'normal');
-				}
+			cellRender : function(pth, align, val, cls) {
 
 				// var s = new Date().getTime()
-				// data renderer
-				if ($.jRenderer && typeof dataRenderer != 'undefined'
-						&& $.jRenderer[dataRenderer]) {
-					tdDiv.innerHTML = $.jRenderer[dataRenderer](tdVal)
-				} else {
-					tdDiv.innerHTML = tdVal
-				}
-				if (tdDiv.innerHTML == '') {
-					tdDiv.innerHTML = '&nbsp;';
-				}
-				// console.log('cellRender 404 ', new Date().getTime() - s+ '
-				// ms')
-				// style renderer
-				if ($.jRenderer && typeof clsRenderer != 'undefined'
-						&& $.jRenderer[clsRenderer]) {
-					$(tdDiv).addClass($.jRenderer[clsRenderer](tdVal))
-				}
-				$(td).append(tdDiv).removeAttr('width'); // wrap
-				// content
-				g.addTitleToCell($(tdDiv));
+				var /*cacheVal, dataRenderer = cm.dataRender, clsRenderer = cm.clsRender, dataIndex, tdVal = [], */td = document
+						.createElement('td'), tdDiv = document
+						.createElement('div')
 
+				/*	// dataIndex = cm.name.split(';')
+					for (var i = 0, len = dataIndex.length; i < len; i++) {
+						tdVal.push(row[dataIndex[i]])
+					}*/
+
+				// console.log(655,n,p.colModel)
+				//if (pth != null) {
+					/*if (p.sortname == $(pth).attr('abbr') && p.sortname) {
+						$(td).addClass('sorted')
+					}*/
+					/*$(tdDiv).css({
+								textAlign : align,// pth.align,
+								width : $('div', pth)[0].style.width
+							});*/
+					tdDiv.style['text-align'] = align
+					tdDiv.style['width'] = pth.firstChild.style.width
+					if (pth.hidden) {
+						td.style['display'] = 'none'
+						//$(td).css('display', 'none')
+					}
+				//}
+				/*if (p.nowrap == false) {
+					$(tdDiv).css('white-space', 'normal')
+				}*/
+
+				// data renderer
+				/*if ($.jRenderer && typeof dataRenderer != 'undefined'
+						&& $.jRenderer[dataRenderer]) {
+
+					if (cacheVal = p.rendererCache[dataRenderer + '-' + tdVal])
+						tdDiv.innerHTML = cacheVal
+					else {
+						tdDiv.innerHTML = $.jRenderer[dataRenderer](tdVal)
+						p.rendererCache[dataRenderer + '-' + tdVal] = tdDiv.innerHTML
+					}
+				}*/
+				typeof val != 'undefined'?tdDiv.innerHTML = val:tdDiv.innerHTML = '&nbsp;'
+				
+				/*if (typeof val != 'undefined') {
+					tdDiv.innerHTML = val
+				} else {
+					tdDiv.innerHTML = '&nbsp;'
+				}*/
+
+				// style renderer
+				/*if ($.jRenderer && typeof clsRenderer != 'undefined'
+						&& $.jRenderer[clsRenderer]) {
+					if (cacheVal = p.rendererCache[clsRenderer + '-' + tdVal])
+						$(tdDiv).addClass(cacheVal)
+					else {
+						cacheVal = $.jRenderer[clsRenderer](tdVal)
+						$(tdDiv).addClass(cacheVal)
+						p.rendererCache[clsRenderer + '-' + tdVal] = cacheVal
+					}
+				}*/
+				if (typeof cls != 'undefined') {
+					$(tdDiv).addClass(cls)
+				}
+				td.appendChild(tdDiv)//.removeAttr('width'); // wrap
+				// content
+				// console.log('cellRender 404 ', new Date().getTime() - s+'ms')
 				return td
 			},
 			addData : function(data) { // parse data
@@ -470,81 +488,132 @@
 					$('.pagination', g.pDiv).addClass('hidden')
 				}
 				// build new body
-				var tbody = document.createElement('tbody');
-				var me = this
+				var tbody = document.createElement('tbody'), me = this
 
 				if (p.dataType == 'json') {
 
-					var dataValue, tr, tdEl, cm, cth, cthch, objTr, cthDiv, idx, td
+					var tr, tdEl, cm, cth, cthch, objTr, cthDiv, idx, td, pthMap = {}, dataIndex = {}, tdDataMap = {}, tdClsMap = {}, rowData, tdVal = [], dataRenderer, clsRenderer, cacheVal, idx, cacheDataKey, cacheClsKey
+					
+					var ss = new Date().getTime()
+					for (var j = 0, len = p.colModel.length; j < len; j++) {
+						pthMap[j] = $('tr:last th:eq(' + j + ')', g.hDiv)
+								.get(0)
+						cm = p.colModel[j]
+						dataIndex[j] = cm.name.split(';')
+						dataRenderer = cm.dataRender
+						clsRenderer = cm.clsRender
+						for (var i = 0, rLen = data.items.length; i < rLen; i++) {
+							rowData = data.items[i]
+							tdVal = []
+							for (var k = 0, idxLen = dataIndex[j].length; k < idxLen; k++) {
+								tdVal.push(rowData[dataIndex[j][k]])
+							}
+
+							idx = i * len + j
+
+							if ($.jRenderer
+									&& typeof dataRenderer != 'undefined'
+									&& $.jRenderer[dataRenderer]) {
+
+								cacheDataKey = dataRenderer + '-' + tdVal
+
+								if (cacheVal = p.rendererCache[cacheDataKey])
+									tdDataMap[idx] = cacheVal
+								else {
+									cacheVal = $.jRenderer[dataRenderer](tdVal)
+									tdDataMap[idx] = cacheVal
+									p.rendererCache[cacheDataKey] = cacheVal
+								}
+							} else {
+								tdDataMap[idx] = tdVal
+							}
+
+							if ($.jRenderer
+									&& typeof clsRenderer != 'undefined'
+									&& $.jRenderer[clsRenderer]) {
+								cacheClsKey = clsRenderer + '-' + tdVal
+								if (cacheVal = p.rendererCache[clsRenderer])
+									tdClsMap[idx] = cacheVal
+								else {
+									cacheVal = $.jRenderer[clsRenderer](tdVal)
+									tdClsMap[idx] = cacheVal
+									p.rendererCache[clsRenderer] = cacheVal
+								}
+							}
+							// tdRes[i+'-'+j] =
+						}
+					}
+					console.log('544 for... ',new Date().getTime()-ss)
+					// renderers
+
 					$.each(data.items, function(i, row) {
-								// console.log(380, row)
-								dataValue = data.items[i]
-								tr = document.createElement('tr');
-								if (i % 2 && p.striped)
-									tr.className = 'erow';
-								tdEl = [];
-								// console.log(p.colModel)
-								if (p.colModel) {
-									for (j = 0; j < p.colModel.length; j++) {
-										cm = p.colModel[j]
-										// cell data renderer
-										tdEl.push(me.cellRender(j, cm, row))
-									}
+						// console.log(380, row)
+						// dataValue = data.items[i]
+						tr = document.createElement('tr');
+						if (i % 2 && p.striped)
+							tr.className = 'erow';
+						tdEl = []
+						// console.log(p.colModel)
+						if (p.colModel) {
+							for (var j = 0, len = p.colModel.length; j < len; j++) {
+								// cell data renderer
+								idx = i * len + j
+								tdEl.push(me.cellRender(pthMap[j],
+										p.colModel[j].align, tdDataMap[idx],
+										tdClsMap[idx]))
+							}
+						}
+						// add checkbox
+						if (p.checkbox) {
+							cth = $('<th/>');
+							cthch = $('<input type="checkbox"/>');
+							objTr = $(tr);
+							cthch.addClass("noborder").click(function() {
+								if (this.checked) {
+									$(this).parents('tr')
+											.addClass('trSelected');
+								} else {
+									$(this).parents('tr')
+											.removeClass('trSelected');
 								}
-								// add checkbox
-								if (p.checkbox) {
-									cth = $('<th/>');
-									cthch = $('<input type="checkbox"/>');
-									objTr = $(tr);
-									cthch.addClass("noborder").click(
-											function() {
-												if (this.checked) {
-													$(this)
-															.parents('tr')
-															.addClass('trSelected');
-												} else {
-													$(this)
-															.parents('tr')
-															.removeClass('trSelected');
-												}
-												me.checkToolBarStat()
-											})
-									cthDiv = $('<div style="width:22px;"/>');
-									cth.addClass("cth").append(cthDiv
-											.append(cthch));
+								me.checkToolBarStat()
+							})
+							cthDiv = $('<div style="width:22px;"/>');
+							cth.addClass("cth").append(cthDiv.append(cthch));
 
-									$(tr).prepend(cth);
-								}
-								// add cell
-								$('thead tr:last th', g.hDiv).each(function() {
+							$(tr).prepend(cth);
+						}
+						// add cell
+						$('thead tr:last th', g.hDiv).each(function() {
 
-											idx = $(this).attr('axis')
-													.substr(3);
-											td = tdEl[idx];
-											$(tr).append(td);
-											// console.log(idx, td.innerHTML)
-											td = null;
-										});
+									idx = $(this).attr('axis').substr(3);
+									td = tdEl[idx];
+									$(tr).append(td);
+									// console.log(idx, td.innerHTML)
+									td = null;
+								});
 
-								if ($('thead', this.gDiv).length < 1) // handle
-								// if
-								// grid has no
-								// headers
-								{
+						if ($('thead', this.gDiv).length < 1) // handle
+						// if
+						// grid has no
+						// headers
+						{
 
-									for (idx = 0; idx < cell.length; idx++) {
-										var td = tdEl[idx];
-										$(tr).append(td);
-										td = null;
-									}
-								}
-								// add record info
-								$(tr).attr('row-id', row[p.rowId]);
-								$(tr).attr('record', $.stringifyJSON(row));
+							for (idx = 0; idx < cell.length; idx++) {
+								var td = tdEl[idx];
+								$(tr).append(td);
+								td = null;
+							}
+						}
+						// add record info
+						$(tr).attr('row-id', row[p.rowId]);
+						$(tr).attr('record', $.stringifyJSON(row));
 
-								$(tbody).append(tr);
-								tr = null;
-							});
+						$(tbody).append(tr);
+						tr = null;
+					});
+					
+					console.log('614 cell... ',new Date().getTime()-ss)
 
 				}
 
@@ -554,8 +623,8 @@
 				$(t).empty();
 				$(t).append(tbody);
 				// this.addCellProp();
-				this.addRowProp();
-				this.rePosDrag();
+				this.addRowProp()
+				this.rePosDrag()
 				tbody = null;
 				data = null;
 				i = null;
@@ -572,6 +641,11 @@
 				console.log('addData 545 ', new Date().getTime() - p.startTime
 								+ ' ms')
 				this.buildPager();
+				setTimeout(function() {
+							$('tbody tr td', g.bDiv).each(function() {
+										g.addTitleToCell($(this))
+									})
+						}, 200)
 				// console.log('addData ', new Date().getTime() - s + ' ms')
 			},
 			changeSort : function(th) { // change sortorder
@@ -715,6 +789,8 @@
 			populate : function() { // get latest data
 				var me = this
 				p.startTime = new Date().getTime()
+
+				// p.allowPreview = false
 				$('.page-loading').show()
 				if (this.loading) {
 					return true;
@@ -750,7 +826,8 @@
 					page : p.newp, // page
 					start : (p.newp - 1) * p.rp, // start
 					limit : p.rp, // pageSize
-					sort : p.sortname, // sort
+					sort : p.sortname.indexOf(';') !== -1 ? p.sortname.slice(0,
+							p.sortname.indexOf(';')) : p.sortname, // sort
 					dir : p.sortorder, // dir
 					query : p.query,
 					qtype : p.qtype
@@ -770,7 +847,10 @@
 								setTimeout(function() {
 											g.addData(data)
 										}, 0);
+								// console.log(p.rendererCache)
 								me.checkToolBarStat()
+								$.jPopover.hideTrPopover()
+								// p.allowPreview = true
 								if (p.checkbox)
 									$('input', g.hDiv)[0].checked = '';
 							},
@@ -909,7 +989,29 @@
 			},
 			addRowProp : function() {
 				var me = this
+				var s = new Date().getTime()
 				$('tbody tr', g.bDiv).each(function() {
+					var $td, $link, $div, $thead = $('thead tr:last', me.hDiv), $tr = $(this)
+					$('td:nth(1) a', $tr).hover(function() {
+						if (!p.allowPreview)
+							return
+
+						if ($.jPopover) {
+							$td = $(this).parents('td'), $div = $('div', $td), $link = $(
+									'a', $td)
+							if ($link.width() > $div.width()) {
+								$link = $div
+							}
+							$.jTimer.addTimer($link, function() {
+										$.jPopover.showTrPopover($link, $tr,
+												$thead)
+									}, 600)
+						}
+
+					}, function() {
+						// $.jPopover.hideTrPopover()
+					})
+
 					$(this).click(function(e) {
 								var obj = (e.target || e.srcElement);
 								if (obj.href || obj.type)
@@ -951,15 +1053,38 @@
 									me.checkToolBarStat()
 								}
 							}).hover(function(e) {
-								
-								console.log($(this),'show pop')
+								/*var $tr = $(this)
+								if ($.jPopover && p.allowPreview) {
+									var $link = $('td:nth(1) a', $tr), $thead = $(
+											'thead tr:last', me.hDiv)
+									if ($link.width() > $('td:nth(1) div', $tr).width()) {
+										$link = $('td:nth(1) div', $tr)
+									}
+									$.jTimer.addTimer($link, function() {
+												$.jPopover.showTrPopover($link, $tr,
+														$thead)
+											}, 580)
+								}*/
+								// console.log($(this), 'show pop')
 								if (g.multisel && e.shiftKey) {
 									$(this).toggleClass('trSelected');
 									me.checkToolBarStat()
 								}
 							}, function() {
-								console.log('hide pop')
-							});
+
+								/*if ($.jPopover && p.allowPreview) {
+									var $link = $('td:nth(1) a', $(this))
+
+									if ($link.width() > $('td:nth(1) div', $(this))
+											.width()) {
+										$link = $('td:nth(1) div', $(this))
+									}
+									$.jTimer.removeTimer($link)
+									// $.jPopover.hideTrPopover()
+								}*/
+								// console.log('hide pop')
+							})
+
 					if ($.browser.msie && $.browser.version < 7.0) {
 						$(this).hover(function() {
 									$(this).addClass('trOver');
@@ -968,6 +1093,9 @@
 								});
 					}
 				});
+
+				console.log('add Row: ', new Date().getTime() - s)
+
 			},
 
 			combo_flag : true,
@@ -988,10 +1116,12 @@
 				// var s = new Date().getTime()
 				if (p.addTitleToCell) {
 					$div = (tdDiv instanceof jQuery) ? tdDiv : $(tdDiv)
-					// if ( $.jString.byteLen($div.text()) * 13 > $div.width())
+					if ($('a', $div).hasClass('cmd'))
+						return
+
 					var txt = $div.text()
 					if (txt.length > 6)
-						$div.attr('title', txt);
+						$div.attr('title', txt)
 					/*
 					var $span = $('<span />').css('display', 'none'), $div = (tdDiv instanceof jQuery)
 							? tdDiv
@@ -1014,6 +1144,7 @@
 					// console.log('948 addTitle ',new Date().getTime()-s+' ms')
 				}
 			},
+
 			autoResizeColumn : function(obj) {
 				if (!p.dblClickResize) {
 					return;
@@ -1097,8 +1228,13 @@
 						$(th).attr('abbr', cm.name)
 					}
 					if (cm.align) {
-						$(th).css({'text-align': cm.align.indexOf('right')>=0?'center':cm.align});//= cm.align/*(cm.align.indexOf('right')?'center':cm.align)*/
-						console.log(1098,cm.align)
+						$(th).css({
+							'text-align' : cm.align.indexOf('right') >= 0
+									? 'center'
+									: cm.align
+						});// =
+						// cm.align/*(cm.align.indexOf('right')?'center':cm.align)*/
+						console.log(1098, cm.align)
 					}
 					if (cm.width) {
 						$(th).attr('width', cm.width);
@@ -1269,7 +1405,7 @@
 		$(g.hDiv).append('<div class="hDivBox"></div>');
 		$('div', g.hDiv).append(g.hTable);
 		var thead = $("thead:first", t).get(0);
-		console.log($(thead))
+		// console.log($(thead))
 		if (thead)
 			$(g.hTable).append(thead);
 		thead = null;
@@ -1389,7 +1525,7 @@
 		}
 		// add td & row properties
 		// g.addCellProp();
-		g.addRowProp();
+		// g.addRowProp();
 
 		// set cDrag
 		var cdcol = $('thead tr:last th:first', g.hDiv).get(0);
@@ -1677,8 +1813,9 @@
 								$(g.nDiv).hide()
 							}, 100)
 					$(g.nBtn).hide();
-					
+
 				}, function() {
+					// $.jPopover.hideTrPopover()
 					if (g.multisel) {
 						g.multisel = false;
 					}
@@ -1734,39 +1871,49 @@
 						$.addFlex(this, p);
 					}
 				});
-	}; // end flexigrid
+	} // end flexigrid
 	$.fn.flexReload = function(p) { // function to reload grid
 		console.log('reload')
 		return this.each(function() {
 					if (this.grid && this.p.url)
 						this.grid.populate();
 				});
-	}; // end flexReload
+	} // end flexReload
 	$.fn.flexOptions = function(p) { // function to update general options
 		return this.each(function() {
 					if (this.grid)
 						$.extend(this.p, p);
 				});
-	}; // end flexOptions
+	} // end flexOptions
 	$.fn.flexQuery = function(p) { // function to update query params
 		return this.each(function() {
 					if (this.grid)
 						$.extend(this.p.params, p);
 				});
-	}; // end flexOptions
+	} // end flexOptions
 
 	$.fn.flexToggleCol = function(cid, visible) { // function to reload grid
 		return this.each(function() {
 					if (this.grid)
 						this.grid.toggleCol(cid, visible);
 				});
-	}; // end flexToggleCol
+	} // end flexToggleCol
 	$.fn.flexAddData = function(data) { // function to add data to grid
 		return this.each(function() {
 					if (this.grid)
 						this.grid.addData(data);
 				});
-	};
+	}
+
+	$.fn.flexAllowPreview = function(trueOrFalse) { // function to add data to
+		// grid
+		return this.each(function() {
+					if (this.grid)
+						$.extend(this.p, {
+									allowPreview : trueOrFalse
+								})
+				});
+	}
 	$.fn.noSelect = function(p) { // no select plugin by me :-)
 		var prevent = (p == null) ? true : p;
 		if (prevent) {

@@ -88,7 +88,7 @@
 					})
 			console.log(offsetX + 'px')
 
-			var inputWidth = parseInt(search.css('width')) - offsetX - 10
+			var inputWidth = search.width() - offsetX - 30
 					+ 'px'
 			search.find('.query-input').css({
 						width : inputWidth
@@ -106,9 +106,9 @@
 			var input = $(element), search = $(this.options.template), me = this
 			input.before(search)
 
-			input.css('width', parseInt(search.css('width')) - 10)
+			input.css('width', search.width() - 30)
 			search.find('.query-input').css('width',
-					parseInt(search.css('width')) - 10).prepend(input)
+					search.width() - 30).prepend(input)
 			$('.query-clear .search-clear').click(function() {
 						input.val('')
 					})

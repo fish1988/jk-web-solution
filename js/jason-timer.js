@@ -19,7 +19,16 @@
 						clearTimeout($.jTimer[timerId])
 						$.jTimer[timerId] = null
 					}
-					$.jTimer[timerId] = setTimeout(fn, typeof ms == 'undefined' ? 0 : ms)
+					$.jTimer[timerId] = setTimeout(fn, typeof ms == 'undefined'
+									? 0
+									: ms)
+				}
+
+				$.jTimer.removeTimer = function(timerId) {
+					if ($.jTimer[timerId]) {
+						clearTimeout($.jTimer[timerId])
+						$.jTimer[timerId] = null
+					}
 				}
 			})
 }(jQuery)

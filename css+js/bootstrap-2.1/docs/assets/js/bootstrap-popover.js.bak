@@ -94,10 +94,10 @@
   $.fn.popover.Constructor = Popover
 
   $.fn.popover.defaults = $.extend({} , $.fn.tooltip.defaults, {
-    placement: 'left'
+    placement: 'right'
   , trigger: 'hover'
   , content: ''
-  , template: '<div class="popover" style="width:auto;"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+  , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
   })
 
 }(window.jQuery);

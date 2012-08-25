@@ -79,10 +79,8 @@
 
 				$.jRenderer.statusChange = function(v) {
 					var rules = {
-						0 : '是',
-						1 : '否',
-						2 : '不是',
-						3 : '不知'
+						0 : '有效',
+						1 : '无效'
 					}
 					return $.jRenderer.valueChange(v, rules)
 				}
@@ -92,10 +90,16 @@
 						1 : 'td-err',
 						0 : 'td-ok'
 					}
-					return $.jRenderer.valueChange(v, rules)
+					return $.jRenderer.classChange(v, rules)
 				}
 				$.jRenderer.downloadChange = function(v) {
 					var template = '<a href="{0}">{1}</a>'
+					return $.jRenderer.valueChange(v, template, 'format')
+				}
+				
+				$.jRenderer.cmdChange = function(v) {
+					var template = '<a class="cmd j-opacity6" href="#" title="已无效"><i class="icon-trash"></i></a>'
+					//  <a class="cmd j-opacity8" href="#" title="详细..."><i class="icon-eye-open"></i></a>
 					return $.jRenderer.valueChange(v, template, 'format')
 				}
 			});

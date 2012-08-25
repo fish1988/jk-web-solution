@@ -14,6 +14,17 @@
 	$(function() {
 				// add-on data
 				$.jString = {}
+				
+				// is empty
+				$.jString.isEmpty = function(str){
+					if(typeof str === 'undefined' || str==='null' || str ==='')
+						return true
+					if((str = str.replace(/\s/g,'')) ==='')
+						return true
+					if(str.replace(/&nbsp;/g,'')==='')
+						return true
+					return false
+				}
 				$.jString.format = function(source, params) {
 					if (arguments.length === 1) {
 						return function() {

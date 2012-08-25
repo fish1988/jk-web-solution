@@ -32,7 +32,7 @@
 				cm.push({
 							display : $(ths[i]).text(),
 							name : $(ths[i]).attr('name'),
-							sortable : $(ths[i]).attr('sortable')=== 'true',
+							sortable : $(ths[i]).attr('sortable') === 'true',
 							dataRender : $(ths[i]).attr('data-render'),
 							clsRender : $(ths[i]).attr('cls-render'),
 							width : $(ths[i]).css('width').replace('px', ''),
@@ -42,14 +42,14 @@
 			}
 			ths.remove()
 			// console.log(btns,btnArr)
-			//console.log(cm);
+			// console.log(cm);
 			// console.log(grid.attr('checkbox'),!!grid.attr('checkbox'));
 			if ($.timer) {
-						$.timer.clearTimer(grid.attr('id'))
-						$.timer.addTimer(grid.attr('id'), function() {
-									
-								})
-					}
+				$.timer.clearTimer(grid.attr('id'))
+				$.timer.addTimer(grid.attr('id'), function() {
+
+						})
+			}
 			grid.flexigrid({
 						id : grid.attr('id'),
 						url : grid.attr('data-url'),// 'data.txt'
@@ -136,7 +136,9 @@
 					$(modal).modal('show')
 				}
 			}
-
+			$('.grid-toolbar .btn').click(function() {
+						$.jPopover.hideTrPopover()
+					})
 			// with modal
 			$('.grid-one').click(function() {
 						$.jgrid.oneGridItemFn(this)
@@ -146,7 +148,19 @@
 			$('.grid-more').click(function() {
 						$.jgrid.gridItemsFn(this)
 					})
-
+			// grid preview
+			$('.grid-preview').click(function() {
+						var $this = $(this)
+						if ($this.hasClass('active')) {
+							$.jgrid.getGrid(this).flexAllowPreview(false)
+							$this.attr('data-original-title','打开自动预览')
+							$('.tooltip .tooltip-inner').text('打开自动预览')
+						}else{
+							$.jgrid.getGrid(this).flexAllowPreview(true)
+							$this.attr('data-original-title','关闭自动预览')
+							$('.tooltip .tooltip-inner').text('关闭自动预览')
+						}
+					})
 			// grid f5
 			$('.grid-refresh').click(function() {
 						$.jgrid.getGrid(this).flexReload()

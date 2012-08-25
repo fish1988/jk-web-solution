@@ -1,7 +1,8 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
 @charset "UTF-8";
-.grid{display:none;}
-.grid-result-stat{font-size:110%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:right;padding-top:10px;display:inline-block;}
+.grid{display:none;font-size:13px;}
+td a.cmd{padding:2px 3px;}
+.grid-result-stat{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:right;padding-top:10px;display:inline-block;}
 .flexigrid{position:relative;border:0px solid #eee;}.flexigrid .pagination{margin:0;text-align:right;}
 .flexigrid.hideBody{height:26px !important;border-bottom:1px solid #ccc;}
 .ie6fullwidthbug{padding-right:2px;}
@@ -32,7 +33,7 @@
 .flexigrid div.fbutton span{float:left;display:block;padding:3px;}
 .flexigrid div.fbutton:hover,.flexigrid div.fbutton.fbOver{padding:0px;border:1px solid #ccc;}
 .flexigrid div.fbutton:hover div,.flexigrid div.fbutton.fbOver div{padding:0px 2px;border-left:1px solid #fff;border-top:1px solid #fff;border-right:1px solid #eee;border-bottom:1px solid #eee;}
-.flexigrid div.hDiv{position:relative;border-bottom:1px solid #ccc;overflow:hidden;}
+.flexigrid div.hDiv{position:relative;border-bottom:1px solid #ccc;font-size:14px;overflow:hidden;}
 .flexigrid div.cDrag{float:left;position:absolute;z-index:2;overflow:visible;}
 .flexigrid div.cDrag div{float:left;background:none;display:block;position:absolute;height:24px;width:5px;cursor:col-resize;}
 .flexigrid div.cDrag div:hover,.flexigrid div.cDrag div.dragging{background:url(../img/line.gif) repeat-y 2px center;}
