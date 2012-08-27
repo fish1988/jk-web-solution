@@ -378,7 +378,7 @@
 				}
 			},
 			cellRender : function(pth, align, val, cls) {
-
+				// return;
 				// var s = new Date().getTime()
 				var /*cacheVal, dataRenderer = cm.dataRender, clsRenderer = cm.clsRender, dataIndex, tdVal = [], */td = document
 						.createElement('td'), tdDiv = document
@@ -390,21 +390,21 @@
 					}*/
 
 				// console.log(655,n,p.colModel)
-				//if (pth != null) {
-					/*if (p.sortname == $(pth).attr('abbr') && p.sortname) {
-						$(td).addClass('sorted')
-					}*/
-					/*$(tdDiv).css({
-								textAlign : align,// pth.align,
-								width : $('div', pth)[0].style.width
-							});*/
-					tdDiv.style['text-align'] = align
-					tdDiv.style['width'] = pth.firstChild.style.width
-					if (pth.hidden) {
-						td.style['display'] = 'none'
-						//$(td).css('display', 'none')
-					}
-				//}
+				// if (pth != null) {
+				/*if (p.sortname == $(pth).attr('abbr') && p.sortname) {
+					$(td).addClass('sorted')
+				}*/
+				/*$(tdDiv).css({
+							textAlign : align,// pth.align,
+							width : $('div', pth)[0].style.width
+						});*/
+				tdDiv.style['text-align'] = align
+				tdDiv.style['width'] = pth.firstChild.style.width
+				if (pth.hidden) {
+					td.style['display'] = 'none'
+					// $(td).css('display', 'none')
+				}
+				// }
 				/*if (p.nowrap == false) {
 					$(tdDiv).css('white-space', 'normal')
 				}*/
@@ -420,8 +420,10 @@
 						p.rendererCache[dataRenderer + '-' + tdVal] = tdDiv.innerHTML
 					}
 				}*/
-				typeof val != 'undefined'?tdDiv.innerHTML = val:tdDiv.innerHTML = '&nbsp;'
-				
+				typeof val != 'undefined'
+						? tdDiv.innerHTML = val
+						: tdDiv.innerHTML = '&nbsp;'
+
 				/*if (typeof val != 'undefined') {
 					tdDiv.innerHTML = val
 				} else {
@@ -442,7 +444,7 @@
 				if (typeof cls != 'undefined') {
 					$(tdDiv).addClass(cls)
 				}
-				td.appendChild(tdDiv)//.removeAttr('width'); // wrap
+				td.appendChild(tdDiv)// .removeAttr('width'); // wrap
 				// content
 				// console.log('cellRender 404 ', new Date().getTime() - s+'ms')
 				return td
@@ -477,7 +479,7 @@
 					$('.pagination', g.pDiv).addClass('hidden')
 					setTimeout(function() {
 								$('.page-loading').hide()
-							}, 300)
+							}, 0)
 					// $(g.gDiv).addClass('hidden')
 					return false
 				}
@@ -492,9 +494,11 @@
 
 				if (p.dataType == 'json') {
 
-					var tr, tdEl, cm, cth, cthch, objTr, cthDiv, idx, td, pthMap = {}, dataIndex = {}, tdDataMap = {}, tdClsMap = {}, rowData, tdVal = [], dataRenderer, clsRenderer, cacheVal, idx, cacheDataKey, cacheClsKey
-					
+					var tr, tdEl, cm, cth, cthch, objTr, cthDiv, idx, td,tdDiv,pth, pthMap = {}, dataIndex = {}, tdDataMap = {}, tdClsMap = {}, rowData, tdVal = [], dataRenderer, clsRenderer, cacheVal, idx, cacheDataKey, cacheClsKey,val,cls
+
 					var ss = new Date().getTime()
+					
+					// compute vals
 					for (var j = 0, len = p.colModel.length; j < len; j++) {
 						pthMap[j] = $('tr:last th:eq(' + j + ')', g.hDiv)
 								.get(0)
@@ -540,15 +544,11 @@
 									p.rendererCache[clsRenderer] = cacheVal
 								}
 							}
-							// tdRes[i+'-'+j] =
 						}
 					}
-					console.log('544 for... ',new Date().getTime()-ss)
+					console.log('544 for... ', new Date().getTime() - ss)
 					// renderers
-
 					$.each(data.items, function(i, row) {
-						// console.log(380, row)
-						// dataValue = data.items[i]
 						tr = document.createElement('tr');
 						if (i % 2 && p.striped)
 							tr.className = 'erow';
@@ -558,9 +558,30 @@
 							for (var j = 0, len = p.colModel.length; j < len; j++) {
 								// cell data renderer
 								idx = i * len + j
-								tdEl.push(me.cellRender(pthMap[j],
+								pth = pthMap[j]
+								td = document.createElement('td'), tdDiv = document
+										.createElement('div')
+
+								tdDiv.style['text-align'] = p.colModel[j].align
+								tdDiv.style['width'] = pth.firstChild.style.width
+								if (pth.hidden) {
+									td.style['display'] = 'none'
+								}
+								val = tdDataMap[idx]
+								cls = tdClsMap[idx]
+								typeof val != 'undefined'
+										? tdDiv.innerHTML = val
+										: tdDiv.innerHTML = '&nbsp;'
+
+								if (typeof cls != 'undefined') {
+									$(tdDiv).addClass(cls)
+								}
+								td.appendChild(tdDiv)// .removeAttr('width');
+														// // wrap
+								tdEl.push(td)
+								/*tdEl.push(me.cellRender(pthMap[j],
 										p.colModel[j].align, tdDataMap[idx],
-										tdClsMap[idx]))
+										tdClsMap[idx]))*/
 							}
 						}
 						// add checkbox
@@ -588,7 +609,7 @@
 
 									idx = $(this).attr('axis').substr(3);
 									td = tdEl[idx];
-									$(tr).append(td);
+									tr.appendChild(td);
 									// console.log(idx, td.innerHTML)
 									td = null;
 								});
@@ -600,8 +621,8 @@
 						{
 
 							for (idx = 0; idx < cell.length; idx++) {
-								var td = tdEl[idx];
-								$(tr).append(td);
+								td = tdEl[idx];
+								tr.appendChild(td);
 								td = null;
 							}
 						}
@@ -612,8 +633,8 @@
 						$(tbody).append(tr);
 						tr = null;
 					});
-					
-					console.log('614 cell... ',new Date().getTime()-ss)
+
+					console.log('614 cell... ', new Date().getTime() - ss)
 
 				}
 
@@ -1232,9 +1253,7 @@
 							'text-align' : cm.align.indexOf('right') >= 0
 									? 'center'
 									: cm.align
-						});// =
-						// cm.align/*(cm.align.indexOf('right')?'center':cm.align)*/
-						console.log(1098, cm.align)
+						})
 					}
 					if (cm.width) {
 						$(th).attr('width', cm.width);
