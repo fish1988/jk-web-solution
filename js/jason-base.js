@@ -11,17 +11,36 @@
 	/* base utils
 	 * ============== */
 
+				// placeholder
+				$.jPlaceholder = {
+					val : function($input,v) {
+						if ('placeholder' in document.createElement('input'))
+							return
+						else
+							$input.val(v)
+					}
+				}
+
 	$(function() {
+				// IE debug
+				if (!window.console) {
+					window.console = {
+						log : function(params) {
+						}
+					}
+				}
+
 				// add-on data
 				$.jString = {}
-				
+
 				// is empty
-				$.jString.isEmpty = function(str){
-					if(typeof str === 'undefined' || str==='null' || str ==='')
+				$.jString.isEmpty = function(str) {
+					if (typeof str === 'undefined' || str === 'null'
+							|| str === '')
 						return true
-					if((str = str.replace(/\s/g,'')) ==='')
+					if ((str = str.replace(/\s/g, '')) === '')
 						return true
-					if(str.replace(/&nbsp;/g,'')==='')
+					if (str.replace(/&nbsp;/g, '') === '')
 						return true
 					return false
 				}
@@ -45,8 +64,8 @@
 							});
 					return source;
 				}
-				
-				$.jString.byteLen = function(str){
+
+				$.jString.byteLen = function(str) {
 					return str.replace(/([u0391-uFFE5])/gi, 'jk').length
 				}
 			})

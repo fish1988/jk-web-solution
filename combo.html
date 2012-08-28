@@ -8,8 +8,10 @@
 <meta name="author" content="">
 
 <!-- styles -->
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/combobox.css" rel="stylesheet">
 
 <!-- IE styles -->
@@ -43,7 +45,7 @@
 			<tbody>
 				<tr>
 					<td width="450"><form>
-							<select id="combo-1" class="combobox" width="200" 
+							<select id="combo-1" class="combobox hidden" width="200" 
 								data-url="combo1" autoload="true"  child-id="combo-2" val="1;1,2"
 								><!-- val="1;2;2" -->
 								<option value="" class="fixed"></option>
@@ -59,7 +61,7 @@
 					<td>base combobox</td>
 				</tr>
 				<tr>
-					<td><select id="combo-2" class="combobox" width="160" multiple="multiple"
+					<td><select id="combo-2" class="combobox hidden" width="160" multiple="multiple"
 						data-url="combo2" child-id="combo-3">
 							<option value="" class="fixed"><option value="CT">Connecticut</option>
 							<option value="NY">New York</option>
@@ -69,7 +71,7 @@
 					<td>base combobox 2</td>
 				</tr>
 				<tr>
-					<td><select id="combo-3" class="combobox" width="200"
+					<td><select id="combo-3" class="combobox hidden" width="200"
 						data-url="combo3">
 							<option value="" class="fixed"></option>
 					</select></td>
@@ -90,6 +92,7 @@
 	<script src="jquery/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/jason-store.js"></script>
+	<script src="js/jason-base.js"></script>
 	<script src="js/jason-combobox.js"></script>
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>

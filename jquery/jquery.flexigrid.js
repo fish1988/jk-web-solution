@@ -6,7 +6,7 @@
  * http://jquery.org/license
  *
  */
-(function($) {
+;(function($) {
 
 	$.addFlex = function(t, p) {
 		if (t.grid)
