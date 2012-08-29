@@ -17,7 +17,7 @@
 		this.$container = this.setup(element)
 		this.placeholder = this.options.placeholder
 		this.$element = this.$container.find('input')
-		this.$element.attr('placeholder',this.placeholder)
+		this.$element.attr('placeholder', this.placeholder)
 		this.$element.css({
 					width : this.width
 				})
@@ -25,14 +25,16 @@
 		this.$button = this.$container.find('.dropdown-toggle')
 		this.$clear = this.$container.find('.combobox-clear')
 		this.$clear.hide()
-		this.$clear.css({left:this.width-5+'px'})
+		this.$clear.css({
+					left : this.width - 5 + 'px'
+				})
 		this.$target = this.$container.find('select')
 		this.matcher = this.options.matcher || this.matcher
 		this.sorter = this.options.sorter || this.sorter
 		this.highlighter = this.options.highlighter || this.highlighter
-		this.$menu = $(this.options.menu).appendTo('body')
-		this.$menu.width( this.width +11)
-		
+		this.$menu = $(this.options.menu).appendTo(this.$container)
+		this.$menu.width(this.width + 11)
+
 		this.initValue = this.options.initValue // default width
 
 		this.shown = false
@@ -56,7 +58,7 @@
 				this.$target.find('option:not(.fixed)').remove()
 			}
 			this.$target.val('')
-			$.jPlaceholder.val(this.$element,this.placeholder)
+			$.jPlaceholder.val(this.$element, this.placeholder)
 			this.refresh()
 		},
 		getChild : function() {
@@ -179,12 +181,14 @@
 					this.clearTarget()
 				}
 				this.lookup(v)
+				this.$element.val(v)
+				console.log('182', this.$element.val())
 				if (v !== this.placeholder) {
-					$.jPlaceholder.val(this.$element,this.placeholder)
+					// $.jPlaceholder.val(this.$element,this.placeholder)
 
 					// this.lookup(v)
-				}else{
-					//this.$clear.hide()
+				} else {
+					// this.$clear.hide()
 				}
 			} else {
 				$('.dropdown-menu').hide()
@@ -272,8 +276,29 @@
 				return this.hide()
 			}
 
+		},
+		show : function() {
+			var pos = $.extend({}, this.$element.offset(), {
+						height : this.$element[0].offsetHeight
+					})
+
+			this.$menu.css({
+				top : pos.height
+					// ,
+					// left : pos.left
+				})
+
+			this.$menu.show()
+			this.shown = true
+			return this
 		}
 
+		,
+		hide : function() {
+			this.$menu.hide()
+			this.shown = false
+			return this
+		}
 		// modified typeahead function removing the blank handling
 		,
 		lookup : function(oldVal) {
@@ -297,8 +322,9 @@
 					.removeClass('li-selected')
 
 			console.log('lookup')
+
 			if (this.multiSelect) {
-				console.log('oldVal', oldVal)
+
 				var arr = oldVal.split(';')
 
 				for (var i = 0; i < arr.length; i++) {
@@ -318,7 +344,8 @@
 
 				activeLi.addClass('active')
 			}
-			this.$element.val(oldVal)
+			// this.$element.val(oldVal)
+			// console.log('oldVal', oldVal,this.$element.val())
 			this.shown = true
 		}
 
@@ -326,29 +353,32 @@
 		,
 		listen : function() {
 			var me = this;
-			/*this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
+
+			this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
 					$.proxy(this.keypress, this)).on('keyup',
 					$.proxy(this.keyup, this)).on('focus', function() {
-						if ($(this).val() == me.placeholder || $(this).val() ==''){
+						if ($(this).val() == me.placeholder
+								|| $(this).val() == '') {
 							$(this).val('')
-							//me.$clear.hide()
-						}else{
-							//me.$clear.show()
+							// me.$clear.hide()
+						} else {
+							// me.$clear.show()
 						}
-					})*/
+					})
 
 			if ($.browser.webkit || $.browser.msie) {
 				this.$element.on('keydown', $.proxy(this.keypress, this))
 			}
 
-			this.$menu.on('click', $.proxy(this.click, this)).on('mouseenter','li', $.proxy(this.mouseenter, this))
-			if (this.multiSelect)
-				this.$menu.on('mouseleave', function() {
-							setTimeout(function() {
-										console.log('mouseout')
-										me.hide()
-									}, 300)
-						})
+			this.$menu.on('click', $.proxy(this.click, this)).on('mouseenter',
+					'li', $.proxy(this.mouseenter, this))
+			/*if (this.multiSelect)*/
+			/*this.$menu.on('mouseleave', function() {
+						setTimeout(function() {
+									console.log('mouseout')
+									me.hide()
+								}, 300)
+					})*/
 
 			var child = this.$target.attr('child-id')
 			if (child) {
@@ -359,7 +389,7 @@
 							if (!combo)
 								return;
 							var val = combo.$target.val();
-							
+
 							combo.$element.val('');
 							combo.$target.val(combo.multiSelect ? [] : '');
 
@@ -369,7 +399,7 @@
 							if ($(this).val() !== '' && $(this).val() !== null) {
 								me.$clear.show()
 								combo.load(true, me.multiSelect ? $(this).val()
-												.join(	';') : $(this).val());
+												.join(';') : $(this).val());
 							} else {
 								console.log('remove')
 								combo.$target.find('option:not(.fixed)')
@@ -378,14 +408,15 @@
 
 							}
 							combo.$element.trigger('blur')
-							if (me.multiSelect && $(this).val() === null){
-								$.jPlaceholder.val(me.$element,me.placeholder)
+							if (me.multiSelect && $(this).val() === null) {
+								$.jPlaceholder.val(me.$element, me.placeholder)
 								me.$clear.hide()
-							}else{
+							} else {
 								me.$clear.show()
 							}
 							if (combo.multiSelect)
-								$.jPlaceholder.val(combo.$element,combo.placeholder)
+								$.jPlaceholder.val(combo.$element,
+										combo.placeholder)
 						})
 			}
 			this.$button.on('click', $.proxy(this.toggle, this))
@@ -394,7 +425,7 @@
 						e.stopPropagation()
 						e.preventDefault()
 						me.$menu.hide()
-						
+
 						me.shown = false
 						console.log('clear ' + me.$target.attr('id'))
 						var val = me.$target.val();
@@ -403,13 +434,15 @@
 
 						if (val2 === me.placeholder || val2 === '') {
 							console.log('no clear');
-							$.jPlaceholder.val(me.$element,me.placeholder)
-							
-							//me.$target.trigger('change')
+							$.jPlaceholder.val(me.$element, me.placeholder)
+
+							// me.$target.trigger('change')
 							return;
 						}
 						if (me.multiSelect) {
-							$.jPlaceholder.val(me.$element,me.placeholder)
+							me.$element.val('').focus()
+							$.jPlaceholder.val(me.$element, me.placeholder)
+
 						} else {
 							me.$element.val('').focus();
 						}
@@ -428,11 +461,13 @@
 		// moving around
 		,
 		keyup : function(e) {
-
+			console.log('key up')
 			switch (e.keyCode) {
+
 				case 40 : // down arrow
-				case 39 : // right arrow
 				case 38 : // up arrow
+					return
+				case 39 : // right arrow
 				case 37 : // left arrow
 				case 36 : // home
 				case 35 : // end
@@ -454,6 +489,17 @@
 					this.hide()
 					break
 
+				/*case 38 : // up arrow
+					//e.preventDefault()
+					//this.prev()
+					return
+					break
+
+				case 40 : // down arrow
+					//e.preventDefault()
+					//this.next()
+					return
+					break*/
 				default :
 					this.clearTarget()
 					this.lookup()
@@ -480,11 +526,37 @@
 			}
 			e.stopPropagation()
 			e.preventDefault()
-		}
+		},
+		/*
+				next : function(event) {
+					var active = this.$menu.find('.hover').removeClass('hover'), next = active
+							.next()
 
-		// modified typeahead function to only hide menu if it is
-		// visible
-		,
+					if (!next.length) {
+						next = $(this.$menu.find('li')[0])
+					}
+
+					next.addClass('hover')
+				}
+
+				,
+				prev : function(event) {
+					var active = this.$menu.find('.hover').removeClass('hover'), prev = active
+							.prev()
+
+					if (!prev.length) {
+						prev = this.$menu.find('li').last()
+					}
+
+					prev.addClass('hover')
+				}
+				// modified typeahead function to only hide menu if it is
+				// visible
+				,
+				mouseenter : function(e) {
+					this.$menu.find('.hover').removeClass('hover')
+					$(e.currentTarget).addClass('hover')
+				},*/
 		blur : function(e) {
 
 			var that = this
@@ -501,18 +573,19 @@
 				if (that.shown)
 					setTimeout(function() {
 
-								that.hide()
+								// that.hide()
 								that.shown = false;
 								if (that.$element.val() == ''
 										|| !that.findText(that.$element.val()))
-									$.jPlaceholder.val(that.$element,that.placeholder)
+									$.jPlaceholder.val(that.$element,
+											that.placeholder)
 							}, 150)
-				else
+				/*else
 					setTimeout(function() {
 								if (that.$element.val() == ''
 										|| !that.findText(that.$element.val()))
 									$.jPlaceholder.val(that.$element,that.placeholder)
-							}, 150)
+							}, 150)*/
 			}
 
 			e.stopPropagation()
@@ -559,7 +632,8 @@
 							// if (val.length)
 							// combo.$target.trigger('change');
 							combo.$target.val(combo.multiSelect ? [] : '')
-							$.jPlaceholder.val(combo.$element,combo.placeholder)
+							$.jPlaceholder.val(combo.$element,
+									combo.placeholder)
 							combo.refresh();
 
 							if (initValue) {
@@ -586,7 +660,7 @@
 								placeholder : $(this).attr('placeholder')
 										|| '请选择'
 							})
-					$.jPlaceholder.val(combo.$element,combo.placeholder)
+					$.jPlaceholder.val(combo.$element, combo.placeholder)
 					$this.data('combobox', combo)
 
 					var initValues = $(this).attr('val')
@@ -649,22 +723,27 @@
 	}
 	$.fn.combobox.defaults = {
 		template : '<div class="combobox-container"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"></span></span><span class="combobox-clear">×</span></div>',
-		menu : '<ul class="typeahead typeahead-long dropdown-menu"></ul>',
+		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>',
 		placeholder : null
 	}
 
 	$.fn.combobox.multiDefaults = {
-		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"></span></span><span class="combobox-clear">×</span></div>',
-		menu : '<ul class="typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
+		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"></span></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
+		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
 		item : '<li><input type="checkbox"><a href="#"></a></li>',
 		placeholder : null
 	}
 
 	$.fn.combobox.Constructor = Combobox
 
-	// $(function() {
+	// 
 	$('.combobox').combobox()
-	// })
+
+	$(function() {
+				// $('html').on('click.btn.dropdown-toggle', function(){
+				// console.log(688,$('.combobox-menu:visible'));
+				// $('.combobox-menu:visible').hide() })
+			})
 
 }(window.jQuery)

@@ -1026,11 +1026,24 @@
 							$.jTimer.addTimer($link, function() {
 										$.jPopover.showTrPopover($link, $tr,
 												$thead)
-									}, 600)
+									}, 400)
 						}
 
 					}, function() {
-						// $.jPopover.hideTrPopover()
+						
+						if (!p.allowPreview)
+							return
+
+						if ($.jPopover) {
+							$td = $(this).parents('td'), $div = $('div', $td), $link = $(
+									'a', $td)
+							if ($link.width() > $div.width()) {
+								$link = $div
+							}
+							$.jTimer.removeTimer($link)
+						}
+						
+						//$.jPopover.hideTrPopover()
 					})
 
 					$(this).click(function(e) {

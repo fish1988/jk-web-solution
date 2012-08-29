@@ -20,15 +20,17 @@
 							$input.val(v)
 					}
 				}
-
-	$(function() {
-				// IE debug
+				
+					// IE debug
 				if (!window.console) {
 					window.console = {
 						log : function(params) {
 						}
 					}
 				}
+
+	$(function() {
+			
 
 				// add-on data
 				$.jString = {}
