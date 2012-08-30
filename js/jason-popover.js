@@ -58,6 +58,15 @@
 			$('.popover').remove()
 			// $tdLink.popover('hide').popover('destroy')
 		}
+		
+		$('html').on('click.popover', function(e) {
+					if($(e.target).closest('.popover').length && !$(e.target).hasClass('close') )
+					//if($(e.target).parent().hasClass('popover') || $(e.target).parent().parent().hasClass('popover') || $(e.target).parent().parent().parent().hasClass('popover'))
+						return false
+					//$('[rel="popover"]').popover('hide')
+					 $('.popover').remove()
+
+					})
 
 	})
 

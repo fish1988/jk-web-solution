@@ -17,12 +17,17 @@
 		this.$container = this.setup(element)
 		this.placeholder = this.options.placeholder
 		this.$element = this.$container.find('input')
+
 		this.$element.attr('placeholder', this.placeholder)
 		this.$element.css({
 					width : this.width
 				})
 
 		this.$button = this.$container.find('.dropdown-toggle')
+		this.$button.on('click.combobox-menu.data-api', function() {
+					console.log('28','do')
+					return false;
+				})
 		this.$clear = this.$container.find('.combobox-clear')
 		this.$clear.hide()
 		this.$clear.css({
@@ -52,6 +57,10 @@
 
 		constructor : Combobox,
 
+		clearMenus : function() {
+			this.$menu.hide()
+			this.shown = false
+		},
 		reset : function() {
 			if (this.$target.hasClass('not-set-value')) {
 				// console.log(this.$target,this.$target.find('option:not(.fixed)'),'remove')
@@ -169,7 +178,7 @@
 		toggle : function() {
 
 			if (!this.shown) {
-				$('.dropdown-menu').hide();
+				$('.dropdown-menu', this.$container).hide();
 				console.log('button click')
 				var v = this.$element.val()
 				this.$element.val('').focus()
@@ -650,10 +659,15 @@
 	 * COMBOBOX PLUGIN DEFINITION ===========================
 	 */
 
-	$.fn.combobox = function() {
+	$.fn.combobox = function(option) {
 		this.each(function() {
-					var $this = $(this), combo
+					var $this = $(this), combo = $this.data('combobox')
 
+					if (combo) {
+						if (typeof option == 'string')
+							combo[option]()
+							return
+					}
 					// console.log($(this).attr('val'));
 					combo = new Combobox(this, {
 								width : $(this).attr('width') || 220,
@@ -693,8 +707,6 @@
 					}
 					// console.log($.combobox.initValues);
 
-					if (typeof option == 'string')
-						combo[option]()
 					// console.log(combo);
 					if ($this.attr('id')) {
 						$.combobox[$this.attr('id')] = combo;
@@ -741,9 +753,19 @@
 	$('.combobox').combobox()
 
 	$(function() {
-				// $('html').on('click.btn.dropdown-toggle', function(){
-				// console.log(688,$('.combobox-menu:visible'));
-				// $('.combobox-menu:visible').hide() })
+		$('html').on('click.combobox-menu', function(e) {
+			/*if($(e.target).closest('.popover').length && !$(e.target).hasClass('close') )
+			//if($(e.target).parent().hasClass('popover') || $(e.target).parent().parent().hasClass('popover') || $(e.target).parent().parent().parent().hasClass('popover'))
+				return false*/
+			// $('.combobox-menu').hide()
+			$('.combobox').combobox('clearMenus')
+			console.log('753', 'hide combo-menu')
+				// $('.popover').remove()
+
 			})
+			// $('html').on('click.btn.dropdown-toggle', function(){
+			// console.log(688,$('.combobox-menu:visible'));
+			// $('.combobox-menu:visible').hide() })
+		})
 
 }(window.jQuery)

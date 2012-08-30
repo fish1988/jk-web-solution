@@ -20,28 +20,17 @@
 							}
 						})*/
 
-				// common click hide dropdowns
-				/*$(document).click(function(e) {
-					e.stopPropagation()
-					var $target = $('.clickOutsideHide:visible')
-					var $clicked = $(e.target)
-					console.log(27, $target, $clicked,!$clicked.parents('ul.clickOutsideHide').length)
-					
-					if($target.length == 0)return
-					if($target.length>0 && !$clicked.hasClass('dropdown-toggle')&& !$clicked.parents('ul.clickOutsideHide').length){
-						$target.hide()
-					}
-					if ($target.length > 0
-							&& $clicked.parent('.clickOutsideHide').length > 0) {
-						$target.hide()
-					}
-					
-						if ($.trim(myTarget) != '') {
-						if ($('.' + myTarget) != clicked) {
-							$('.clickOutsideHide').hide();
-						}
-					}
-				})*/
+				// common click hide divs
+				$('html').on('click.clickOutHide', function(e) {
+					if ($(e.target).hasClass('show-hide-switch'))
+						return false
+
+					if ($(e.target).closest('.clickOutHide').length
+							&& !$(e.target).hasClass('close'))
+						return false
+					$('.clickOutHide').addClass('hidden')
+
+				})
 
 				$('.show-hide-switch,.show-switch,.hide-switch').click(
 						function() {
