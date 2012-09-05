@@ -870,7 +870,7 @@
 										}, 0);
 								// console.log(p.rendererCache)
 								me.checkToolBarStat()
-								$.jPopover.hideTrPopover()
+								//$.jPopover.hideTrPopover()
 								// p.allowPreview = true
 								if (p.checkbox)
 									$('input', g.hDiv)[0].checked = '';
