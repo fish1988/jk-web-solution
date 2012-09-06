@@ -42,8 +42,8 @@
 <!--[if IE 6]>   
 		<link href="css/ie6.css" rel="stylesheet">
     <![endif]-->
-    
- <!--[if IE 7]>
+
+<!--[if IE 7]>
   <link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.css">
 <![endif]-->
 </head>
@@ -88,10 +88,10 @@
 	</div>
 
 	<!-- <form id="search-form" class="well form-search main-search"> -->
-	<div  class="form-query well form-search main-search">
+	<div class="form-query well form-search main-search">
 		<img class="search-logo" src="img/sj-logo.png"
 			style="float: left; margin-top: -10px;" /> <input type="text"
-			title="请输入渠道号、应用名称、打包人..." id="query-txt" name="query-txt"
+			title="请输入合作方、渠道号、应用名称、打包人..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#share-form">
@@ -102,7 +102,7 @@
 					<a class="close show-hide-switch" show-hide="query-detail">×</a>
 
 					<fieldset>
-						<div class="control-group">
+						<div class="control-group half-line">
 							<label class="control-label" for="userId">userId</label>
 							<div class="controls">
 								<select class="combobox" id="userId" name="userId"
@@ -111,7 +111,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="control-group">
+						<div class="control-group half-line">
 							<label class="control-label" for="userName">userName</label>
 							<div class="controls">
 								<select class="combobox" id="userName" name="userName"
@@ -121,10 +121,20 @@
 							</div>
 						</div>
 
-						<div class="control-group">
+						<div class="control-group half-line">
 							<label class="control-label" for="userName2">userName2</label>
 							<div class="controls">
 								<select class="combobox" id="userName2" name="userName2"
+									data-url="combo3">
+									<option value="" class="fixed"></option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="control-group half-line">
+							<label class="control-label" for="userName3">userName3</label>
+							<div class="controls">
+								<select class="combobox" autoload="true" id="userName3" name="userName3"
 									data-url="combo3">
 									<option value="" class="fixed"></option>
 								</select>
@@ -184,10 +194,10 @@
 
 		<ul data-type="status"
 			class="nav nav-list nav-left-choose active-switch more-search-tools">
-			
+
 			<li class="selected" data-id="1"><a href="#">有效</a></li>
 			<li data-id="2"><a href="#">无效</a></li>
-			<li data-id="" ><a href="#">所有状态</a></li>
+			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
 
@@ -237,7 +247,7 @@
 			<div class="btn-group">
 				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
 					class="icon-repeat"></i></a>
-					<!-- <a class="grid-preview btn toolbar-icon-btn j-tooltip-b active" data-toggle="button" title="关闭自动预览"><i
+				<!-- <a class="grid-preview btn toolbar-icon-btn j-tooltip-b active" data-toggle="button" title="关闭自动预览"><i
 					class="icon-eye-open"></i></a> -->
 			</div>
 			<div class="grid-result-pager btn-group pull-right">
@@ -251,13 +261,14 @@
 
 		</div>
 		<table id="myGrid" class="grid" data-url="data.txt" row-id="iso"
-			sort-name="iso;iso" sort-order="asc" checkbox="true" resizable="false"
-			grid-height="auto">
+			sort-name="iso;iso" sort-order="asc" checkbox="true"
+			resizable="false" grid-height="auto">
 			<thead>
 				<tr>
-					<th name="iso3" sortable="false" data-render="cmdChange"
-						width="50" align="right">&nbsp;</th>
-					<th name="iso;iso" fixed="true" data-render="downloadChange" sortable="true" width="100" align="left">应用名称</th>
+					<th name="iso3" sortable="false" data-render="cmdChange" width="50"
+						align="right">&nbsp;</th>
+					<th name="iso;iso" fixed="true" data-render="downloadChange"
+						sortable="true" width="100" align="left">应用名称</th>
 					<th name="name" data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
 						align="left">应用版本</th>
@@ -268,18 +279,20 @@
 					<th name="name" data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
 						align="left">打包状态</th>
-					<th name="iso;iso" hidden fixed="true" data-render="downloadChange" sortable="true" width="100" align="left">应用名称</th>
+					<th name="iso;iso" hidden fixed="true" data-render="downloadChange"
+						sortable="true" width="100" align="left">应用名称</th>
 					<th name="name" hidden data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
 						align="left">应用版本</th>
-					<th name="printable_name" hidden sortable="true" width="150" align="left">发布平台</th>
-					<th name="iso3"  hidden sortable="true" width="150" align="left">系统平台</th>
+					<th name="printable_name" hidden sortable="true" width="150"
+						align="left">发布平台</th>
+					<th name="iso3" hidden sortable="true" width="150" align="left">系统平台</th>
 					<th name="numcode;iso3" hidden data-render="downloadChange"
 						sortable="true" width="100" align="left">下载链接</th>
 					<th name="name" hidden data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
 						align="left">打包状态</th>
-						
+
 				</tr>
 			</thead>
 		</table>
@@ -307,55 +320,6 @@
 								<option>CSS</option>
 								<option>Canvas</option>
 							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="iso">标题</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="iso" id="iso"
-								required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="demoUrl">演示地址</label>
-						<div class="controls">
-							<input type="url" class="input-xlarge use-one" name="demoUrl"
-								id="demoUrl" value="http://jsfiddle.net/">
-							<p class="help-block">请输入jsfiddle或github地址</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="srcFile">代码上传</label>
-						<div class="controls">
-							<input class="uploadJs input-file use-one demoJs" id="srcFile"
-								name="srcFile" type="file">
-							<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="iso3">代码说明</label>
-						<div class="controls">
-							<textarea class="input-xlarge" name="iso3" " id="iso3" rows="3">test</textarea>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="tags">标签</label>
-						<div class="controls">
-							<input class="span1 fill-one" id="tag1" type="text"> <input
-								class="span1 fill-one" id="tag2" type="text"> <input
-								class="span1 fill-one" id="tag3" type="text"> <input
-								class="span1 fill-one" id="tag4" type="text"> <input
-								class="span1 fill-one tags" id="tag5" type="text">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="testRadio">是否原创</label>
-						<div class="controls">
-							<label class="radio inline"> <input type="radio"
-								name="testRadio" id="testRadio" value="0">原创
-							</label><label class="radio inline"> <input type="radio"
-								name="testRadio" id="testRadio" value="1">非原创
-							</label>
 						</div>
 					</div>
 					<div class="control-group">
@@ -410,6 +374,56 @@
 							</select>
 						</div>
 					</div>
+					<div class="control-group">
+						<label class="control-label" for="iso">标题</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" name="iso" id="iso"
+								required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="demoUrl">演示地址</label>
+						<div class="controls">
+							<input type="url" class="input-xlarge use-one" name="demoUrl"
+								id="demoUrl" value="http://jsfiddle.net/">
+							<p class="help-block">请输入jsfiddle或github地址</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="srcFile">代码上传</label>
+						<div class="controls">
+							<input class="uploadJs input-file use-one demoJs" id="srcFile"
+								name="srcFile" type="file">
+							<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="iso3">代码说明</label>
+						<div class="controls">
+							<textarea class="input-xlarge" name="iso3" " id="iso3" rows="3">test</textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="tags">标签</label>
+						<div class="controls">
+							<input class="span1 fill-one" id="tag1" type="text"> <input
+								class="span1 fill-one" id="tag2" type="text"> <input
+								class="span1 fill-one" id="tag3" type="text"> <input
+								class="span1 fill-one" id="tag4" type="text"> <input
+								class="span1 fill-one tags" id="tag5" type="text">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="testRadio">是否原创</label>
+						<div class="controls">
+							<label class="radio inline"> <input type="radio"
+								name="testRadio" id="testRadio" value="0">原创
+							</label><label class="radio inline"> <input type="radio"
+								name="testRadio" id="testRadio" value="1">非原创
+							</label>
+						</div>
+					</div>
+
 
 				</fieldset>
 
@@ -442,7 +456,7 @@
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/jason-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
-	
+
 	<script src="js/jason-search.js"></script>
 	<script src="js/jason-msg.js"></script>
 	<script src="js/jason-base.js"></script>
@@ -462,7 +476,7 @@
 
 	<script src="js/jason-tooltip.js"></script>
 	<script src="js/jason-timer.js"></script>
-	<script src="js/jason-tour.js"></script>
+	<!-- <script src="js/jason-tour.js"></script> -->
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>
     <![endif]-->

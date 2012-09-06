@@ -31,7 +31,7 @@
 					$('.clickOutHide').addClass('hidden')
 
 				})
-
+				
 				$('.show-hide-switch,.show-switch,.hide-switch').click(
 						function() {
 							console.log($(this))

@@ -25,7 +25,7 @@
 
 		this.$button = this.$container.find('.dropdown-toggle')
 		this.$button.on('click.combobox-menu.data-api', function() {
-					console.log('28','do')
+					console.log('28', 'do')
 					return false;
 				})
 		this.$clear = this.$container.find('.combobox-clear')
@@ -37,6 +37,7 @@
 		this.matcher = this.options.matcher || this.matcher
 		this.sorter = this.options.sorter || this.sorter
 		this.highlighter = this.options.highlighter || this.highlighter
+		//this.$menu = $(this.options.menu).appendTo('body')
 		this.$menu = $(this.options.menu).appendTo(this.$container)
 		this.$menu.width(this.width + 11)
 
@@ -178,7 +179,8 @@
 		toggle : function() {
 
 			if (!this.shown) {
-				$('.dropdown-menu', this.$container).hide();
+				$('.combobox').combobox('clearMenus')
+				//$('.dropdown-menu', this.$container).hide();
 				console.log('button click')
 				var v = this.$element.val()
 				this.$element.val('').focus()
@@ -200,7 +202,7 @@
 					// this.$clear.hide()
 				}
 			} else {
-				$('.dropdown-menu').hide()
+				$('.dropdown-menu', this.$container).hide()
 				this.shown = false
 			}
 		}
@@ -400,7 +402,8 @@
 							var val = combo.$target.val();
 
 							combo.$element.val('');
-							combo.$target.val(combo.multiSelect ? [] : '');
+							combo.$target.val(combo.multiSelect ? [] : '')
+							combo.$clear.hide()
 
 							if (combo.multiSelect)
 								combo.$target.trigger('change')
@@ -444,9 +447,10 @@
 						if (val2 === me.placeholder || val2 === '') {
 							console.log('no clear');
 							$.jPlaceholder.val(me.$element, me.placeholder)
+							
 
 							// me.$target.trigger('change')
-							return;
+							return
 						}
 						if (me.multiSelect) {
 							me.$element.val('').focus()
@@ -481,7 +485,7 @@
 				case 36 : // home
 				case 35 : // end
 				case 16 : // shift
-					break
+				break
 
 				case 9 : // tab
 				case 13 : // enter
@@ -489,14 +493,14 @@
 						return
 
 					this.select()
-					break
+				break
 
 				case 27 : // escape
 					if (!this.shown)
 						return
 
 					this.hide()
-					break
+				break
 
 				/*case 38 : // up arrow
 					//e.preventDefault()
@@ -569,7 +573,7 @@
 		blur : function(e) {
 
 			var that = this
-
+			console.log(573, 'blur')
 			if (this.multiSelect) {
 				// console.log('hide - 441')
 				/*
@@ -579,16 +583,24 @@
 				 * '') that.$element.val(that.placeholdeXr); }, 1500)
 				 */
 			} else {
-				if (that.shown)
-					setTimeout(function() {
 
-								// that.hide()
-								that.shown = false;
-								if (that.$element.val() == ''
-										|| !that.findText(that.$element.val()))
-									$.jPlaceholder.val(that.$element,
-											that.placeholder)
-							}, 150)
+				setTimeout(function() {
+
+							// that.hide()
+							// that.shown = false;
+							if (that.$element.val() == '') {
+								// console.log('not found',
+								// that.$element.val(''))
+								
+								$.jPlaceholder.val(that.$element,
+										that.placeholder)
+							}
+							
+							if(!that.findText(that.$element.val())){
+								that.setSingleValue('')
+								//that.$target.trigger('change')
+							}
+						}, 150)
 				/*else
 					setTimeout(function() {
 								if (that.$element.val() == ''
@@ -666,7 +678,7 @@
 					if (combo) {
 						if (typeof option == 'string')
 							combo[option]()
-							return
+						return
 					}
 					// console.log($(this).attr('val'));
 					combo = new Combobox(this, {

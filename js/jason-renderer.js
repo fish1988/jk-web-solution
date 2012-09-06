@@ -98,7 +98,7 @@
 				}
 				
 				$.jRenderer.cmdChange = function(v) {
-					var template = '<a class="cmd j-opacity6" href="#" title="已无效"><i class="icon-trash"></i></a>'
+					var template = '<span class="cmd j-opacity6" title="已无效"><i class="icon-trash"></i></span>'
 					//  <a class="cmd j-opacity8" href="#" title="详细..."><i class="icon-eye-open"></i></a>
 					return $.jRenderer.valueChange(v, template, 'format')
 				}
