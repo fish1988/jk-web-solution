@@ -97,8 +97,8 @@
 			target-form="#share-form">
 		<div class="query-detail hidden clickOutHide">
 			<div>
-				<form id="share-form" action="data.txt" class="form-query highlight"
-					grid-reload="#myGrid">
+				<form id="share-form" action="data.txt" style="margin-bottom: 5px;"
+					class="form-query highlight" grid-reload="#myGrid">
 					<a class="close show-hide-switch" show-hide="query-detail">×</a>
 
 					<fieldset>
@@ -130,12 +130,12 @@
 								</select>
 							</div>
 						</div>
-						
+
 						<div class="control-group half-line">
 							<label class="control-label" for="userName3">userName3</label>
 							<div class="controls">
-								<select class="combobox" autoload="true" id="userName3" name="userName3"
-									data-url="combo3">
+								<select class="combobox" autoload="true" id="userName3"
+									name="userName3" data-url="combo3">
 									<option value="" class="fixed"></option>
 								</select>
 							</div>
@@ -158,6 +158,13 @@
 						</div>
 					</fieldset>
 
+					<div class="simple-form-actions">
+						<button title="点击查询" class="btn btn-primary btn-search"
+							style="margin-left: 0;">
+							<span class="add-on icon-white icon-search"></span>
+						</button>
+						<a style="margin-top: 8px;" class="clear-form pull-right" href="#">清空表单</a>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -174,6 +181,7 @@
 		<div class="page-title">
 			<a href="query.html">应用管理</a>
 		</div>
+		<label class="left-nav-label">平台选择</label>
 		<ul data-type="platformId"
 			class="nav nav-list nav-left-text active-switch">
 			<li data-id="" class="selected"><a href="#">所有平台</a></li>
@@ -200,9 +208,11 @@
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
-
+		
+		<label class="left-nav-label">创建时间</label>
 		<ul
 			class="nav nav-list nav-left-choose active-switch more-search-tools">
+
 			<li class="selected"><a href="#">时间不限</a></li>
 			<li><a href="#">最近一周</a></li>
 			<li><a href="#">最近一月</a></li>
@@ -309,7 +319,7 @@
 			<div class="modal-body">
 
 				<fieldset>
-					<div class="control-group">
+					<div class="control-group edit-hide">
 						<label class="control-label" for="name">语言</label>
 						<div class="controls">
 							<select id="lan-select" name="lan-select" required>
@@ -365,10 +375,10 @@
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group test-form-edit">
 						<label class="control-label" for="combo-4">不是级联</label>
 						<div class="controls">
-							<select id="combo-4" class="combobox" name="combo-4" width="200"
+							<select id="combo-4" class="combobox edit-disable" name="combo-4" width="200"
 								required autoload="true" data-url="combo2">
 								<option value="" class="fixed"></option>
 							</select>
@@ -377,7 +387,7 @@
 					<div class="control-group">
 						<label class="control-label" for="iso">标题</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="iso" id="iso"
+							<input type="text" class="input-xlarge edit-disable" name="iso" id="iso"
 								required>
 						</div>
 					</div>

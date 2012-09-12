@@ -62,6 +62,17 @@
 			this.$menu.hide()
 			this.shown = false
 		},
+		
+		disabled : function(){
+			this.$button.addClass('hidden')
+			this.$clear.addClass('hidden')
+			this.$element.attr('disabled',true)
+		},
+		actived : function(){
+			this.$button.removeClass('hidden')
+			this.$clear.removeClass('hidden')
+			this.$element.removeAttr('disabled')
+		},
 		reset : function() {
 			if (this.$target.hasClass('not-set-value')) {
 				// console.log(this.$target,this.$target.find('option:not(.fixed)'),'remove')

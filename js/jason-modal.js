@@ -26,11 +26,20 @@
 
 					// reset form
 					$('form', me).each(function() {
-								if (me.attr('record') || me.attr('data-url'))
+								if (me.attr('record') || me.attr('data-url')){
 									$.jForm.reset($(this))
-								else
+									
+									// form items change
+									$.jForm.itemEditChange($(this),'edit')
+								}
+								else{
 									$.jForm.reset($(this), 'new')
+									// form items change
+									$.jForm.itemEditChange($(this),'new')
+								}
 							})
+					
+					
 
 					// load record
 					if (me.attr('record')) {
@@ -59,6 +68,8 @@
 								})
 						return
 					}
+					
+
 				})
 
 				$('.modal').on('hidden', function() {

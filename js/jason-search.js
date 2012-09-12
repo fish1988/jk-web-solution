@@ -41,6 +41,13 @@
 	Search.prototype = $.extend({}, $.fn.typeahead.Constructor.prototype, {
 
 		constructor : Search,
+		clearItems : function(){
+			var search = this.$container
+			$('.query-item', search).remove()
+			this.adjust()
+			
+			console.log('49  clearItems----',$('.query-item', search))
+		},
 		getAdditionItem : function(query) {
 			var me = this, form = $(me.targetForm), items = []
 
@@ -378,7 +385,13 @@
 
 	$.fn.search = function() {
 		this.each(function() {
-					var $this = $(this), mySearch
+					var $this = $(this), mySearch = $this.data('search')
+					if (mySearch) {
+						if (typeof option == 'string')
+							mySearch[option]()
+						return
+					}
+					
 					mySearch = new Search(this, {
 								// source :
 								// $.parseJSON($this.attr('data-source')) || [],
@@ -394,6 +407,8 @@
 								 */
 								menuWidth : $this.css('width')
 							})
+					$this.data('search', mySearch)
+					
 				})
 	}
 

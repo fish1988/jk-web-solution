@@ -129,6 +129,21 @@
 			}
 
 		}
+
+		// form item change
+		$.jForm.itemEditChange = function(form, status) {
+			if (status == 'new') {
+				$('.edit-hide', form).removeClass('hidden')
+				$('.edit-disable', form).removeAttr('disabled')
+				$('.edit-disable.combobox', form).combobox('actived')
+			} else if (status == 'edit') {
+				$('.edit-hide', form).addClass('hidden')
+				$('.edit-disable', form).attr('disabled', true)
+				$('.edit-disable.combobox', form).combobox('disabled')
+			}
+
+		}
+
 		$.jForm.loadRecord = function(form, record) { // !!!
 
 			for (var i in record) {
@@ -232,6 +247,13 @@
 		$('form').each(function() {
 			var f = $(this)
 			$.jForm.setDefault(f)
+
+			$('.clear-form', f).click(function() {
+						$.jForm.reset(f)
+						if(f.attr('id')){
+							$('.search[target-form="#'+f.attr('id')+'"]').search('clearItems')
+						}
+					})
 			if (f.hasClass('highlight')) {
 				f.validate({
 							highlight : function(label) {
@@ -251,23 +273,26 @@
 			// query form
 			if (f.hasClass('form-query')) {
 				f.submit(function() {
-							// add left-nav params
-							var leftNavParams = {}
-							$(".left-nav li.selected").each(function(i, li) {
-										var $this = $(li)
-										if(typeof $this.attr('data-id')!=='undefined'){
-											var paramId = $this.parents('ul').attr('data-type')
-											if(typeof paramId !=='undefined'){
-												leftNavParams[paramId] = $this.attr('data-id')
-											}
-										}
-									})
-							console.log('left',leftNavParams)
-							$(f.attr('grid-reload')).flexOptions({
-										params : $.extend(f.serializeObject(),leftNavParams)
-									}).flexReload()
-							return false
-						}).trigger('submit')
+					// add left-nav params
+					var leftNavParams = {}
+					$(".left-nav li.selected").each(function(i, li) {
+								var $this = $(li)
+								if (typeof $this.attr('data-id') !== 'undefined') {
+									var paramId = $this.parents('ul')
+											.attr('data-type')
+									if (typeof paramId !== 'undefined') {
+										leftNavParams[paramId] = $this
+												.attr('data-id')
+									}
+								}
+							})
+					console.log('left', leftNavParams)
+					$(f.attr('grid-reload')).flexOptions({
+								params : $.extend(f.serializeObject(),
+										leftNavParams)
+							}).flexReload()
+					return false
+				}).trigger('submit')
 			}
 
 			// default actions
