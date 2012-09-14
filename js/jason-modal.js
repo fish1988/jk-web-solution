@@ -9,7 +9,11 @@
 
 	/* Modal actions
 	 * ============== */
-
+	$.fn.modal.defaults = {
+		backdrop : 'static',
+		keyboard : true,
+		show : true
+	}
 	$(function() {
 				$('.modal').on('show', function() {
 					var me = $(this)
@@ -26,20 +30,17 @@
 
 					// reset form
 					$('form', me).each(function() {
-								if (me.attr('record') || me.attr('data-url')){
+								if (me.attr('record') || me.attr('data-url')) {
 									$.jForm.reset($(this))
-									
+
 									// form items change
-									$.jForm.itemEditChange($(this),'edit')
-								}
-								else{
+									$.jForm.itemEditChange($(this), 'edit')
+								} else {
 									$.jForm.reset($(this), 'new')
 									// form items change
-									$.jForm.itemEditChange($(this),'new')
+									$.jForm.itemEditChange($(this), 'new')
 								}
 							})
-					
-					
 
 					// load record
 					if (me.attr('record')) {
@@ -68,7 +69,6 @@
 								})
 						return
 					}
-					
 
 				})
 

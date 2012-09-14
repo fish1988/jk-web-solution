@@ -1026,7 +1026,7 @@
 							$.jTimer.addTimer($link, function() {
 										$.jPopover.showTrPopover($link, $tr,
 												$thead)
-									}, 400)
+									}, 200)
 						}
 
 					}, function() {

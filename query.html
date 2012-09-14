@@ -22,6 +22,8 @@
 <link href="css/navbar.css" rel="stylesheet">
 <link href="css/datepicker.css" rel="stylesheet">
 <link href="css/combobox.css" rel="stylesheet">
+<link href="css/fileupload.css" rel="stylesheet">
+<link href="css/imagepreview.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
 <link href="css/grid.css" rel="stylesheet">
 <link href="css/alert.css" rel="stylesheet">
@@ -87,8 +89,7 @@
 		</div>
 	</div>
 
-	<!-- <form id="search-form" class="well form-search main-search"> -->
-	<div class="form-query well form-search main-search">
+	<div class="well form-search main-search">
 		<img class="search-logo" src="img/sj-logo.png"
 			style="float: left; margin-top: -10px;" /> <input type="text"
 			title="请输入合作方、渠道号、应用名称、打包人..." id="query-txt" name="query-txt"
@@ -96,81 +97,81 @@
 			class="j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#share-form">
 		<div class="query-detail hidden clickOutHide">
-			<div>
-				<form id="share-form" action="data.txt" style="margin-bottom: 5px;"
-					class="form-query highlight" grid-reload="#myGrid">
-					<a class="close show-hide-switch" show-hide="query-detail">×</a>
+			<form id="share-form" action="data.txt" style="margin-bottom: 5px;"
+				class="form-query highlight" grid-reload="#myGrid">
+				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 
-					<fieldset>
-						<div class="control-group half-line">
-							<label class="control-label" for="userId">userId</label>
-							<div class="controls">
-								<select class="combobox" id="userId" name="userId"
-									data-url="combo1" autoload="true">
-									<option value="" class="fixed"></option>
-								</select>
-							</div>
+				<fieldset>
+					<div class="control-group half-line">
+						<label class="control-label" for="userId">userId</label>
+						<div class="controls">
+							<select class="combobox" id="userId" name="userId"
+								data-url="combo1" autoload="true">
+								<option value="" class="fixed"></option>
+							</select>
 						</div>
-						<div class="control-group half-line">
-							<label class="control-label" for="userName">userName</label>
-							<div class="controls">
-								<select class="combobox" id="userName" name="userName"
-									data-url="combo2" autoload="true" child-id="userName2">
-									<option value="" class="fixed"></option>
-								</select>
-							</div>
-						</div>
-
-						<div class="control-group half-line">
-							<label class="control-label" for="userName2">userName2</label>
-							<div class="controls">
-								<select class="combobox" id="userName2" name="userName2"
-									data-url="combo3">
-									<option value="" class="fixed"></option>
-								</select>
-							</div>
-						</div>
-
-						<div class="control-group half-line">
-							<label class="control-label" for="userName3">userName3</label>
-							<div class="controls">
-								<select class="combobox" autoload="true" id="userName3"
-									name="userName3" data-url="combo3">
-									<option value="" class="fixed"></option>
-								</select>
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="channelId">channelId</label>
-							<div class="controls">
-								<input class="j-search-item" title="渠道号" id="channelId"
-									name="channelId">
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="channelName">channelName</label>
-							<div class="controls">
-								<input class="j-search-item" title="渠道名" id="channelName"
-									name="channelName">
-							</div>
-						</div>
-					</fieldset>
-
-					<div class="simple-form-actions">
-						<button title="点击查询" class="btn btn-primary btn-search"
-							style="margin-left: 0;">
-							<span class="add-on icon-white icon-search"></span>
-						</button>
-						<a style="margin-top: 8px;" class="clear-form pull-right" href="#">清空表单</a>
 					</div>
-				</form>
-			</div>
+					<div class="control-group half-line">
+						<label class="control-label" for="userName">userName</label>
+						<div class="controls">
+							<select class="combobox" id="userName" name="userName"
+								data-url="combo2" autoload="true" child-id="userName2">
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group half-line">
+						<label class="control-label" for="userName2">userName2</label>
+						<div class="controls">
+							<select class="combobox" id="userName2" name="userName2"
+								data-url="combo3">
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group half-line">
+						<label class="control-label" for="userName3">userName3</label>
+						<div class="controls">
+							<select class="combobox" autoload="true" id="userName3"
+								name="userName3" data-url="combo3">
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="channelId">channelId</label>
+						<div class="controls">
+							<input class="j-search-item" title="渠道号" id="channelId"
+								name="channelId">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="channelName">channelName</label>
+						<div class="controls">
+							<input class="j-search-item" title="渠道名" id="channelName"
+								name="channelName">
+						</div>
+					</div>
+				</fieldset>
+
+				<div class="simple-form-actions">
+					<button title="点击查询" class="submit-form btn btn-primary btn-search"
+						target-form="#share-form" style="margin-left: 0;">
+						<span class="add-on icon-white icon-search"></span>
+					</button>
+					<a style="margin-top: 8px;" class="clear-form pull-right"
+						target-form="#share-form" href="#">清空表单</a>
+				</div>
+			</form>
 		</div>
 
 		<div class="query-btn">
-			<button title="点击查询" class="btn btn-primary btn-search">
+			<button title="点击查询" class="submit-form btn btn-primary btn-search"
+				target-form="#share-form">
 				<span class="add-on icon-white icon-search"></span>
 			</button>
 		</div>
@@ -181,7 +182,7 @@
 		<div class="page-title">
 			<a href="query.html">应用管理</a>
 		</div>
-		<label class="left-nav-label">平台选择</label>
+		<!-- <label class="left-nav-label">平台选择</label> -->
 		<ul data-type="platformId"
 			class="nav nav-list nav-left-text active-switch">
 			<li data-id="" class="selected"><a href="#">所有平台</a></li>
@@ -191,6 +192,12 @@
 			<li data-id="4"><a href="#">WinPhone</a></li>
 			<li data-id="5"><a href="#">PC</a></li>
 			<li class="divider"></li>
+		</ul>
+
+		<ul data-type="testUl"
+			class="remote-ul nav nav-list nav-left-choose active-switch more-search-tools"
+			data-url="combo2">
+			<li data-id="" class="selected"><a href="#">不限</a></li>
 		</ul>
 
 		<ul data-type="packStatus"
@@ -208,7 +215,7 @@
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
-		
+
 		<label class="left-nav-label">创建时间</label>
 		<ul
 			class="nav nav-list nav-left-choose active-switch more-search-tools">
@@ -334,7 +341,8 @@
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="testCheckbox">代码说明</label>
-						<div class="controls">
+						<div class="controls remote-checkbox" target-name="testCheckbox"
+							data-url="combo2">
 							<label class="checkbox inline"><input type="checkbox"
 								name="testCheckbox" id="testCheckbox" value="0" checked>原创
 							</label><label class="checkbox inline"><input type="checkbox"
@@ -378,8 +386,8 @@
 					<div class="control-group test-form-edit">
 						<label class="control-label" for="combo-4">不是级联</label>
 						<div class="controls">
-							<select id="combo-4" class="combobox edit-disable" name="combo-4" width="200"
-								required autoload="true" data-url="combo2">
+							<select id="combo-4" class="combobox edit-disable" name="combo-4"
+								width="200" autoload="true" data-url="combo2" required>
 								<option value="" class="fixed"></option>
 							</select>
 						</div>
@@ -387,8 +395,8 @@
 					<div class="control-group">
 						<label class="control-label" for="iso">标题</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge edit-disable" name="iso" id="iso"
-								required>
+							<input type="text" class="input-xlarge edit-disable" name="iso"
+								id="iso" required>
 						</div>
 					</div>
 					<div class="control-group">
@@ -408,6 +416,38 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="srcFile2">图片上传</label>
+						<div class="controls">
+							<input class="image-preview input-file use-one demoJs" id="srcFile2" 
+								name="srcFile2" type="file" target-id="screen-img" target-required="true" >
+							<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
+						</div>
+					</div>
+
+					<!-- <div class="control-group">
+						<label class="control-label" for="srcFile2">代码上传2</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="input-append">
+									<div class="uneditable-input span2">
+										<i class="icon-file fileupload-exists"></i> <span
+											class="fileupload-preview"></span>
+									</div>
+									<span class="btn btn-file"><span class="fileupload-new">选
+											择</span><span class="fileupload-exists">更 改</span><input
+										class="uploadJs input-file use-one demoJs" id="srcFile2"
+										name="srcFile2" type="file"></span> <a href="#"
+										class="btn fileupload-exists" data-dismiss="fileupload">移
+										除</a>
+								</div>
+							</div>
+							<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
+						</div>
+					</div> -->
+
+
+
+					<div class="control-group">
 						<label class="control-label" for="iso3">代码说明</label>
 						<div class="controls">
 							<textarea class="input-xlarge" name="iso3" " id="iso3" rows="3">test</textarea>
@@ -425,7 +465,8 @@
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="testRadio">是否原创</label>
-						<div class="controls">
+						<div class="controls remote-radio" target-name="testRadio"
+							data-url="combo2">
 							<label class="radio inline"> <input type="radio"
 								name="testRadio" id="testRadio" value="0">原创
 							</label><label class="radio inline"> <input type="radio"
@@ -467,6 +508,7 @@
 	<script src="js/bootstrap/jason-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
 
+	<script src="js/jason-radio.js"></script>
 	<script src="js/jason-search.js"></script>
 	<script src="js/jason-msg.js"></script>
 	<script src="js/jason-base.js"></script>
@@ -479,6 +521,8 @@
 	<script src="js/jason-dom.js"></script>
 	<script src="js/jason-button.js"></script>
 	<script src="js/jason-combobox.js"></script>
+	<!-- 	<script src="js/jason-fileupload.js"></script> -->
+	<script src="js/jason-img-preview.js"></script>
 
 	<script src="js/jason-grid.js"></script>
 	<script src="js/jason-modal.js"></script>

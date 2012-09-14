@@ -153,11 +153,11 @@
 						var $this = $(this)
 						if ($this.hasClass('active')) {
 							$.jgrid.getGrid(this).flexAllowPreview(false)
-							$this.attr('data-original-title','打开自动预览')
+							$this.attr('data-original-title', '打开自动预览')
 							$('.tooltip .tooltip-inner').text('打开自动预览')
-						}else{
+						} else {
 							$.jgrid.getGrid(this).flexAllowPreview(true)
-							$this.attr('data-original-title','关闭自动预览')
+							$this.attr('data-original-title', '关闭自动预览')
 							$('.tooltip .tooltip-inner').text('关闭自动预览')
 						}
 					})
@@ -167,13 +167,14 @@
 					})
 
 			// left-nav grid action
-			$('.left-nav li').click(function() {
-				// var timer
-				var $this = $(this), $grid = $($this.parents('.left-nav')
+			$('.left-nav').on('click.left-nav', function(e) {
+				var $this = $(e.target).parent(), $grid = $($this.parents('.left-nav')
 						.attr('grid-reload')), param = $this.parents('ul')
 						.attr('data-type')
+				
+				console.log('grid 176',$this)
 				if ($grid.length == 0 || typeof param == 'undefined')
-					return
+					return false
 				// console.log('click', 'valid')
 				if (typeof $this.attr('data-id') !== 'undefined') {
 					// console.log($grid.p)

@@ -22,7 +22,7 @@
 					},
 					dataType : 'json',
 					error : function(request, status, error) {
-						alert('内部错误');
+						console.log('内部错误');
 					}
 				});
 			// loading mask

@@ -5,8 +5,8 @@
 !function($) {
 
 	'use strict'
-	$.combobox = {};
-	$.combobox.initValues = [];
+	$.combobox = {}
+	$.combobox.initValues = []
 	var Combobox = function(element, options) {
 		this.multiSelect = ($(element).attr('multiple') === 'multiple' || $(element)
 				.attr('multiple') === 'true')
@@ -776,7 +776,7 @@
 	$('.combobox').combobox()
 
 	$(function() {
-		$('html').on('click.combobox-menu', function(e) {
+		$('body').on('click.combobox-menu', function(e) {
 			/*if($(e.target).closest('.popover').length && !$(e.target).hasClass('close') )
 			//if($(e.target).parent().hasClass('popover') || $(e.target).parent().parent().hasClass('popover') || $(e.target).parent().parent().parent().hasClass('popover'))
 				return false*/

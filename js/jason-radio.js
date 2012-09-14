@@ -1,5 +1,5 @@
 /* ==========================================================
- *	jason-nav.js
+ *	jason-radio.js
  * 
  *
  * ========================================================== */
@@ -8,22 +8,19 @@
 
 	'use strict'
 
-	/* nav
+	/* radio
 	 * ============== */
 
 	$(function() {
 
-		// Disable # links
-		$('body').on('click', 'a[href^=#]', function(e) {
-					// console.log(18,'click #',$(this))
-					e.preventDefault()
-				})
-
-		$('.remote-ul').each(function() {
-			var $this = $(this), template = '<li data-id="{0}"><a href="#">{1}</a></li>', liArr = []
+		$('.remote-radio,.remote-checkbox').each(function() {
+			var $this = $(this), targetName = $this.attr('target-name'), template = '<label class="radio inline"><input type="radio" name="{0}" id="{0}" value="{1}">{2}</label>', liArr = []
 
 			if (!$this.attr('data-url'))
 				return
+				
+			if($this.hasClass('remote-checkbox'))
+				template = '<label class="checkbox inline"><input type="checkbox" name="{0}" id="{0}" value="{1}">{2}</label>'
 
 			var url = $.jStore.getUrl($this.attr('data-url'))
 			console.log(28, 'here', $this.attr('data-url'), url)
@@ -31,10 +28,9 @@
 				return
 			$.getJSON(url, function(data) {
 						$.each(data, function(k, v) {
-									liArr.push($.jString.format(template, v.id,
-											v.name))
+									liArr.push($.jString.format(template,
+											targetName, v.id, v.name))
 								})
-						liArr.push('<li class="divider"></li>')
 						$this.append(liArr.join(''))
 					})
 

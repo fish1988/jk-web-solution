@@ -244,16 +244,57 @@
 
 		}
 
+		// clear form
+		$('.clear-form').click(function() {
+			var $this = $(this), formSelector = $this.attr('target-form')
+			if (!formSelector)
+				return
+			var $form = $(formSelector)
+			$.jForm.reset($form)
+			$('.search[target-form="' + formSelector + '"]')
+					.search('clearItems')
+		})
+
+		// submit form
+		$('.submit-form.btn').click(function() {
+			var $this = $(this), formSelector = $this.attr('target-form')
+			if (!formSelector)
+				return
+			var $form = $(formSelector)
+
+			// query form
+			if ($form.hasClass('form-query')) {
+				$form.submit(function() {
+					// add left-nav params
+					var leftNavParams = {}
+					$(".left-nav li.selected").each(function(i, li) {
+								var $this = $(li)
+								if (typeof $this.attr('data-id') !== 'undefined') {
+									var paramId = $this.parents('ul')
+											.attr('data-type')
+									if (typeof paramId !== 'undefined') {
+										leftNavParams[paramId] = $this
+												.attr('data-id')
+									}
+								}
+							})
+					console.log('left', leftNavParams)
+					if($form.parent().hasClass('query-detail')){
+						$form.parent().addClass('hidden')
+					}
+					$($form.attr('grid-reload')).flexOptions({
+								params : $.extend($form.serializeObject(),
+										leftNavParams)
+							}).flexReload()
+					return false
+				}).trigger('submit')
+			}
+		})
+
 		$('form').each(function() {
 			var f = $(this)
 			$.jForm.setDefault(f)
 
-			$('.clear-form', f).click(function() {
-						$.jForm.reset(f)
-						if(f.attr('id')){
-							$('.search[target-form="#'+f.attr('id')+'"]').search('clearItems')
-						}
-					})
 			if (f.hasClass('highlight')) {
 				f.validate({
 							highlight : function(label) {

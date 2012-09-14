@@ -42,11 +42,12 @@
 
 		constructor : Search,
 		clearItems : function(){
+			console.log('49  clearItems----')
 			var search = this.$container
 			$('.query-item', search).remove()
 			this.adjust()
 			
-			console.log('49  clearItems----',$('.query-item', search))
+			
 		},
 		getAdditionItem : function(query) {
 			var me = this, form = $(me.targetForm), items = []
@@ -383,7 +384,7 @@
 	 * SEARCH PLUGIN DEFINITION ===========================
 	 */
 
-	$.fn.search = function() {
+	$.fn.search = function(option) {
 		this.each(function() {
 					var $this = $(this), mySearch = $this.data('search')
 					if (mySearch) {
@@ -416,7 +417,7 @@
 		source : {},
 		items : 8,
 		addOn : '<div class="query-item"><span data-id="{1}" data-type="{2}" data-value="{0}" title="{0}" class="query-item-label"><i class="{3} hidden"></i> <span class="jlabel-inner">{0}</span></span><span class="query-item-clear" title="移除">×</span></div>',
-		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" title="移除所有条件" show-hide="search-clear" >×</div></div><div rel="tooltip" title="更多选择..." class="j-tooltip-l query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
+		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" title="移除所有条件" show-hide="search-clear" >×</div></div><div rel="tooltip" title="更多选择..." class="j-tooltip-l query-trigger show-hide-switch" show-hide="query-detail"><i class="icon-sort-down"></i></div></div></div>',
 		menu : '<ul class="search dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>'
 	}

@@ -31,7 +31,7 @@
 					$('.clickOutHide').addClass('hidden')
 
 				})
-				
+
 				$('.show-hide-switch,.show-switch,.hide-switch').click(
 						function() {
 							console.log($(this))
@@ -58,10 +58,15 @@
 							}
 						});
 
-				$('.active-switch li').click(function() {
-							$(this).parent().find('li').removeClass('selected');
-							$(this).toggleClass('selected');
-						});
+				$('html').on('click.active-switch', function(e) {
+					// console.log(62,$(e.target),$(e.target).parent())
+					var $this = $(e.target)
+					if (!$this.parent().is('li'))
+						return
+					$(e.target).parents('ul').find('li')
+							.removeClass('selected');
+					$(e.target).parent().toggleClass('selected');
+				});
 			});
 
 }(window.jQuery);
