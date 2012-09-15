@@ -309,7 +309,12 @@
 					// ,
 					// left : pos.left
 				})
-
+				
+			if($.browser.msie && parseInt($.browser.version, 10) <= 7) {
+				$('.combobox-container').css({'z-index':0})
+				this.$container.css({'z-index':1})
+			}
+			
 			this.$menu.show()
 			this.shown = true
 			return this
@@ -757,14 +762,14 @@
 		$.combobox.initValues = []
 	}
 	$.fn.combobox.defaults = {
-		template : '<div class="combobox-container"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"></span></span><span class="combobox-clear">×</span></div>',
+		template : '<div class="combobox-container"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span class="combobox-clear">×</span></div>',
 		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>',
 		placeholder : null
 	}
 
 	$.fn.combobox.multiDefaults = {
-		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"></span></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
+		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
 		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
 		item : '<li><input type="checkbox"><a href="#"></a></li>',
 		placeholder : null

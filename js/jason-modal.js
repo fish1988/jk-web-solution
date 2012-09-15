@@ -48,8 +48,7 @@
 						$('form', me).each(function() {
 									$.jForm.loadRecord($(this), record)
 								})
-						return
-					}
+					} else
 					// load url
 					if (me.attr('data-url')) {
 						var url = me.attr('data-url')
@@ -67,13 +66,18 @@
 											})
 
 								})
-						return
 					}
 
 				})
-
+				
+				$('.modal').on('hide', function() {
+							var me = $(this)
+							$('.modal-body', me).scrollTop(0)
+						})
+						
 				$('.modal').on('hidden', function() {
 					var me = $(this)
+
 					$(this).removeAttr('modal-title')
 					$(this).removeAttr('record')
 					$(this).removeAttr('data-url')
