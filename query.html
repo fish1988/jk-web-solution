@@ -416,10 +416,25 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="isbn">ISBN</label>
+						<div class="controls">
+							<input id="isbn" name="isbn" type="text"
+								data-mask="999-99-999-9999-9">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="phoneNumber">phoneNumber</label>
+						<div class="controls">
+							<input id="phoneNumber" name="phoneNumber" type="text"
+								data-mask="999-9999-9999">
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label" for="srcFile2">图片上传</label>
 						<div class="controls">
-							<input class="image-preview input-file use-one demoJs" id="srcFile2" 
-								name="srcFile2" type="file" target-id="screen-img" target-required="true" >
+							<input class="image-preview input-file use-one demoJs"
+								id="srcFile2" name="srcFile2" type="file" target-id="screen-img"
+								target-required="true">
 							<p class="help-block">上传本地代码，多个文件请压缩后上传</p>
 						</div>
 					</div>
@@ -505,9 +520,10 @@
 
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap/jason-datepicker.js"></script>
+	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
 
+	<script src="js/jason-datepicker.js"></script>
 	<script src="js/jason-radio.js"></script>
 	<script src="js/jason-search.js"></script>
 	<script src="js/jason-msg.js"></script>
@@ -523,7 +539,7 @@
 	<script src="js/jason-combobox.js"></script>
 	<!-- 	<script src="js/jason-fileupload.js"></script> -->
 	<script src="js/jason-img-preview.js"></script>
-
+	<script src="js/jason-inputmask.js"></script>
 	<script src="js/jason-grid.js"></script>
 	<script src="js/jason-modal.js"></script>
 	<script src="js/jason-form.js"></script>

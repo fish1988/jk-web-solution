@@ -116,6 +116,7 @@
 					.val('')
 			form.find('input:radio,input:checkbox').removeAttr('checked')
 					.removeAttr('selected')
+			form.find(':file.image-preview').imagepreview('reset')
 			$(form)[0].reset()
 			// form.find('.combobox-container input:text').val('请选择')
 			var combos = $('.combobox', form)

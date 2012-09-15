@@ -41,13 +41,11 @@
 	Search.prototype = $.extend({}, $.fn.typeahead.Constructor.prototype, {
 
 		constructor : Search,
-		clearItems : function(){
+		clearItems : function() {
 			console.log('49  clearItems----')
 			var search = this.$container
 			$('.query-item', search).remove()
 			this.adjust()
-			
-			
 		},
 		getAdditionItem : function(query) {
 			var me = this, form = $(me.targetForm), items = []
@@ -94,7 +92,7 @@
 		},
 		adjust : function() {
 			var search = this.$container
-			var offsetX = parseInt(search.find('.query-params').css('width'))
+			var offsetX = search.find('.query-params').width()
 
 			search.find('.query-input').css({
 						marginLeft : offsetX + 'px'
@@ -200,7 +198,7 @@
 									$('.jlabel-inner', targetItemLabel)
 											.text(targetItemLabelText)
 								}
-								
+
 							} else {
 								var addOn = $.jString.format(me.$addOn,
 										targetItemLabelText, $this.val(), $this
@@ -224,7 +222,7 @@
 			this.$element.val(this.updater(val)).change()
 
 			var search = this.$container
-			
+
 			var similar = $('span[data-type=' + dataType + ']', search)
 			if (similar.length) {
 				similar.attr('data-value', val).attr('data-id', dataId).attr(
@@ -247,7 +245,7 @@
 						record[label.attr('data-type')] = label.attr('data-id')
 					})
 			$.jForm.loadRecord($(this.targetForm), record)
-			console.log(record,'remove')
+			console.log(record, 'remove')
 			return this.hide()
 		}
 
@@ -390,26 +388,27 @@
 					if (mySearch) {
 						if (typeof option == 'string')
 							mySearch[option]()
-						return
+						return false
+					} else {
+						mySearch = new Search(this, {
+									// source :
+									// $.parseJSON($this.attr('data-source')) ||
+									// [],
+									comboIds : $this.attr('combo-select'),
+									formId : $this.attr('target-form'),
+									/*
+									 * source : [ { id : 1, name : "Alabama", target : 'userId' }, {
+									 * id : 2, name : "Alaska", target : 'userId' }, { id : 3, name :
+									 * "Arizona", target : 'userId' }, { id : 4, name : "Arkansas",
+									 * target : 'userId' }, { id : 5, name : "Alabama", target :
+									 * 'userId' }, { id : 7, name : "axxx", target : 'userName' }, {
+									 * id : 8, name : "acds", target : 'userName' } ],
+									 */
+									menuWidth : $this.css('width')
+								})
+						$this.data('search', mySearch)
 					}
-					
-					mySearch = new Search(this, {
-								// source :
-								// $.parseJSON($this.attr('data-source')) || [],
-								comboIds : $this.attr('combo-select'),
-								formId : $this.attr('target-form'),
-								/*
-								 * source : [ { id : 1, name : "Alabama", target : 'userId' }, {
-								 * id : 2, name : "Alaska", target : 'userId' }, { id : 3, name :
-								 * "Arizona", target : 'userId' }, { id : 4, name : "Arkansas",
-								 * target : 'userId' }, { id : 5, name : "Alabama", target :
-								 * 'userId' }, { id : 7, name : "axxx", target : 'userName' }, {
-								 * id : 8, name : "acds", target : 'userName' } ],
-								 */
-								menuWidth : $this.css('width')
-							})
-					$this.data('search', mySearch)
-					
+
 				})
 	}
 

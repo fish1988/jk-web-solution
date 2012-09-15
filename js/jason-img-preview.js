@@ -11,6 +11,7 @@
 
 	var ImagePreview = function(element, options) {
 		this.$element = $(element)
+		// this.initEl = this.$element[0].outerHTML
 		this.options = $.extend({}, $.fn.imagepreview.defaults, options)
 		this.$container = this.setup(element)
 		this.listen()
@@ -18,17 +19,14 @@
 
 	ImagePreview.prototype = {
 		setup : function(element) {
-			var $input = this.$element, 
-			$preview = $(this.options.template),
-			imageHtml = $.jString
-					.format(this.options.image, '100', '100'), $image = $(imageHtml),
-					resultHtml = $.jString
+			var $input = this.$element, $preview = $(this.options.template), imageHtml = $.jString
+					.format(this.options.image, '100', '100'), $image = $(imageHtml), resultHtml = $.jString
 					.format(this.options.result, $(element).attr('target-id'),
 							$(element).attr('target-class') ? $(element)
 									.attr('target-class') : '', $(element)
 									.attr('target-required') ? 'required' : ''), $result = $(resultHtml)
 			$input.after($preview)
-			//$preview.append($input)
+			// $preview.append($input)
 			$('.image-preview', $preview).append($image)
 			$preview.append($result)
 			this.$result = $result
@@ -47,21 +45,31 @@
 			if (!file)
 				return
 
-			$form.append(this.$result.clone())
+			$form.append(this.$result.clone().css({
+						width : '0px',
+						height : '0px'
+					}))
 			$('body').append($form)
 			$form.ajaxForm({
 						success : function() {
 							me.$image.attr('src', 'xxx.gif')
-							me.$result.val('1111') 
+							me.$result.val('222')
+							// me.$element.replaceWith(me.$element.clone(true))
 							$form.remove()
 						},
 						error : function() {
 							me.$image.attr('src', file.name)
-							me.$result.val('1111') 
+							me.$result.val('1111')
+							// console.log(me.initEl)
+							// me.$element.replaceWith(me.$element.clone(true))
 							$form.remove()
 						}
 					}).trigger('submit')
 
+		},
+		reset : function() {
+			var me = this
+			me.$image.attr('src', $.jString.format('img/placehold/{0}x{1}.gif','100', '100'))
 		}
 
 	}
@@ -72,6 +80,12 @@
 	$.fn.imagepreview = function(options) {
 		return this.each(function() {
 					var $this = $(this), data = $this.data('imagepreview')
+					
+					if (data) {
+						if (typeof options == 'string')
+							data[options]()
+						return
+					}
 					if (!data)
 						$this.data('imagepreview', (data = new ImagePreview(
 										this, options)))
@@ -81,7 +95,7 @@
 		template : '<div class="image-preview-container"><div class="image-preview"></div></div>',
 		image : '<img src="img/placehold/{0}x{1}.gif" alt="{0}X{1}" style="height: {0}px;width: {1}px;">',
 		result : '<input id="{0}" name="{0}" type="text" class="{1}" {2}>',
-		form : '<form action="data.aspx" method="post" enctype="multipart/form-data"></form>'
+		form : '<form style="height:0px;width:0px;" action="data.aspx" method="post" enctype="multipart/form-data"></form>'
 	}
 	$.fn.imagepreview.Constructor = ImagePreview
 
