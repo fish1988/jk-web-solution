@@ -1,5 +1,7 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
 @charset "UTF-8";
+.icon-check-empty,.icon-check{font-size:20px;color:#959595;cursor:pointer;}
+i.icon-check{color:#6f6f6f;}
 .grid{display:none;font-size:13px;}
 td a.cmd{padding:2px 3px;}
 .grid-result-stat{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:right;padding-top:10px;display:inline-block;}

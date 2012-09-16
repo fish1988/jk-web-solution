@@ -252,13 +252,13 @@
 			console.log('select')
 			if (this.multiSelect) {
 
-				var input = li.find(':checkbox')
+				var input = li.find('i')
 				// input.trigger
-				if (input.attr('checked')) {
-					input.attr('checked', false)
+				if (input.hasClass('icon-check')) {
+					input.removeClass('icon-check').addClass('icon-check-empty')
 					input.parent().removeClass('li-selected')
 				} else {
-					input.attr('checked', true)
+					input.removeClass('icon-check-empty').addClass('icon-check')
 					input.parent().addClass('li-selected')
 				}
 
@@ -359,7 +359,7 @@
 						continue
 					var activeLi = this.$menu.find('li[data-value="' + arr[i]
 							+ '"]')
-					activeLi.find(':checkbox').attr('checked', true)
+					activeLi.find('i').removeClass('icon-check-empty').addClass('icon-check')
 					activeLi.addClass('li-selected')
 
 					console.log('select291', arr[i])
@@ -771,7 +771,7 @@
 	$.fn.combobox.multiDefaults = {
 		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
 		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
-		item : '<li><input type="checkbox"><a href="#"></a></li>',
+		item : '<li><i class="icon-check-empty"/><a href="#"></a></li>',
 		placeholder : null
 	}
 

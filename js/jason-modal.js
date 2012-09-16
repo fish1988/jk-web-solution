@@ -10,7 +10,7 @@
 	/* Modal actions
 	 * ============== */
 	$.fn.modal.defaults = {
-		backdrop : 'static',
+		backdrop : true,//'static',
 		keyboard : true,
 		show : true
 	}
