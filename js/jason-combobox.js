@@ -255,10 +255,12 @@
 				var input = li.find('i')
 				// input.trigger
 				if (input.hasClass('icon-check')) {
-					input.removeClass('icon-check').addClass('icon-check-empty')
+					$.jCheckbox.uncheck(input)
+					//input.removeClass('icon-check').addClass('icon-check-empty')
 					input.parent().removeClass('li-selected')
 				} else {
-					input.removeClass('icon-check-empty').addClass('icon-check')
+					$.jCheckbox.check(input)
+					//input.removeClass('icon-check-empty').addClass('icon-check')
 					input.parent().addClass('li-selected')
 				}
 
@@ -359,7 +361,8 @@
 						continue
 					var activeLi = this.$menu.find('li[data-value="' + arr[i]
 							+ '"]')
-					activeLi.find('i').removeClass('icon-check-empty').addClass('icon-check')
+					$.jCheckbox.check(activeLi.find('i'))
+					//.removeClass('icon-check-empty').addClass('icon-check')
 					activeLi.addClass('li-selected')
 
 					console.log('select291', arr[i])

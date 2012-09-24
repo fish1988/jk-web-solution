@@ -2,3 +2,6 @@
 .combobox-clear{margin-left:-20px;}
 .image-preview-container label.error{display:block;}
 .modal-body{position:relative;}
+@charset "UTF-8";
+.grid-result-stat{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:absolute;right:103px;padding-top:10px;display:inline-block;}
+.grid-result-pager{position:absolute;right:0px;}

@@ -71,6 +71,10 @@
 			var me = this
 			me.$image.attr('src', $.jString.format('img/placehold/{0}x{1}.gif','100', '100'))
 		}
+		,
+		loadImg : function(){
+			
+		}
 
 	}
 

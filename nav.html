@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>导航</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- styles -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="css/nav-list.css" rel="stylesheet">
+<link href="css/navbar.css" rel="stylesheet">
+<!-- IE styles -->
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<link href="css/ie.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 7]>   
+	<style>
+	   div.arrow{
+	   	margin-top:10px;
+	   }
+	</style>
+ <![endif]-->
+
+
+</head>
+
+<body style="margin-top: 45px;">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a>
+				<div class="btn-group pull-right">
+					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
+						href="#"> <i class="icon-user"></i> Jason <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">个人信息</a></li>
+						<li><a href="#">注销登录</a></li>
+					</ul>
+				</div>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="active"><a href="#" style="padding-left: 5px;">首页</a></li>
+						<li><a href="#">借用申请</a></li>
+						<li><a href="#">个人资产</a></li>
+						<li><a href="#">流程管理</a></li>
+						<li><a href="#">信息查询</a></li>
+						<li><a href="model.html">机型库</a></li>
+						<li><a href="#">字典设置</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container main-nav-container">
+		<div class="page-header" style="margin-bottom: 0;">
+			<h2 class="nav-title">
+				导航菜单 <a class="btn nav-save hidden" title="保存当前导航" href="#"> <i
+					class="icon-ok"></i>
+				</a> <a data-toggle="modal" href="#addCategory"
+					class="btn add-li hidden" title="增加分类"> <i class="icon-plus"></i>
+				</a> <a class="nav-edit btn hidden" title="编辑" href="nav.html?save=false#!edit"> <i
+					class="icon-edit"></i>
+				</a>
+			</h2>
+		</div>
+
+		<div class="main-nav-container-body">
+			<!-- 			<div class="nav-container">
+				<div class="navbar nav-title">
+					<div class="navbar-inner">
+						<a class="brand" href="#">数据查询</a>
+
+						<div class="add-li btn-group hidden">
+							<a class="btn" data-toggle="modal" href="#editCategory"
+								title="编辑"> <i class="icon-edit"></i>
+							</a> <a data-toggle="modal" href="#deleteCategory" class="btn"
+								title="删除"> <i class="icon-trash"></i>
+							</a> <a class="btn" data-toggle="modal" href="#addItem" title="增加网站">
+								<i class="icon-plus"></i>
+							</a>
+						</div>
+
+					</div>
+				</div>
+				<ul class="list">
+					<li data-value="1"><a href="http://www.aa.com" target="_blank">爱享统计</a><span
+						class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>
+					<li data-value="1"><a href="http://www.ba.com" target="_blank">终端统计平台</a><span
+						class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>
+					<li data-value="1"><a href="http://www.ca.com" target="_blank">MCare统计平台</a><span
+						class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>
+				</ul>
+			</div> -->
+		</div>
+
+	</div>
+
+	<div id="addCategory" class="modal hide fade">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>新的分类</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="catName">分类名称</label>
+					<div class="controls">
+						<input class="input-xlarge" type="text" id="catName"
+							name="catName">
+					</div>
+				</div>
+			</fieldset>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button type="submit" class="btn btn-primary">&nbsp;确
+				&nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+	<div id="editCategory" class="modal hide">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>编辑分类</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="catName">分类名称</label>
+					<div class="controls">
+						<input class="input-xlarge" type="text" id="catName"
+							name="catName">
+					</div>
+				</div>
+			</fieldset>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button class="btn btn-primary">&nbsp;确 &nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+
+	<div id="addItem" class="modal hide">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>添加网站</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="itemName">选择系统</label>
+					<div class="controls">
+						<select id="itemName" name="itemName">
+							<option value="1">爱享运营系统</option>
+							<option value="2">XX系统</option>
+							<option value="1">测试系统</option>
+						</select>
+					</div>
+				</div>
+
+			</fieldset>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button type="submit" class="btn btn-primary">&nbsp;确
+				&nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+
+	<div id="deleteCategory" class="modal hide">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>删除分类</h3>
+		</div>
+		<div class="modal-body">
+			<p>确定删除分类？</p>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button class="btn btn-primary">&nbsp;确 &nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+
+	<!-- javascript libs -->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="jquery/jquery.json.js"></script>
+	<script src="jquery/jquery.cookie.js"></script>
+	<script src="jquery/jquery-ui-1.8.21.custom.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="js/jason-base.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/ie.js"></script>
+    <![endif]-->
+	<script>
+		$(function() {
+			var navMap = {
+				"1" : {
+					name : '分享系统',
+					url : 'http://www.aa.com'
+				},
+				"2" : {
+					name : '分享X系统',
+					url : 'http://www.aacc.com'
+				}
+			}
+
+			var userData = $.cookie('woc_nav') ? JSON
+					.parse($.cookie('woc_nav')) : null
+			console.log(userData)
+
+
+			var liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>'
+
+			render()
+			listen()
+			// html render
+			function render() {
+				if (userData) {
+					var navCtn, result = [], li
+					for ( var i = 0; i < userData.length; i++) {
+
+						li = buildCat(userData[i].items)
+						navCtn = $.jString.format(navTemplate,
+								userData[i].name, li)
+						result.push(navCtn)
+						//console.log(navCtn)
+					}
+					$('.main-nav-container-body').append(result.join(''))
+				}
+			}
+
+			// build cat
+			function buildCat(liItems) {
+				var liArr = []
+				for ( var i = 0; i < liItems.length; i++) {
+					if (navMap[liItems[i]])
+						liArr.push($.jString.format(liTemp,
+								navMap[liItems[i]].name,
+								navMap[liItems[i]].url, liItems[i]))
+				}
+
+				return liArr.join('')
+			}
+
+			function listen() {
+				// location detecting
+				if (location.hash !== '#!edit') {
+
+					// Disable # links
+					$('body').on('click', 'a[href^=#]', function(e) {
+						e.preventDefault()
+					})
+					
+					$('.nav-edit').removeClass('hidden')
+					$('.li-remove').addClass('hidden')
+					$('.add-li').addClass('hidden')
+					return false
+				} else {
+					
+					// Disable all links
+					$('body').on('click', 'a', function(e) {
+						e.preventDefault()
+					})
+					
+					$('.nav-save').removeClass('hidden')
+					$('.add-li').removeClass('hidden')
+				}
+
+				$('.list').sortable().disableSelection()
+				$('.main-nav-container-body').sortable().disableSelection()
+
+				$('body').on('click.remove-li', '.li-remove', function(e) {
+					var $this = $(e.target)
+					$this.parents('li').remove()
+				})
+
+				$('body').on(
+						'click.edit-cat',
+						'[href="#editCategory"]',
+						function(e) {
+							var $this = $(e.target), text = $this.parents(
+									'.navbar-inner').find('.brand').text()
+							$('#catName', $('#editCategory')).val(text)
+							$('#editCategory').data(
+									'event-from',
+									$this.parents('.navbar-inner').find(
+											'.brand'))
+						})
+				$('body').on(
+						'click.edit-cat',
+						'[href="#deleteCategory"]',
+						function(e) {
+							var $this = $(e.target), $target = $this
+									.parents('.nav-container')
+
+							$('#deleteCategory').data('event-from', $target)
+						})
+
+				$('body').on(
+						'click.add-item',
+						'[href="#addItem"]',
+						function(e) {
+							var $this = $(e.target), $target = $this.parents(
+									'.nav-container').find('ul')
+							$('#addCategory').data('event-from', $target)
+						})
+
+				// nav save
+				$('.nav-save').click(
+						function() {
+							var nav = []
+							$('.nav-container').each(
+									function(k, v) {
+
+										var $this = $(this), $li = $(this)
+												.find('ul li'), ul = {}
+										ul.items = []
+										ul.name = $(this).find('.brand').text()
+
+										$li.each(function(i, li) {
+											ul.items.push($(li).attr(
+													'data-value'))
+										})
+										nav.push(ul)
+										//console.log(ul)
+									})
+
+							$.cookie('woc_nav', $.stringifyJSON(nav), {
+								expires : 7,
+								path : '/'
+							});
+							console.log($.cookie('woc_nav'), nav)
+							window.location.href = 'nav.html?save=true'
+						})
+
+				// add cat
+				$('.btn-primary', $('#addCategory')).click(
+						function() {
+
+							$('.main-nav-container-body').append(
+									$($.jString.format(navTemplate, $(
+											'#catName', $('#addCategory'))
+											.val(), '')))
+							$('.main-nav-container-body').sortable()
+									.disableSelection()
+							$('#addCategory').modal('hide')
+							$('#catName', $('#addCategory')).val('')
+						})
+				// edit cat save
+				$('.btn-primary', $('#editCategory')).click(function() {
+					var $target = $('#editCategory').data('event-from')
+					if ($target) {
+						$target.text($('#catName', $('#editCategory')).val())
+					}
+					$('#editCategory').modal('hide')
+				})
+
+				// delete act
+				$('.btn-primary', $('#deleteCategory')).click(function() {
+					var $target = $('#deleteCategory').data('event-from')
+					if ($target) {
+						$target.remove()
+					}
+					$('#deleteCategory').modal('hide')
+				})
+
+				// add item
+				$('.btn-primary', $('#addItem')).click(
+						function() {
+							var $target = $('#addCategory').data('event-from')
+							console.log($target)
+							if ($target) {
+								var id = $('#itemName', $('#addItem')).val()
+								
+								$target.append($($.jString.format(liTemp,
+										navMap[id].name, navMap[id].url, id)))
+								$target.sortable().disableSelection()
+							}
+							$('#addItem').modal('hide')
+						})
+			}
+		})
+	</script>
+</body>
+</html>

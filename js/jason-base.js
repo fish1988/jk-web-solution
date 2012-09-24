@@ -10,7 +10,10 @@
 
 	/* base utils
 	 * ============== */
-
+				
+				// IE detection <=7
+				$.ltIE7 =  $.browser.msie && parseInt($.browser.version, 10) <= 7
+				
 				// placeholder
 				$.jPlaceholder = {
 					val : function($input,v) {

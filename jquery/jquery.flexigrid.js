@@ -373,11 +373,13 @@
 
 				if ($allRows.length === selectRows.length) {
 					//$checkbox[0].checked = true
-					$checkbox.removeClass('icon-check-empty').addClass('icon-check')
+					//$checkbox.removeClass('icon-check-empty').addClass('icon-check')
+					$.jCheckbox.check($checkbox)
 					
 				} else {
 					//$checkbox[0].checked = false
-					$checkbox.removeClass('icon-check').addClass('icon-check-empty')
+					//$checkbox.removeClass('icon-check').addClass('icon-check-empty')
+					$.jCheckbox.uncheck($checkbox)
 				}
 			},
 			cellRender : function(pth, align, val, cls) {
@@ -881,7 +883,8 @@
 								//$.jPopover.hideTrPopover()
 								// p.allowPreview = true
 								if (p.checkbox)
-									$('i', g.hDiv).removeClass('icon-check').addClass('icon-check-empty')
+									$.jCheckbox.uncheck($('i', g.hDiv))
+									//$('i', g.hDiv).removeClass('icon-check').addClass('icon-check-empty')
 							},
 							error : function(XMLHttpRequest, textStatus,
 									errorThrown) {
@@ -1063,9 +1066,11 @@
 								// add checkbox
 								if (p.checkbox) {
 									if ($(this).hasClass('trSelected')) {
-										$(this).find('i:first').removeClass('icon-check-empty').addClass('icon-check')
+										$.jCheckbox.check($(this).find('i:first'))
+										//$(this).find('i:first').removeClass('icon-check-empty').addClass('icon-check')
 									} else {
-										$(this).find('i:first').removeClass('icon-check').addClass('icon-check-empty')
+										$.jCheckbox.uncheck($(this).find('i:first'))
+										//$(this).find('i:first').removeClass('icon-check').addClass('icon-check-empty')
 									}
 								}
 								if (p.singleSelect && !g.multisel) {
@@ -1766,17 +1771,20 @@
 				$('tr:last', g.hDiv).each(function() {
 					var cth = $('<td align="center"/>');
 					//var cthch = $('<input type="checkbox"/>');
-					var cthch = $('<i class="icon-check-empty" alt="bb"/>')
+					var cthch = $('<i class="icon-check-empty"/>')
 					cthch.click(function() {
 						console.log(1771)
 						if ($(this).hasClass('icon-check-empty')) {
 							$('tbody tr', g.bDiv).each(function() {
-								$(this).addClass('trSelected').find('i:first').removeClass('icon-check-empty').addClass('icon-check')
+								
+								$.jCheckbox.check($(this).addClass('trSelected').find('i:first'))
+								//.removeClass('icon-check-empty').addClass('icon-check')
 							})
 						} else {
 
 							$('tbody tr', g.bDiv).each(function() {
-								$(this).removeClass('trSelected').find('i:first').removeClass('icon-check').addClass('icon-check-empty')
+								$.jCheckbox.uncheck($(this).removeClass('trSelected').find('i:first'))
+								//$(this).removeClass('trSelected').find('i:first').removeClass('icon-check').addClass('icon-check-empty')
 							})
 						}
 						g.checkToolBarStat()

@@ -2,11 +2,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>应用管理</title>
+<title>机型库</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="showcase of jk-web-solution">
-<meta name="author" content="kwb.fish@gmail.com">
-
 <!-- styles -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -36,7 +33,6 @@
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<script src="js/respond.min.js"></script>
-
     <![endif]-->
 <!--[if (IE 8)|(IE 7)]> 
 		<link href="css/ie.css" rel="stylesheet">
@@ -75,17 +71,12 @@
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li><a href="#" style="padding-left: 5px;">首页</a></li>
-						<li class="active"><a href="#">应用管理</a></li>
-						<li><a href="#">应用列表</a></li>
-						<li><a href="#">广告相关</a></li>
-						<li><a href="#">统计查询</a></li>
+						<li><a href="#">借用申请</a></li>
+						<li><a href="#">个人资产</a></li>
+						<li><a href="#">流程管理</a></li>
+						<li><a href="#">信息查询</a></li>
+						<li class="active"><a href="#">机型库</a></li>
 						<li><a href="#">字典设置</a></li>
-
-					</ul>
-					<ul class="nav pull-right">
-						<li><a href="share.html">新应用 </a></li>
-						<li><a href="#">我的应用</a></li>
-						<li class="divider-vertical"></li>
 					</ul>
 				</div>
 			</div>
@@ -95,13 +86,13 @@
 	<div class="well form-search main-search">
 		<img class="search-logo" src="img/sj-logo.png"
 			style="float: left; margin-top: -10px;" /> <input type="text"
-			title="请输入合作方、渠道号、应用名称、打包人..." id="query-txt" name="query-txt"
+			title="请输入品牌、机型名称、创建人..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="j-tooltip-b search input-medium search-query valid no-radius pull-left"
-			target-form="#share-form">
+			target-form="#model-form">
 		<div class="query-detail hidden clickOutHide">
-			<form id="share-form" action="data.txt" style="margin-bottom: 5px;"
-				class="form-query highlight" grid-reload="#myGrid">
+			<form id="model-form" action="data.txt" style="margin-bottom: 5px;"
+				class="form-query highlight" grid-reload="#modelGrid">
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 
 				<fieldset>
@@ -162,56 +153,47 @@
 				</fieldset>
 
 				<div class="simple-form-actions">
-					<button title="点击查询" class="submit-form btn btn-primary btn-search"
-						target-form="#share-form" style="margin-left: 0;">
+					<button title="点击查询" class="submit-form btn btn-primary btn-search pull-left"
+						target-form="#model-form" style="margin-left: 0;">
 						<span class="add-on icon-white icon-search"></span>
 					</button>
 					<a style="margin-top: 8px;" class="clear-form pull-right"
-						target-form="#share-form" href="#">清空表单</a>
+						target-form="#model-form" href="#">清空表单</a>
 				</div>
 			</form>
 		</div>
 
 		<div class="query-btn">
 			<button title="点击查询" class="submit-form btn btn-primary btn-search"
-				target-form="#share-form">
-				<span class="add-on icon-white icon-search"></span>
+				target-form="#model-form">
+				<span class="icon-white icon-search"></span>
 			</button>
 		</div>
 	</div>
 
 
-	<div class="left-nav span2" grid-reload="#myGrid">
+	<div class="left-nav span2" grid-reload="#modelGrid">
 		<div class="page-title">
-			<a href="query.html">应用管理</a>
+			<a href="#">机型库</a>
 		</div>
 		<!-- <label class="left-nav-label">平台选择</label> -->
 		<ul data-type="platformId"
 			class="nav nav-list nav-left-text active-switch">
 			<li data-id="" class="selected"><a href="#">所有平台</a></li>
 			<li data-id="1"><a href="#">Android</a></li>
-			<li data-id="2"><a href="#">Iphone</a></li>
-			<li data-id="3"><a href="#">IPad</a></li>
+			<li data-id="2"><a href="#">IOS</a></li>
 			<li data-id="4"><a href="#">WinPhone</a></li>
-			<li data-id="5"><a href="#">PC</a></li>
 			<li class="divider"></li>
 		</ul>
 
 		<ul data-type="testUl"
-			class="remote-ul nav nav-list nav-left-choose active-switch more-search-tools"
+			class="remote-ul nav nav-list nav-left-choose active-switch"
 			data-url="combo2">
 			<li data-id="" class="selected"><a href="#">不限</a></li>
 		</ul>
 
-		<ul data-type="packStatus"
-			class="nav nav-list nav-left-choose active-switch more-search-tools">
-			<li data-id="1" class="selected"><a href="#">外部显示</a></li>
-			<li data-id=""><a href="#">显示全部</a></li>
-			<li class="divider"></li>
-		</ul>
-
 		<ul data-type="status"
-			class="nav nav-list nav-left-choose active-switch more-search-tools">
+			class="nav nav-list nav-left-choose active-switch">
 
 			<li class="selected" data-id="1"><a href="#">有效</a></li>
 			<li data-id="2"><a href="#">无效</a></li>
@@ -221,7 +203,7 @@
 
 		<label class="left-nav-label">创建时间</label>
 		<ul
-			class="nav nav-list nav-left-choose active-switch more-search-tools">
+			class="nav nav-list nav-left-choose active-switch">
 
 			<li class="selected"><a href="#">时间不限</a></li>
 			<li><a href="#">最近一周</a></li>
@@ -251,7 +233,7 @@
 
 	<div class="search-result span10">
 		<div class="btn-toolbar grid-toolbar page-toolbar"
-			grid-target="#myGrid">
+			grid-target="#modelGrid">
 			<div class="btn-group">
 				<a data-toggle="modal" href="#myModal"
 					class="btn toolbar-icon-btn j-tooltip-b" title="新建"> <i
@@ -270,7 +252,7 @@
 				<!-- <a class="grid-preview btn toolbar-icon-btn j-tooltip-b active" data-toggle="button" title="关闭自动预览"><i
 					class="icon-eye-open"></i></a> -->
 			</div>
-			<div class="grid-result-pager btn-group pull-right">
+			<div class="grid-result-pager btn-group">
 				<a class="prev-page btn toolbar-icon-btn j-tooltip-b" title="上一页"><i
 					class="icon-chevron-left"></i></a><a
 					class="next-page btn toolbar-icon-btn j-tooltip-b" title="下一页"><i
@@ -280,7 +262,7 @@
 			<div class="grid-result-stat"></div>
 
 		</div>
-		<table id="myGrid" class="grid" data-url="data.txt" row-id="iso"
+		<table id="modelGrid" class="grid" data-url="data.txt" row-id="iso"
 			sort-name="iso;iso" sort-order="asc" checkbox="true"
 			resizable="false" grid-height="auto">
 			<thead>
@@ -288,30 +270,30 @@
 					<th name="iso3" sortable="false" data-render="cmdChange" width="50"
 						align="right">&nbsp;</th>
 					<th name="iso;iso" fixed="true" data-render="downloadChange"
-						sortable="true" width="100" align="left">应用名称</th>
+						sortable="true" width="100" align="left">机型名称</th>
 					<th name="name" data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
-						align="left">应用版本</th>
-					<th name="printable_name" sortable="true" width="150" align="left">发布平台</th>
-					<th name="iso3" sortable="true" width="150" align="left">系统平台</th>
+						align="left">品牌</th>
+					<th name="printable_name" sortable="true" width="150" align="left">平台</th>
+					<th name="iso3" hidden sortable="true" width="150" align="left">平台版本</th>
 					<th name="numcode;iso3" data-render="downloadChange"
-						sortable="true" width="100" align="left">下载链接</th>
+						sortable="true" width="100" align="left">屏幕尺寸</th>
 					<th name="name" data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
-						align="left">打包状态</th>
-					<th name="iso;iso" hidden fixed="true" data-render="downloadChange"
-						sortable="true" width="100" align="left">应用名称</th>
-					<th name="name" hidden data-render="statusChange"
+						align="left">分辨率</th>
+					<th name="iso;iso" fixed="true" data-render="downloadChange"
+						sortable="true" width="100" align="left">内存大小</th>
+					<th name="name" data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
-						align="left">应用版本</th>
+						align="left">存储大小</th>
 					<th name="printable_name" hidden sortable="true" width="150"
-						align="left">发布平台</th>
-					<th name="iso3" hidden sortable="true" width="150" align="left">系统平台</th>
+						align="left">是否触屏</th>
+					<th name="iso3" hidden sortable="true" width="150" align="left">有无键盘</th>
 					<th name="numcode;iso3" hidden data-render="downloadChange"
-						sortable="true" width="100" align="left">下载链接</th>
+						sortable="true" width="100" align="left">网络制式</th>
 					<th name="name" hidden data-render="statusChange"
 						cls-render="statusClsChange" sortable="true" width="100"
-						align="left">打包状态</th>
+						align="left">上市时间</th>
 
 				</tr>
 			</thead>
@@ -319,12 +301,12 @@
 	</div>
 
 	<div id="myModal" class="modal hide fade wide-modal">
-		<form id="share-form" action="data.txt" grid-reload="#myGrid"
+		<form id="model-form" action="data.txt" grid-reload="#modelGrid"
 			class="highlight form-horizontal">
 			<div class="modal-header">
 				<button class="close" data-dismiss="modal">×</button>
 				<span class="loader"></span>
-				<h3>新的分享</h3>
+				<h3>新机型</h3>
 			</div>
 			<div class="modal-body">
 
@@ -531,7 +513,6 @@
 	<script src="js/jason-search.js"></script>
 	<script src="js/jason-msg.js"></script>
 	<script src="js/jason-base.js"></script>
-	<script src="js/jason-checkbox.js"></script>
 	<script src="js/jason-store.js"></script>
 	<script src="js/jason-renderer.js"></script>
 	<script src="js/jason-alert.js"></script>
