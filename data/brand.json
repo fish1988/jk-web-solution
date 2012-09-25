@@ -1,0 +1,13 @@
+[{
+			"id" : 1,
+			"name" : "三星",
+			"group" : 1
+		}, {
+			"id" : 2,
+			"name" : "MOTO",
+			"group" : 1
+		}, {
+			"id" : 3,
+			"name" : "Google",
+			"group" : 1
+		}]

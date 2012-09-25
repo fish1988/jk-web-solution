@@ -5,6 +5,7 @@ i.icon-check{color:#6f6f6f;}
 .grid{display:none;font-size:13px;}
 td a.cmd{padding:2px 3px;}
 .grid-result-stat{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:right;padding-top:10px;display:inline-block;}
+.grid-result-pager{float:right;}
 .flexigrid{position:relative;border:0px solid #eee;}.flexigrid .pagination{margin:0;text-align:right;}
 .flexigrid.hideBody{height:26px !important;border-bottom:1px solid #ccc;}
 .ie6fullwidthbug{padding-right:2px;}

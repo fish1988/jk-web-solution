@@ -29,8 +29,8 @@
 
 </head>
 
-<body style="margin-top: 45px;">
-	<div class="navbar navbar-inverse navbar-fixed-top">
+<body>
+	<div class="navbar navbar-inverse global-nav">
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<a class="btn btn-navbar" data-toggle="collapse"
@@ -271,7 +271,7 @@
 				} else {
 					
 					// Disable all links
-					$('body').on('click', 'a', function(e) {
+					$('body').on('click', '.main-nav-container a', function(e) {
 						e.preventDefault()
 					})
 					

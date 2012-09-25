@@ -148,7 +148,6 @@
 		$.jForm.loadRecord = function(form, record) { // !!!
 
 			for (var i in record) {
-
 				// normal input / select (1)
 				var input = $(
 						'input[name="' + i + '"],select[name="' + i + '"]',
@@ -174,7 +173,9 @@
 					continue
 				}
 
-				var checkboxVal = record[i]
+				var checkboxVal = record[i] === true
+						? '1'
+						: record[i] === false ? '0' : record[i]
 				if (!$.isArray(checkboxVal)
 						&& checkboxVal.toString().indexOf(';') !== -1) {
 					checkboxVal = checkboxVal.split(';')
@@ -280,13 +281,13 @@
 								}
 							})
 					console.log('left', leftNavParams)
-					if($form.parent().hasClass('query-detail')){
+					if ($form.parent().hasClass('query-detail')) {
 						$form.parent().addClass('hidden')
 					}
 					$($form.attr('grid-reload')).flexOptions({
-								params : $.extend($form.serializeObject(),
-										leftNavParams)
-							}).flexReload()
+						params : $.extend($form.serializeObject(),
+								leftNavParams)
+					}).flexReload()
 					return false
 				}).trigger('submit')
 			}
@@ -338,11 +339,17 @@
 			}
 
 			// default actions
-			f.ajaxForm(function() {
-						$('.modal').modal('hide')
-						// callback reload
-						$(f.attr('grid-reload')).flexReload()
-					});
+			f.ajaxForm(function(data) {
+				f.parents('.modal').modal('hide')
+				
+				if (data && !data.success) {
+					$.jAlert
+							.alert('操作失败' + data.msg ? ', 出错信息' + data.msg : '')
+				}
+				// callback reload
+				$(f.attr('grid-reload')).flexReload()
+
+			});
 
 		})
 
