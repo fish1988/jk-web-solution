@@ -384,7 +384,7 @@
 
 	$.fn.search = function(option) {
 		this.each(function() {
-					var $this = $(this), mySearch = $this.data('search')
+					var $this = $(this).removeClass('space-search'), mySearch = $this.data('search')
 					if (mySearch) {
 						if (typeof option == 'string')
 							mySearch[option]()
