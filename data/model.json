@@ -27,7 +27,7 @@
 				"createUser" : "jasonkou",
 				"lastModifyTime" : "2012-9-25 00:00:00",
 				"lastModifyUser" : "jasonkou",
-				"status" : true
+				"status" : false
 			},{
 				"modelId" : 1,
 				"modelName" : "MOTO defy三防机",
@@ -81,7 +81,7 @@
 				"createUser" : "jasonkou",
 				"lastModifyTime" : "2012-9-25 00:00:00",
 				"lastModifyUser" : "jasonkou",
-				"status" : true
+				"status" : false
 			},{
 				"modelId" : 1,
 				"modelName" : "MOTO defy三防机",
@@ -135,7 +135,7 @@
 				"createUser" : "jasonkou",
 				"lastModifyTime" : "2012-9-25 00:00:00",
 				"lastModifyUser" : "jasonkou",
-				"status" : true
+				"status" : false
 			},{
 				"modelId" : 1,
 				"modelName" : "MOTO defy三防机",

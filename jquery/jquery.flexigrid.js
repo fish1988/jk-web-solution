@@ -97,7 +97,7 @@
 							}
 							// add checkboxes
 							$('div:eq(' + n + ')', g.cDrag).css({
-										'left' : cdpos + (p.checkbox ? 25 : 0)
+										'left' : cdpos + (p.checkbox ? 26 : 0)
 												+ 'px'
 									}).show();
 							cdleft = cdpos;
@@ -609,7 +609,7 @@
 								}
 								me.checkToolBarStat()
 							})*/
-							cthDiv = $('<div style="width:25px;"/>');
+							cthDiv = $('<div style="width:26px;"/>');
 							cth.addClass("cth").append(cthDiv.append(cthch));
 
 							$(tr).prepend(cth);
@@ -1789,7 +1789,7 @@
 						}
 						g.checkToolBarStat()
 					})
-					var cthDiv = $('<div style="width:25px;"/>');
+					var cthDiv = $('<div style="width:26px;"/>');
 					cth.addClass("cth").append(cthDiv.append(cthch));
 
 					$(this).prepend(cth);
@@ -1845,7 +1845,7 @@
 			// position ajust
 			if (p.groupHeader) {
 				$(g.nBtn).css({
-							marginTop : 25
+							marginTop : 22
 						})
 			}
 			if (p.showToggleBtn) {

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="public,max-age=31536000">
-<title>机型库</title>
+<title>内部系统地址</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -71,9 +71,10 @@
 						<li><a href="#">个人资产</a></li>
 						<li><a href="#">流程管理</a></li>
 						<li><a href="#">信息查询</a></li>
-						<li class="active"><a href="#">机型库</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">字典管理<b class="caret"></b></a>
+						<li><a href="model.html">机型库</a></li>
+						<li class="dropdown active"><a href="#"
+							class="dropdown-toggle active" data-toggle="dropdown">字典管理<b
+								class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 								<li><a href="link.html">系统网址</a></li>
 								<li class="divider"></li>
@@ -92,20 +93,20 @@
 	<div class="well form-search main-search">
 		<img class="search-logo" src="img/property.png" width="120"
 			height="45" style="float: left; margin-top: -10px;"> <input
-			title="请输入机型名称、创建人、修改人..." id="query-txt" name="query-txt"
+			title="请输入系统名称、创建人、修改人..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="j-tooltip-b search input-medium search-query valid no-radius pull-left"
-			target-form="#model-form">
+			target-form="#link-form">
 		<div class="query-detail hidden clickOutHide">
-			<form id="model-form" action="data.txt" style="margin-bottom: 5px;"
-				class="form-query highlight" grid-reload="#modelGrid">
+			<form id="link-form" action="data.txt" style="margin-bottom: 5px;"
+				class="form-query highlight" grid-reload="#linkGrid">
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label" for="modelName">机型</label>
+						<label class="control-label" for="cdLinkName">系统名称</label>
 						<div class="controls">
-							<input class="j-search-item" title="机型名称" id="modelName"
-								name="modelName" style="width: 92%;">
+							<input class="j-search-item" title="系统名称" id="cdLinkName"
+								name="cdLinkName" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
@@ -126,35 +127,26 @@
 				<div class="simple-form-actions">
 					<button title="点击查询"
 						class="submit-form btn btn-primary btn-search pull-left"
-						target-form="#model-form" style="margin-left: 0;">
+						target-form="#link-form" style="margin-left: 0;">
 						<span class="add-on icon-white icon-search"></span>
 					</button>
 					<a style="margin-top: 8px;" class="clear-form pull-right"
-						target-form="#model-form" href="#">清空表单</a>
+						target-form="#link-form" href="#">清空表单</a>
 				</div>
 			</form>
 		</div>
 		<div class="query-btn">
 			<button title="点击查询" class="submit-form btn btn-primary btn-search"
-				target-form="#model-form">
+				target-form="#link-form">
 				<span class="icon-white icon-search"></span>
 			</button>
 		</div>
 	</div>
-	<div class="left-nav span2" grid-reload="#modelGrid">
+	<div class="left-nav span2" grid-reload="#linkGrid">
 		<div class="page-title">
-			<a href="#">机型库</a>
+			<a href="#">内部网址</a>
 		</div>
-		<ul data-type="platformId"
-			class="remote-ul nav nav-list nav-left-text active-switch"
-			data-url="platform">
-			<li data-id="" class="selected"><a href="#">所有平台</a></li>
-		</ul>
-		<ul data-type="brandId"
-			class="remote-ul nav nav-list nav-left-choose active-switch"
-			data-url="brand">
-			<li data-id="" class="selected"><a href="#">不限</a></li>
-		</ul>
+
 		<ul data-type="status"
 			class="nav nav-list nav-left-choose active-switch">
 			<li class="selected" data-id="1"><a href="#">有效</a></li>
@@ -189,16 +181,16 @@
 	</div>
 	<div class="search-result span10">
 		<div class="btn-toolbar grid-toolbar page-toolbar"
-			grid-target="#modelGrid">
+			grid-target="#linkGrid">
 			<div class="btn-group">
-				<a data-toggle="modal" href="#myModal"
+				<a data-toggle="modal" href="#linkModal"
 					class="btn toolbar-icon-btn j-tooltip-b" title="新建"> <i
 					class="icon-plus"></i></a>
 			</div>
 			<div class="btn-group">
 				<a class="grid-one btn toolbar-icon-btn j-tooltip-b" title="编辑"
-					modal-title="修改机型" href="#myModal"><i class="icon-edit"></i></a> <a
-					class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
+					modal-title="修改机型" href="#linkModal"><i class="icon-edit"></i></a>
+				<a class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
 					msg="确认删除{0}项?" url="op.txt"><i class="icon-trash"></i></a>
 			</div>
 			<div class="btn-group">
@@ -213,145 +205,52 @@
 			</div>
 			<div class="grid-result-stat"></div>
 		</div>
-		<table id="modelGrid" class="grid" data-url="data/model.json"
-			row-id="modelId" sort-name="lastModifyTime" sort-order="desc"
+		<table id="linkGrid" class="grid" data-url="data/link.json"
+			row-id="cdLinkId" sort-name="lastModifyTime" sort-order="desc"
 			checkbox="true" resizable="false" grid-height="auto">
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="modelName" data-render="modalChange" sortable="true"
-						width="150" align="left">机型名称</th>
-					<th name="modelId" hidden sortable="true" width="50" align="left">序号</th>
-					<th name="brandName" sortable="true" width="100" align="left">品牌</th>
-					<th name="platformName" sortable="true" width="100" align="left">平台</th>
-					<th name="softwareName" sortable="true" width="100" align="left">平台版本</th>
-					<th name="screenSize" sortable="true" width="100" align="left">屏幕尺寸</th>
-					<th name="resolutionName" sortable="true" width="100" align="left">分辨率</th>
-					<th name="cpuCount" hidden width="80" align="left">核心数</th>
-					<th name="cpuSpeed" hidden width="80" align="left">CPU频率</th>
-					<th name="ramSize" width="100" align="left">内存大小</th>
-					<th name="romSize" sortable="true" width="100" align="left">存储大小</th>
-					<th name="canTouch" width="100" align="left">是否触屏</th>
-					<th name="hasKeybord" width="100" align="left">有无键盘</th>
-					<th name="networkStandardNames" width="100" align="left">网络制式</th>
-					<th name="publishTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">上市时间</th>
-					<th name="createTime" data-render="shortDateTimeChange" hidden
-						sortable="true" width="100" align="left">创建时间</th>
-					<th name="createUser" hidden sortable="true" width="100"
-						align="left">创建人</th>
+					<th name="cdLinkName" sortable="true" width="150" align="left">系统名称</th>
+					<th name="cdLinkId" hidden sortable="true" width="50" align="left">序号</th>
+					<th name="url" width="150" align="left">地址</th>
+					<th name="createTime" data-render="shortDateTimeChange"
+						sortable="true" width="120" align="left">创建时间</th>
+					<th name="createUser" sortable="true" width="110" align="left">创建人</th>
 					<th name="lastModifyTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">修改时间</th>
-					<th name="lastModifyUser" hidden sortable="true" width="100"
-						align="left">修改人</th>
+						sortable="true" width="120" align="left">修改时间</th>
+					<th name="lastModifyUser" sortable="true" width="110" align="left">修改人</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
-	<div id="myModal" class="modal hide fade wide-modal">
-		<form id="model-form" action="data.txt" grid-reload="#modelGrid"
+	<div id="linkModal" class="modal hide fade wide-modal">
+		<form id="link-form" action="data.txt" grid-reload="#linkGrid"
 			class="highlight form-horizontal">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
-				<h3>新机型</h3>
+				<h3>新地址</h3>
 			</div>
 			<div class="modal-body">
 				<fieldset>
 					<div class="control-group hidden">
-						<input type="hidden" id="modelId" name="modelId">
+						<input type="hidden" id="cdLinkId" name="cdLinkId">
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="modelName">机型</label>
+						<label class="control-label" for="cdLinkName">系统名称</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="modelName"
-								id="modelName" required>
+							<input type="text" class="input-xlarge" name="cdLinkName"
+								id="cdLinkName" required>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="brandId">品牌</label>
+						<label class="control-label" for="url">地址</label>
 						<div class="controls">
-							<select id="brandId" name="brandId" class="combobox" width="200"
-								autoload="true" data-url="brand" required>
-								<option value="" class="fixed"></option>
-							</select>
+							<input type="text" class="input-xlarge" name="url" id="url"
+								required>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="platformId">平台</label>
-						<div class="controls">
-							<select id="platformId" name="platformId" class="combobox"
-								width="200" required child-id="softwareId" data-url="platform"
-								autoload="true">
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="softwareId">平台版本</label>
-						<div class="controls">
-							<select id="softwareId" name="softwareId"
-								class="combobox not-set-value" width="200" required
-								data-url="software">
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="screenSize">屏幕尺寸</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="screenSize"
-								id="screenSize" required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="resolutionId">分辨率</label>
-						<div class="controls">
-							<select id="resolutionId" name="resolutionId" class="combobox"
-								width="200" autoload="true" data-url="resolution" required>
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="cpuCount">CPU个数</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="cpuCount"
-								id="cpuCount" value="1" required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="cpuSpeed">CPU频率</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="cpuSpeed"
-								id="cpuSpeed" required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="ramSize">内存大小</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="ramSize"
-								id="ramSize" required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="romSize">存储大小</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="romSize"
-								id="romSize" required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="canTouch">是否触屏</label>
-						<div class="controls">
-							<label class="checkbox inline"><input type="checkbox"
-								name="canTouch" id="canTouch" value="1" checked="">是 </label>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="networkStandardIds">网络制式</label>
-						<div class="controls remote-checkbox"
-							target-name="networkStandardIds" data-url="network"></div>
-					</div>
+
 				</fieldset>
 			</div>
 			<div class="modal-footer">

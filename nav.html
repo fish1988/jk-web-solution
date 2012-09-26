@@ -13,11 +13,25 @@
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/nav-list.css" rel="stylesheet">
 <link href="css/navbar.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
 <!-- IE styles -->
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="js/respond.min.js"></script>
 		<link href="css/ie.css" rel="stylesheet">
     <![endif]-->
+<!--[if (IE 8)|(IE 7)]> 
+		<link href="css/ie78.css" rel="stylesheet">
+	<![endif]-->
+<!--[if IE 7]>   
+		<link href="css/ie7.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 6]>   
+		<link href="css/ie6.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 7]>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.css">
+<![endif]-->
 <!--[if IE 7]>   
 	<style>
 	   div.arrow{
@@ -48,13 +62,24 @@
 				</div>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="#" style="padding-left: 5px;">首页</a></li>
+						<li class="active"><a href="nav.html" style="padding-left: 5px;">首页</a></li>
 						<li><a href="#">借用申请</a></li>
 						<li><a href="#">个人资产</a></li>
 						<li><a href="#">流程管理</a></li>
 						<li><a href="#">信息查询</a></li>
 						<li><a href="model.html">机型库</a></li>
-						<li><a href="#">字典设置</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">字典管理<b class="caret"></b></a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<li ><a href="link.html">系统网址</a></li>
+								<li class="divider"></li>
+								<li><a href="#">平台</a></li>
+								<li><a href="#">平台版本</a></li>
+								<li><a href="#">分辨率</a></li>
+								<li class="divider"></li>
+								<li><a href="#">品牌</a></li>
+								<li><a href="#">网络制式</a></li>
+							</ul></li>
 					</ul>
 				</div>
 			</div>
@@ -106,7 +131,7 @@
 
 	<div id="addCategory" class="modal hide fade">
 		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
+			<a class="close" data-dismiss="modal">×</a>
 			<h3>新的分类</h3>
 		</div>
 		<div class="modal-body">
@@ -129,7 +154,7 @@
 	</div>
 	<div id="editCategory" class="modal hide">
 		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
+			<a class="close" data-dismiss="modal">×</a>
 			<h3>编辑分类</h3>
 		</div>
 		<div class="modal-body">
@@ -152,7 +177,7 @@
 
 	<div id="addItem" class="modal hide">
 		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
+			<a class="close" data-dismiss="modal">×</a>
 			<h3>添加网站</h3>
 		</div>
 		<div class="modal-body">
@@ -180,7 +205,7 @@
 
 	<div id="deleteCategory" class="modal hide">
 		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
+			<a class="close" data-dismiss="modal">×</a>
 			<h3>删除分类</h3>
 		</div>
 		<div class="modal-body">
@@ -194,6 +219,7 @@
 	</div>
 
 	<!-- javascript libs -->
+
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
@@ -204,6 +230,7 @@
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>
     <![endif]-->
+
 	<script>
 		$(function() {
 			var navMap = {
@@ -217,12 +244,11 @@
 				}
 			}
 
-			var userData = $.cookie('woc_nav') ? JSON
-					.parse($.cookie('woc_nav')) : null
-			console.log(userData)
+			var userData = $.cookie('woc_nav') ? $.parseJSON($.cookie('woc_nav')) : null
+			//console.log(userData)
 
 
-			var liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>'
+			var liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn editCategory" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn deleteCategory" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn addItem" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>'
 
 			render()
 			listen()
@@ -289,7 +315,7 @@
 
 				$('body').on(
 						'click.edit-cat',
-						'[href="#editCategory"]',
+						'.btn.editCategory',
 						function(e) {
 							var $this = $(e.target), text = $this.parents(
 									'.navbar-inner').find('.brand').text()
@@ -300,18 +326,19 @@
 											'.brand'))
 						})
 				$('body').on(
-						'click.edit-cat',
-						'[href="#deleteCategory"]',
+						'click.delete-cat',
+						'.btn.deleteCategory',
 						function(e) {
 							var $this = $(e.target), $target = $this
 									.parents('.nav-container')
+							//console.log(324)
 
 							$('#deleteCategory').data('event-from', $target)
 						})
 
 				$('body').on(
 						'click.add-item',
-						'[href="#addItem"]',
+						'.btn.addItem',
 						function(e) {
 							var $this = $(e.target), $target = $this.parents(
 									'.nav-container').find('ul')
@@ -342,7 +369,7 @@
 								expires : 7,
 								path : '/'
 							});
-							console.log($.cookie('woc_nav'), nav)
+							//console.log($.cookie('woc_nav'), nav)
 							window.location.href = 'nav.html?save=true'
 						})
 
@@ -381,7 +408,7 @@
 				$('.btn-primary', $('#addItem')).click(
 						function() {
 							var $target = $('#addCategory').data('event-from')
-							console.log($target)
+							//console.log($target)
 							if ($target) {
 								var id = $('#itemName', $('#addItem')).val()
 								

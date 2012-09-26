@@ -15,7 +15,7 @@
 			$('.popover').remove()
 			// if ($tdLink.parents('tr').hasClass('trSelected'))
 			var template = '<div id="jPopover" class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><a class="close" style="position:absolute;right:5px;top:3px;" title="关闭">×</a><div class="popover-content">{0}</div></div></div>', keys = $(
-					'td,th', $thead), vals = $('td,th', $tr), content = [], $tempTd, $htmlVal
+					'th', $thead), vals = $('td', $tr), content = [], $tempTd, $htmlVal
 
 			// console.log(keys,vals)
 			for (var i = 0, len = keys.length; i < len; i++) {
@@ -38,7 +38,8 @@
 			$tdLink.popover({
 						title : $tdLink.text(),
 						trigger : 'click',
-						template : template
+						template : template,
+						placement: 'right'
 					}).popover('show')
 			if($('.popover').offset().left < 200){
 				$('.popover').css({'left':'200px'})
