@@ -27,7 +27,7 @@
 			this.$menu.css('width', this.options.menuWidth)
 		}
 		this.source = this.options.source
-		console.log(24, this.source)
+		//console.log(24, this.source)
 		// this.loadSource(this.options.comboIds)
 		this.shown = false
 		this.listen()
@@ -42,7 +42,7 @@
 
 		constructor : Search,
 		clearItems : function() {
-			console.log('49  clearItems----')
+			//console.log('49  clearItems----')
 			var search = this.$container
 			$('.query-item', search).remove()
 			this.adjust()
@@ -54,11 +54,14 @@
 
 			inputs.each(function(i, input) {
 						var inp = $(input)
-						items.push({
-									id : query,
-									name : query + ' - ' + inp.attr('title'),
-									target : inp.attr('id')
-								})
+						if(inp.hasClass('positive-integer') && !/^\d+$/.test(query)){
+							
+						}else
+							items.push({
+										id : query,
+										name : query + ' - ' + inp.attr('title'),
+										target : inp.attr('id')
+									})
 					})
 			return items
 		},
@@ -84,7 +87,7 @@
 				} else {
 					$('#' + changeId, $(me.targetForm)).val('')
 				}
-				console.log(51, $(this).parent())
+				//console.log(51, $(this).parent())
 				$(this).parent().remove()
 
 				me.adjust()
@@ -97,7 +100,7 @@
 			search.find('.query-input').css({
 						marginLeft : offsetX + 'px'
 					})
-			console.log(offsetX + 'px')
+			//console.log(offsetX + 'px')
 
 			var inputWidth = search.width() - offsetX - 30 + 'px'
 			search.find('.query-input').css({
@@ -110,7 +113,7 @@
 			$('ul.search.dropdown-menu').css({
 						width : inputWidth
 					})
-			console.log(97, $('ul.search.dropdown-menu').css('width'))
+			//console.log(97, $('ul.search.dropdown-menu').css('width'))
 		},
 		setup : function(element) {
 			var input = $(element), search = $(this.options.template), me = this
@@ -133,7 +136,7 @@
 
 			inputs.each(function(i, input) {
 						$(input).on('change', function() {
-							console.log('change', $(input))
+							//console.log('change', $(input))
 							var $this = $(this), targetItemLabel = $(
 									'.query-item-label[data-type='
 											+ $this.attr('id') + ']', search), targetItemLabelText = $this
@@ -168,7 +171,7 @@
 			var selects = $('select', $(this.targetForm))
 			selects.each(function(i, select) {
 						$(select).on('change', function() {
-							console.log('change 107', $(this))
+							//console.log('change 107', $(this))
 							var $this = $(this), targetItemLabel = $(
 									'.query-item-label[data-type='
 											+ $this.attr('id') + ']', search), targetItemLabelText = $(
@@ -245,7 +248,7 @@
 						record[label.attr('data-type')] = label.attr('data-id')
 					})
 			$.jForm.loadRecord($(this.targetForm), record)
-			console.log(record, 'remove')
+			//console.log(record, 'remove')
 			return this.hide()
 		}
 
@@ -277,7 +280,7 @@
 						/*if (el.val() == ''
 								|| el.val() == el.attr('placeholder')) {*/
 						if ($('.query-item', me.$container).length == 0) {
-							console.log(190, el.val())
+							//console.log(190, el.val())
 							$('.search-clear', me.$container)
 									.addClass('hidden')
 
@@ -298,7 +301,7 @@
 			var that = this, items = [], q
 			// build
 			this.source = $.jForm.buildSource($(this.targetForm), this.source)
-			console.log(264, this.source)
+			//console.log(264, this.source)
 
 			this.query = this.$element.val()
 
@@ -312,7 +315,7 @@
 										}))
 					})
 
-			console.log(75, items)
+			//console.log(75, items)
 			items = this.sorter(items)
 			// if (!items.length) {
 			items = $.merge(items, this.getAdditionItem(this.query))
@@ -321,8 +324,8 @@
 			if (!items.length) {
 				return this.shown ? this.hide() : this
 			}
-
-			console.log(81, items)
+			this.adjust()
+			//console.log(81, items)
 
 			return this.render(items.slice(0, this.options.items)).show()
 		}
@@ -371,7 +374,7 @@
 				i.find('a').html(that.highlighter(item.name))
 				return i[0]
 			})
-			console.log(items)
+			//console.log(items)
 
 			items.first().addClass('active')
 			this.$menu.html(items)

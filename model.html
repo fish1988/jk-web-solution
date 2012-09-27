@@ -94,7 +94,7 @@
 			<img class="search-logo" src="img/property.png" width="120"
 				height="45" style="margin-top: -10px;">
 		</div>
-		<input title="请输入机型名称、创建人、修改人..." id="query-txt" name="query-txt"
+		<input title="请输入机型、创建人、修改人..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#model-form">
@@ -104,7 +104,14 @@
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label" for="modelName">机型</label>
+						<label class="control-label" for="modelId">机型ID</label>
+						<div class="controls">
+							<input class="positive-integer j-search-item" title="机型ID" id="modelId"
+								name="modelId" style="width: 92%;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="modelName">机型名称</label>
 						<div class="controls">
 							<input class="j-search-item" title="机型名称" id="modelName"
 								name="modelName" style="width: 92%;">
@@ -301,7 +308,7 @@
 					<div class="control-group">
 						<label class="control-label" for="screenSize">屏幕尺寸</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="screenSize"
+							<input type="text" class="positive-float input-xlarge" name="screenSize"
 								id="screenSize" required>
 						</div>
 					</div>
@@ -317,28 +324,28 @@
 					<div class="control-group">
 						<label class="control-label" for="cpuCount">CPU个数</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="cpuCount"
+							<input type="text" class="positive-integer input-xlarge" name="cpuCount"
 								id="cpuCount" value="1" required>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="cpuSpeed">CPU频率</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="cpuSpeed"
+							<input type="text" class="positive-float input-xlarge" name="cpuSpeed"
 								id="cpuSpeed" required>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="ramSize">内存大小</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="ramSize"
+							<input type="text" class="positive-integer input-xlarge" name="ramSize"
 								id="ramSize" required>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="romSize">存储大小</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="romSize"
+							<input type="text" class="positive-integer input-xlarge" name="romSize"
 								id="romSize" required>
 						</div>
 					</div>
@@ -372,6 +379,7 @@
 	<script src="jquery/jquery.cookie.js"></script>
 	<script src="jquery/jquery.mask.js"></script>
 	<script src="jquery/jquery.form.js"></script>
+	<script src="jquery/jquery.numeric.js"></script>
 	<script src="jquery/jquery.validate.js"></script>
 	<script src="jquery/jquery.validate.jason.js"></script>
 	<script src="jquery/jquery.flexigrid.js"></script>
@@ -380,6 +388,7 @@
 	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
 	<script src="js/jason-datepicker.js"></script>
+	<script src="js/jason-numberfield.js"></script>
 	<script src="js/jason-radio.js"></script>
 	<script src="js/jason-search.js"></script>
 	<script src="js/jason-msg.js"></script>
