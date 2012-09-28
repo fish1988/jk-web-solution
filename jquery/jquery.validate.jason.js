@@ -55,6 +55,9 @@ var $formValidators = {
 	tags : {
 		require_from_group : [1, '.fill-one', '至少填写一个标签']
 	},
+	checkOne : {
+		require_from_group : [1, '.fill-one', '至少选择一项']
+	},
 	/*'combo-required':{
 		regex : [/^(?!请选择$).+/, '请选择', '']
 	},*/

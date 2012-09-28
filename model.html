@@ -106,8 +106,8 @@
 					<div class="control-group">
 						<label class="control-label" for="modelId">机型ID</label>
 						<div class="controls">
-							<input class="positive-integer j-search-item" title="机型ID" id="modelId"
-								name="modelId" style="width: 92%;">
+							<input class="positive-integer j-search-item" title="机型ID"
+								id="modelId" name="modelId" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
@@ -308,8 +308,12 @@
 					<div class="control-group">
 						<label class="control-label" for="screenSize">屏幕尺寸</label>
 						<div class="controls">
-							<input type="text" class="positive-float input-xlarge" name="screenSize"
-								id="screenSize" required>
+							<div class="input-append">
+								<input type="text"
+									class="positive-float span2 j-tooltip-r input-xlarge"
+									name="screenSize" id="screenSize" max="8" title="只能输入数字哦" required>
+								<span class="add-on">英寸</span>
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
@@ -324,42 +328,56 @@
 					<div class="control-group">
 						<label class="control-label" for="cpuCount">CPU个数</label>
 						<div class="controls">
-							<input type="text" class="positive-integer input-xlarge" name="cpuCount"
-								id="cpuCount" value="1" required>
+							<div class="input-append">
+								<input type="text" class="positive-integer span2 j-tooltip-r"
+									name="cpuCount" id="cpuCount" value="1" max="16" title="只能输入数字哦"
+									required> <span class="add-on">个</span>
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="cpuSpeed">CPU频率</label>
 						<div class="controls">
-							<input type="text" class="positive-float input-xlarge" name="cpuSpeed"
-								id="cpuSpeed" required>
+							<div class="input-append">
+								<input type="text"
+									class="positive-float span2 j-tooltip-r input-xlarge"
+									name="cpuSpeed" id="cpuSpeed" title="只能输入数字哦" required><span
+									class="add-on">GHz</span>
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="ramSize">内存大小</label>
 						<div class="controls">
-							<input type="text" class="positive-integer input-xlarge" name="ramSize"
-								id="ramSize" required>
+							<div class="input-append">
+								<input type="text" class="positive-integer span2 j-tooltip-r"
+									name="ramSize" id="ramSize" max="10000" title="只能输入数字哦" required><span
+									class="add-on">M</span>
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="romSize">存储大小</label>
 						<div class="controls">
-							<input type="text" class="positive-integer input-xlarge" name="romSize"
-								id="romSize" required>
+							<div class="input-append">
+								<input type="text" title="只能输入数字哦"
+									class="positive-integer span2 j-tooltip-r" name="romSize"
+									id="romSize" max="10000" required><span class="add-on">M</span>
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="canTouch">是否触屏</label>
 						<div class="controls">
 							<label class="checkbox inline"><input type="checkbox"
-								name="canTouch" id="canTouch" value="1" checked="">是 </label>
+								name="canTouch" id="canTouch" value="1" checked>是 </label>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="networkStandardIds">网络制式</label>
-						<div class="controls remote-checkbox"
-							target-name="networkStandardIds" data-url="network"></div>
+						<div class="controls remote-checkbox check-one-least"
+							target-name="networkStandardIds" data-url="network">
+						</div>
 					</div>
 				</fieldset>
 			</div>

@@ -11,6 +11,7 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
  * add onchange event jasonkou 2012/6/8
+ * modify label-container jasonkou 2012/9/28
  */
 
 (function($) {
@@ -708,7 +709,8 @@ $.extend($.validator, {
 					if ( this.settings.errorPlacement ) {
 						this.settings.errorPlacement(label, $(element) );
 					} else {
-					label.insertAfter(element);
+						//label.insertAfter(element);
+						$(element).parents('.controls').append(label)
 					}
 				}
 			}

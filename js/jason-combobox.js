@@ -19,9 +19,8 @@
 		this.$element = this.$container.find('input')
 
 		this.$element.attr('placeholder', this.placeholder)
-		this.$element.css({
-					width : this.width
-				})
+		this.$element.width(this.width)
+		this.$container.width(this.width + 45)
 
 		this.$button = this.$container.find('.dropdown-toggle')
 		this.$button.on('click.combobox-menu.data-api', function() {
@@ -37,7 +36,7 @@
 		this.matcher = this.options.matcher || this.matcher
 		this.sorter = this.options.sorter || this.sorter
 		this.highlighter = this.options.highlighter || this.highlighter
-		//this.$menu = $(this.options.menu).appendTo('body')
+		// this.$menu = $(this.options.menu).appendTo('body')
 		this.$menu = $(this.options.menu).appendTo(this.$container)
 		this.$menu.width(this.width + 11)
 
@@ -62,13 +61,13 @@
 			this.$menu.hide()
 			this.shown = false
 		},
-		
-		disabled : function(){
+
+		disabled : function() {
 			this.$button.addClass('hidden')
 			this.$clear.addClass('hidden')
-			this.$element.attr('disabled',true)
+			this.$element.attr('disabled', true)
 		},
-		actived : function(){
+		actived : function() {
 			this.$button.removeClass('hidden')
 			this.$clear.removeClass('hidden')
 			this.$element.removeAttr('disabled')
@@ -191,7 +190,7 @@
 
 			if (!this.shown) {
 				$('.combobox').combobox('clearMenus')
-				//$('.dropdown-menu', this.$container).hide();
+				// $('.dropdown-menu', this.$container).hide();
 				console.log('button click')
 				var v = this.$element.val()
 				this.$element.val('').focus()
@@ -256,11 +255,11 @@
 				// input.trigger
 				if (input.hasClass('icon-check')) {
 					$.jCheckbox.uncheck(input)
-					//input.removeClass('icon-check').addClass('icon-check-empty')
+					// input.removeClass('icon-check').addClass('icon-check-empty')
 					input.parent().removeClass('li-selected')
 				} else {
 					$.jCheckbox.check(input)
-					//input.removeClass('icon-check-empty').addClass('icon-check')
+					// input.removeClass('icon-check-empty').addClass('icon-check')
 					input.parent().addClass('li-selected')
 				}
 
@@ -311,12 +310,16 @@
 					// ,
 					// left : pos.left
 				})
-				
-			if($.browser.msie && parseInt($.browser.version, 10) <= 7) {
-				$('.combobox-container').css({'z-index':0})
-				this.$container.css({'z-index':1})
+
+			if ($.browser.msie && parseInt($.browser.version, 10) <= 7) {
+				$('.combobox-container').css({
+							'z-index' : 0
+						})
+				this.$container.css({
+							'z-index' : 1
+						})
 			}
-			
+
 			this.$menu.show()
 			this.shown = true
 			return this
@@ -362,7 +365,7 @@
 					var activeLi = this.$menu.find('li[data-value="' + arr[i]
 							+ '"]')
 					$.jCheckbox.check(activeLi.find('i'))
-					//.removeClass('icon-check-empty').addClass('icon-check')
+					// .removeClass('icon-check-empty').addClass('icon-check')
 					activeLi.addClass('li-selected')
 
 					console.log('select291', arr[i])
@@ -466,7 +469,6 @@
 						if (val2 === me.placeholder || val2 === '') {
 							console.log('no clear');
 							$.jPlaceholder.val(me.$element, me.placeholder)
-							
 
 							// me.$target.trigger('change')
 							return
@@ -610,14 +612,14 @@
 							if (that.$element.val() == '') {
 								// console.log('not found',
 								// that.$element.val(''))
-								
+
 								$.jPlaceholder.val(that.$element,
 										that.placeholder)
 							}
-							
-							if(!that.findText(that.$element.val())){
+
+							if (!that.findText(that.$element.val())) {
 								that.setSingleValue('')
-								//that.$target.trigger('change')
+								// that.$target.trigger('change')
 							}
 						}, 150)
 				/*else
@@ -765,14 +767,14 @@
 		$.combobox.initValues = []
 	}
 	$.fn.combobox.defaults = {
-		template : '<div class="combobox-container"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span class="combobox-clear">×</span></div>',
+		template : '<div class="combobox-container pull-left"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span class="combobox-clear">×</span></div>',
 		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>',
 		placeholder : null
 	}
 
 	$.fn.combobox.multiDefaults = {
-		template : '<div class="combobox-container"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
+		template : '<div class="combobox-container pull-left"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
 		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
 		item : '<li><i class="icon-check-empty"/><a href="#"></a></li>',
 		placeholder : null
