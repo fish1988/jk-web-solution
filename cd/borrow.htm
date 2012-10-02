@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="public,max-age=31536000">
+<title>借用申请</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+<!-- <link href="css/jk.css" rel="stylesheet"> -->
+<link href="css/responsive.css" rel="stylesheet">
+<link href="css/mask.css" rel="stylesheet">
+<link href="css/opacity.css" rel="stylesheet">
+<link href="css/tooltip.css" rel="stylesheet">
+<link href="css/button.css" rel="stylesheet">
+<link href="css/renderer.css" rel="stylesheet">
+<link href="css/navbar.css" rel="stylesheet">
+<link href="css/datepicker.css" rel="stylesheet">
+<link href="css/combobox.css" rel="stylesheet">
+<link href="css/fileupload.css" rel="stylesheet">
+<link href="css/imagepreview.css" rel="stylesheet">
+<link href="css/form.css" rel="stylesheet">
+<link href="css/grid.css" rel="stylesheet">
+<link href="css/alert.css" rel="stylesheet">
+<link href="css/popover.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
+<link href="css/global.css" rel="stylesheet">
+<link href="css/scrollbar.css" rel="stylesheet">
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="js/respond.min.js"></script>
+    <![endif]-->
+<!--[if lte IE 9]>
+	<link href="css/ie.css" rel="stylesheet">
+<![endif]-->
+<!--[if (IE 8)|(IE 7)]> 
+		<link href="css/ie78.css" rel="stylesheet">
+	<![endif]-->
+<!--[if IE 7]>   
+		<link href="css/ie7.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 6]>   
+		<link href="css/ie6.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 7]>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.css">
+<![endif]-->
+</head>
+<body>
+	<div class="navbar navbar-inverse global-nav">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a>
+				<div class="btn-group pull-right">
+					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
+						href="#"> <i class="icon-user"></i> <span
+						class="const-userName" style="width: 40px;"></span><span
+						class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">个人信息</a></li>
+						<li><a href="#">注销登录</a></li>
+					</ul>
+				</div>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href="nav.htm" style="padding-left: 5px;">首页</a></li>
+						<li class="active"><a href="borrow.htm">借用申请</a></li>
+						<li><a href="myproperty.htm">个人资产</a></li>
+						<li><a href="workflow.htm">流程管理</a></li>
+						<li><a href="phone.htm">手机管理</a></li>
+						<li><a href="model.htm">机型库</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">字典管理<b class="caret"></b></a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<li><a href="link.htm">系统网址</a></li>
+								<li class="divider"></li>
+								<li><a href="platform.htm">平台</a></li>
+								<li><a href="software.htm">平台版本</a></li>
+								<li><a href="resolution.htm">分辨率</a></li>
+								<li class="divider"></li>
+								<li><a href="brand.htm">品牌</a></li>
+								<li><a href="network.htm">网络制式</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<form id="borrow-form" action="data.aspx"
+			class="highlight form-horizontal">
+			<legend> 借用申请 </legend>
+
+			<fieldset>
+
+				<div class="control-group">
+					<label class="control-label" for="name">需求单号</label>
+					<div class="controls">
+						<label class="display-text">自动产生</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="name">申请单状态</label>
+					<div class="controls">
+						<label class="display-text">提出申请</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="name">申请时间</label>
+					<div class="controls">
+						<label class="display-text const-nowTime"></label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="name">申请人</label>
+					<div class="controls">
+						<label class="display-text const-userName"></label>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="leaderName">直接上级</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge typeahead-user" name="leaderName"
+							id="leaderName" required data-provide="typeahead" data-items="4">
+					</div>
+				</div>
+
+
+				<div class="control-group">
+					<label class="control-label" for="models">机型选择</label>
+					<div class="controls">
+						<div class="btn-toolbar">
+							<div class="btn-group">
+								<a data-toggle="modal" href="#myModal"
+									class="btn toolbar-icon-btn j-tooltip-b" title="增加机型"> <i
+									class="icon-plus"></i></a>
+							</div>
+							<div class="btn-group">
+								<a id="deleteModels" class="btn toolbar-icon-btn j-tooltip-b"
+									title="全部删除"> <i class="icon-trash"></i></a>
+							</div>
+
+						</div>
+						<table id="modelTable" class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>品牌</th>
+									<th>机型</th>
+									<th>平台</th>
+									<th>申请数量</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+
+			</fieldset>
+
+			<div class="form-actions">
+				<button type="submit" id="share-form-submit"
+					class="btn btn-primary btn-large">&nbsp;提
+					&nbsp;&nbsp;交&nbsp;</button>
+			</div>
+		</form>
+	</div>
+	<div id="myModal" class="modal hide fade" style="width: 670px;">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
+			<h3>选择机型</h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-inline form-query" style="margin-bottom: 4px;"
+				grid-reload="#modelGrid">
+				<!--<legend>查询</legend>-->
+				品牌：<input id="brandName" name="brandName" type="text"
+					class="input-small"> 机型： <input id="modelName"
+					name="modelName" type="text" class="input-small">
+				<button type="submit" class="btn btn-primary btn-search">查
+					询</button>
+			</form>
+			<table id="modelGrid" class="grid" data-url="data/model.json"
+				row-id="modelId" sort-name="modelName" sort-order="asc"
+				checkbox="true" resizable="false" grid-height="auto"
+				show-column="false">
+				<thead>
+					<tr>
+						<th name="modelName" sortable="true" width="150" align="left">机型名称</th>
+						<th name="modelId" sortable="true" width="50" align="left">序号</th>
+						<th name="brandName" sortable="true" width="100" align="left">品牌</th>
+						<th name="platformName" sortable="true" width="100" align="left">平台</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button type="submit" class="btn btn-primary">&nbsp;提
+				&nbsp;&nbsp;交&nbsp;</button>
+		</div>
+	</div>
+
+	<script src="js/lib/xdate.js"></script>
+	<script src="jquery/jquery.min.js"></script>
+	<script src="jquery/jquery.json.js"></script>
+	<script src="jquery/jquery.cookie.js"></script>
+	<script src="jquery/jquery.mask.js"></script>
+	<script src="jquery/jquery.form.js"></script>
+	<script src="jquery/jquery.validate.js"></script>
+	<script src="jquery/jquery.validate.jason.js"></script>
+	<script src="jquery/jquery.flexigrid.js"></script>
+
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
+	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
+	<script src="js/bootstrap/bootstrap-typeahead.js"></script>
+	<script src="js/jason-const.js"></script>
+	<script src="js/jason-datepicker.js"></script>
+	<script src="js/jason-radio.js"></script>
+	<script src="js/jason-search.js"></script>
+	<script src="js/jason-msg.js"></script>
+	<script src="js/jason-base.js"></script>
+	<script src="js/jason-checkbox.js"></script>
+	<script src="js/jason-store.js"></script>
+	<script src="js/jason-renderer.js"></script>
+	<script src="js/jason-alert.js"></script>
+	<script src="js/jason-popover.js"></script>
+	<script src="js/jason-data.js"></script>
+	<script src="js/jason-nav.js"></script>
+	<script src="js/jason-dom.js"></script>
+	<script src="js/jason-button.js"></script>
+	<script src="js/jason-combobox.js"></script>
+	<script src="js/jason-img-preview.js"></script>
+	<script src="js/jason-inputmask.js"></script>
+	<script src="js/jason-grid.js"></script>
+	<script src="js/jason-modal.js"></script>
+	<script src="js/jason-form.js"></script>
+	<script src="js/jason-tooltip.js"></script>
+	<script src="js/jason-timer.js"></script>
+	<script src="js/jason-loading.js"></script>
+	<script src="js/jason-typeahead.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/ie.js"></script>
+    <![endif]-->
+
+	<script>
+		$(function() {
+			var modelTemplate = '<tr data-value="{0}"><td><a style="cursor:pointer;" class="remove-item" href="#" title="移除"><i class="icon-trash"></i></a></td><td>{1}</td><td>{2}</td><td>{3}</td><td><input class="span1" type="text" value="1" /></td></tr>'
+
+			$('body').on('click.removeItem', '.remove-item', function(e) {
+				var $tr = $(e.target).parents('tr')
+				$tr.remove()
+			})
+
+			// select models
+			$('#myModal .modal-footer .btn-primary').click(
+					function() {
+						$('#myModal').modal('hide')
+						var selectItems = [], model, isExist = false
+						$('th .icon-check').parents('tr').each(
+								function(i, tr) {
+									model = $.parseJSON($(tr).attr('record'))
+									if ($('#modelTable tbody tr[data-value="'
+											+ model.modelId + '"]').length) {
+										isExist = true
+									} else
+
+										selectItems.push($.jString.format(
+												modelTemplate, model.modelId,
+												model.modelName,
+												model.modelName,
+												model.platformName))
+								})
+						//console.log($('#modelTable'), selectItems)
+						$('#modelTable tbody').append(selectItems.join(''))
+						if (selectItems.length)
+							$('#deleteModels').removeClass('disabled')
+						isExist ? $.jAlert.alert('部分机型已存在，无须重复选择') : ''
+					})
+
+			$('#deleteModels').click(function() {
+				$.jAlert.alert('全部删除?', 'confirmOnly', '', function() {
+					$('#modelTable tbody tr').remove()
+					$('#deleteModels').addClass('disabled')
+				})
+			})
+		})
+	</script>
+</body>
+</html>

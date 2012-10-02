@@ -1,0 +1,13 @@
+[{
+			"id" : 1,
+			"name" : "Android",
+			"group" : 1
+		}, {
+			"id" : 2,
+			"name" : "IOS",
+			"group" : 1
+		}, {
+			"id" : 3,
+			"name" : "WinPhone",
+			"group" : 1
+		}]

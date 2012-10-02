@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="public,max-age=31536000">
+<title>手机管理</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+<!-- <link href="css/jk.css" rel="stylesheet"> -->
+<link href="css/responsive.css" rel="stylesheet">
+<link href="css/mask.css" rel="stylesheet">
+<link href="css/opacity.css" rel="stylesheet">
+<link href="css/tooltip.css" rel="stylesheet">
+<link href="css/button.css" rel="stylesheet">
+<link href="css/renderer.css" rel="stylesheet">
+<link href="css/navbar.css" rel="stylesheet">
+<link href="css/datepicker.css" rel="stylesheet">
+<link href="css/combobox.css" rel="stylesheet">
+<link href="css/fileupload.css" rel="stylesheet">
+<link href="css/imagepreview.css" rel="stylesheet">
+<link href="css/form.css" rel="stylesheet">
+<link href="css/grid.css" rel="stylesheet">
+<link href="css/alert.css" rel="stylesheet">
+<link href="css/popover.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
+<link href="css/global.css" rel="stylesheet">
+<link href="css/scrollbar.css" rel="stylesheet">
+<!--[if IE 9]> 
+	<link href="css/ie9.css" rel="stylesheet">
+<![endif]-->
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="js/respond.min.js"></script>
+		<link href="css/ie.css" rel="stylesheet">
+    <![endif]-->
+<!--[if (IE 8)|(IE 7)]> 
+		<link href="css/ie78.css" rel="stylesheet">
+	<![endif]-->
+<!--[if IE 7]>   
+		<link href="css/ie7.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 6]>   
+		<link href="css/ie6.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 7]>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.css">
+<![endif]-->
+</head>
+<body>
+	<div class="navbar navbar-inverse global-nav">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a>
+				<div class="btn-group pull-right">
+					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
+						href="#"> <i class="icon-user"></i> <span
+						class="const-userName" style="width: 40px;"></span> <span
+						class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">个人信息</a></li>
+						<li class="divider"></li>
+						<li><a href="#">注销登录</a></li>
+					</ul>
+				</div>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href="nav.htm" style="padding-left: 5px;">首页</a></li>
+						<li><a href="borrow.htm">借用申请</a></li>
+						<li><a href="myproperty.htm">个人资产</a></li>
+						<li><a href="workflow.htm">流程管理</a></li>
+						<li class="active"><a href="phone.htm">手机管理</a></li>
+						<li><a href="model.htm">机型库</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">字典管理<b class="caret"></b></a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<li><a href="link.htm">系统网址</a></li>
+								<li class="divider"></li>
+								<li><a href="platform.htm">平台</a></li>
+								<li><a href="software.htm">平台版本</a></li>
+								<li><a href="resolution.htm">分辨率</a></li>
+								<li class="divider"></li>
+								<li><a href="brand.htm">品牌</a></li>
+								<li><a href="network.htm">网络制式</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="well form-search main-search">
+		<div style="float: left; width: 120px;">
+			<img class="search-logo" src="img/property.png" width="120"
+				height="45" style="margin-top: -10px;">
+		</div>
+		<input title="请输入资产编号、品牌、imei..." id="query-txt" name="query-txt"
+			autocomplete="off"
+			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
+			target-form="#link-form">
+		<div class="query-detail hidden clickOutHide">
+			<form id="link-form" action="data/link.json"
+				style="margin-bottom: 5px;" class="form-query highlight"
+				grid-reload="#linkGrid">
+				<a class="close show-hide-switch" show-hide="query-detail">×</a>
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="propertyName">资产编号</label>
+						<div class="controls">
+							<input type="text" class="j-search-item input-xlarge"
+								title="资产编号" id="propertyName" name="propertyName"
+								style="width: 92%;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="imei">imei</label>
+						<div class="controls">
+							<input type="text" class="j-search-item" name="imei" id="imei"
+								title="imei" style="width: 92%;">
+						</div>
+					</div>
+
+					<div class="control-group half-line">
+						<label class="control-label" for="_brandId">品牌</label>
+						<div class="controls">
+							<select id="_brandId" name="_brandId" class="combobox"
+								width="220" autoload="true" data-url="brand" child-id="_modelId">
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group half-line">
+						<label class="control-label" for="_modelId">机型</label>
+						<div class="controls">
+							<select id="_modelId" name="_modelId" class="combobox"
+								width="220" data-url="model">
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+
+					<!-- 					<div class="control-group">
+						<label class="control-label" for="createUser">创建人</label>
+						<div class="controls">
+							<input class="j-search-item" title="创建人" id="createUser"
+								name="createUser" style="width: 92%;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="lastModifyUser">修改人</label>
+						<div class="controls">
+							<input class="j-search-item" title="修改人" id="lastModifyUser"
+								name="lastModifyUser" style="width: 92%;">
+						</div>
+					</div> -->
+				</fieldset>
+				<div class="simple-form-actions">
+					<button title="点击查询"
+						class="submit-form btn btn-primary btn-search pull-left"
+						target-form="#link-form" style="margin-left: 0;">
+						<span class="add-on icon-white icon-search"></span>
+					</button>
+					<a style="margin-top: 8px;" class="clear-form pull-right"
+						target-form="#link-form" href="#">清空表单</a>
+				</div>
+			</form>
+		</div>
+		<div class="query-btn">
+			<button title="点击查询" class="submit-form btn btn-primary btn-search"
+				target-form="#link-form">
+				<span class="icon-white icon-search"></span>
+			</button>
+		</div>
+	</div>
+	<div class="left-nav span2" grid-reload="#linkGrid">
+		<div class="page-title">
+			<a href="#">手机管理</a>
+		</div>
+
+		<ul data-type="status"
+			class="nav nav-list nav-left-choose active-switch">
+			<li class="selected" data-id="1"><a href="#">有效</a></li>
+			<li data-id="2"><a href="#">无效</a></li>
+			<li data-id=""><a href="#">所有状态</a></li>
+			<li class="divider"></li>
+		</ul>
+		<label class="left-nav-label">入库时间</label>
+		<ul data-type="dateRange"
+			class="nav nav-list nav-left-choose active-switch">
+			<li data-id="" class="selected"><a class="hide-switch"
+				show-hide="date-form" href="#">时间不限</a></li>
+			<li data-id="week"><a class="hide-switch" show-hide="date-form"
+				href="#">最近一周</a></li>
+			<li data-id="month"><a class="hide-switch" show-hide="date-form"
+				href="#">最近一月</a></li>
+			<li data-id="custom"><a class="show-hide-switch"
+				show-hide="date-form" href="#">自定时间范围...</a>
+				<div class="date-form hidden">
+					<label class="control-label" for="startTime"
+						style="display: inline;">从：</label> <input id="startTime"
+						name="startTime" data-mask="9999-99-99"
+						class="const-yearBeforeDate date-picker-h input-small"> <label
+						class="control-label" style="display: inline;" for="endTime">到：</label>
+					<input id="endTime" name="endTime" data-mask="9999-99-99"
+						class="const-nowDate date-picker-h input-small">
+					<p class="help-block">例:2012-09-12</p>
+					<button type="button" class="date-query btn">搜 索</button>
+				</div></li>
+			<li class="divider"></li>
+		</ul>
+	</div>
+	<div class="search-result span10">
+		<div class="btn-toolbar grid-toolbar page-toolbar"
+			grid-target="#linkGrid">
+			<div class="btn-group">
+				<a data-toggle="modal" href="#linkModal"
+					class="btn toolbar-icon-btn j-tooltip-b" title="新建"> <i
+					class="icon-plus"></i></a>
+			</div>
+			<div class="btn-group">
+				<a class="grid-one btn toolbar-icon-btn j-tooltip-b" title="编辑"
+					modal-title="修改手机参数" href="#linkModal"><i class="icon-edit"></i></a>
+				<a class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
+					msg="确认删除{0}项?" url="data/op.json"><i class="icon-trash"></i></a>
+			</div>
+			<div class="btn-group">
+				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
+					class="icon-repeat"></i></a>
+			</div>
+			<div class="grid-result-pager btn-group">
+				<a class="prev-page btn toolbar-icon-btn j-tooltip-b" title="上一页"><i
+					class="icon-chevron-left"></i></a><a
+					class="next-page btn toolbar-icon-btn j-tooltip-b" title="下一页"><i
+					class="icon-chevron-right"></i></a>
+			</div>
+			<div class="grid-result-stat"></div>
+		</div>
+		<table id="linkGrid" class="grid" data-url="data/link.json"
+			row-id="propertyId" sort-name="lastModifyTime" sort-order="desc"
+			checkbox="true" resizable="false" grid-height="auto">
+			<thead>
+				<tr>
+					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
+					<th name="propertyName" sortable="true" width="110" align="left">资产编号</th>
+					<th name="propertyId" hidden sortable="true" width="50"
+						align="left">序号</th>
+					<th name="modelId" hidden sortable="true" width="50" align="left">机型ID</th>
+					<th name="brandName" width="60" align="left">品牌</th>
+					<th name="modelName" width="110" align="left">机型</th>
+					<!-- <th name="color" width="50" align="left">颜色</th> -->
+					<th name="imei" hidden width="50" align="left">imei</th>
+					<th name="platformName" width="50" align="left">平台</th>
+					<th name="softwareName" hidden width="50" align="left">平台版本</th>
+					<th name="isLicensed" width="50" align="left">是否行货</th>
+					<th name="otherFitting" width="150" align="left">其他配件</th>
+					<th name="desc" hidden width="150" align="left">描述</th>
+					<th name="createTime" hidden data-render="shortDateTimeChange"
+						sortable="true" width="150" align="left">创建时间</th>
+					<th name="createUser" hidden sortable="true" width="150"
+						align="left">创建人</th>
+					<th name="lastModifyTime" data-render="shortDateTimeChange"
+						sortable="true" width="100" align="left">修改时间</th>
+					<th name="lastModifyUser" sortable="true" width="100" align="left">修改人</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div id="linkModal" class="modal hide fade wide-modal">
+		<form id="link-form" action="data/save.json" grid-reload="#linkGrid"
+			class="highlight form-horizontal">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
+				<h3>手机入库</h3>
+			</div>
+			<div class="modal-body">
+				<fieldset>
+					<div class="control-group hidden">
+						<input type="hidden" id="propertyId" name="propertyId">
+					</div>
+					<div class="control-group edit-hide">
+						<label class="control-label" for="propertyName">资产编号</label>
+						<div class="controls">
+							<label class="display-text">自动生成</label>
+						</div>
+					</div>
+					<div class="control-group edit-show">
+						<label class="control-label" for="propertyName">资产编号</label>
+						<div class="controls">
+							<input type="text" name="propertyName" id="propertyName" readonly>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="brandId">品牌</label>
+						<div class="controls">
+							<select id="brandId" name="brandId" class="combobox" width="200"
+								autoload="true" data-url="brand" child-id="modelId" required>
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="modelId">机型</label>
+						<div class="controls">
+							<select id="modelId" name="modelId" class="combobox" width="200"
+								data-url="model" required>
+								<option value="" class="fixed"></option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="imei">imei</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" name="imei" id="imei"
+								required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="isLicensed">是否行货</label>
+						<div class="controls">
+							<label class="checkbox inline"><input type="checkbox"
+								name="isLicensed" id="isLicensed" value="1" checked>是 </label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="otherFitting">其他配件</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" name="otherFitting"
+								id="otherFitting" required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="count">数量</label>
+						<div class="controls">
+							<div class="input-append">
+								<input type="text"
+									class="positive-float span2 j-tooltip-r input-xlarge" value="1"
+									name="count" id="count" title="只能输入数字哦" required max="100"><span
+									class="add-on">个</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group hidden">
+						<label class="control-label" for="desc">描述</label>
+						<div class="controls">
+							<textarea class="input-xlarge" name="desc" id="desc" rows="2"
+								maxlength="200"></textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="canTouch">是否有效</label>
+						<div class="controls">
+							<label class="checkbox inline"><input type="checkbox"
+								name="status" id="status" value="1" checked>是 </label>
+						</div>
+					</div>
+
+				</fieldset>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal">取 消</button>
+				<button type="submit" class="btn btn-primary">&nbsp;提
+					&nbsp;&nbsp;交&nbsp;</button>
+			</div>
+		</form>
+	</div>
+
+	<script src="js/lib/xdate.js"></script>
+	<script src="jquery/jquery.min.js"></script>
+	<script src="jquery/jquery.json.js"></script>
+	<script src="jquery/jquery.cookie.js"></script>
+	<script src="jquery/jquery.mask.js"></script>
+	<script src="jquery/jquery.form.js"></script>
+	<script src="jquery/jquery.validate.js"></script>
+	<script src="jquery/jquery.validate.jason.js"></script>
+	<script src="jquery/jquery.flexigrid.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
+	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
+	<script src="js/bootstrap/bootstrap-tour.js"></script>
+	<script src="js/jason-loading.js"></script>
+	<script src="js/jason-datepicker.js"></script>
+	<script src="js/jason-radio.js"></script>
+	<script src="js/jason-search.js"></script>
+	<script src="js/jason-msg.js"></script>
+	<script src="js/jason-base.js"></script>
+	<script src="js/jason-checkbox.js"></script>
+	<script src="js/jason-store.js"></script>
+	<script src="js/jason-renderer.js"></script>
+	<script src="js/jason-alert.js"></script>
+	<script src="js/jason-popover.js"></script>
+	<script src="js/jason-data.js"></script>
+	<script src="js/jason-nav.js"></script>
+	<script src="js/jason-dom.js"></script>
+	<script src="js/jason-button.js"></script>
+	<script src="js/jason-combobox.js"></script>
+	<script src="js/jason-img-preview.js"></script>
+	<script src="js/jason-inputmask.js"></script>
+	<script src="js/jason-grid.js"></script>
+	<script src="js/jason-modal.js"></script>
+	<script src="js/jason-form.js"></script>
+	<script src="js/jason-tooltip.js"></script>
+	<script src="js/jason-timer.js"></script>
+	<script src="js/jason-const.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/ie.js"></script>
+    <![endif]-->
+</body>
+</html>

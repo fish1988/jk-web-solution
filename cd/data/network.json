@@ -1,0 +1,13 @@
+[{
+			"id" : 1,
+			"name" : "GSM",
+			"group" : 1
+		}, {
+			"id" : 2,
+			"name" : "GPRS",
+			"group" : 1
+		}, {
+			"id" : 3,
+			"name" : "WCDMA",
+			"group" : 1
+		}]
