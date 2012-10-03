@@ -287,7 +287,7 @@
 						<label class="control-label" for="brandId">品牌</label>
 						<div class="controls">
 							<select id="brandId" name="brandId" class="combobox" width="200"
-								autoload="true" data-url="brand" required>
+								autoload="true" data-url="brand" required multiple="multiple">
 								<option value="" class="fixed"></option>
 							</select>
 						</div>
@@ -296,7 +296,7 @@
 						<label class="control-label" for="platformId">平台</label>
 						<div class="controls">
 							<select id="platformId" name="platformId" class="combobox"
-								width="200" required child-id="softwareId" data-url="platform"
+								width="200" required child-id="softwareId" data-url="platform" multiple="multiple"
 								autoload="true">
 								<option value="" class="fixed"></option>
 							</select>
@@ -306,7 +306,7 @@
 						<label class="control-label" for="softwareId">平台版本</label>
 						<div class="controls">
 							<select id="softwareId" name="softwareId"
-								class="combobox not-set-value" width="200" required
+								class="combobox not-set-value" width="200" required multiple="multiple"
 								data-url="software">
 								<option value="" class="fixed"></option>
 							</select>

@@ -237,55 +237,85 @@
 		click : function(e) {
 			e.stopPropagation()
 			e.preventDefault()
-			this.select(e)
+			this.select()
 			// return;
 
 		},
 
-		select : function(e) {
-			// e.stopPropagation()
-			// e.preventDefault()
-			var li = this.$menu.find('.active')
+		select : function() {
+
+			var li = this.$menu.find('.active'), that = this
 			this.$clear.show()
 			var val = li.attr('data-value')
-			console.log('select')
+
 			if (this.multiSelect) {
 
 				var input = li.find('i')
 				// input.trigger
 				if (input.hasClass('icon-check')) {
 					$.jCheckbox.uncheck(input)
-					// input.removeClass('icon-check').addClass('icon-check-empty')
 					input.parent().removeClass('li-selected')
 				} else {
 					$.jCheckbox.check(input)
-					// input.removeClass('icon-check-empty').addClass('icon-check')
 					input.parent().addClass('li-selected')
 				}
-
 				var selectLi = this.$menu.find('.li-selected')
-				var text = '', dataValues = []
+				var text = '', dataValues = [], eleText = this.$element.val()
+
+				// selected li
 				for (var i = 0; i < selectLi.length; i++) {
-					dataValues
-							.push(this.map[$(selectLi[i]).attr('data-value')])
 					text += $('a', $(selectLi[i])).text()
 							+ (i == selectLi.length - 1 ? '' : ';')
 				}
-				if (dataValues.length === 0) {
-					dataValues = []
+				console.log('now query' + this.query)
+				if (this.query.length == 0) {
+					var temp = text.split(';'), outText = []
+
+					$.each(temp, function(k, v) {
+								if (typeof that.map[v] != 'undefined') {
+									outText.push(v)
+									dataValues.push(that.map[v])
+								}
+							})
+					this.$element.val(outText.join(';'))
+					console.log('no query -----', outText, dataValues)
+				} else {
+
+					var unselect = this.$menu.find('li').not('.li-selected'), temp = {}, outText = [], selectItems = [], items = []
+
+					if (text.length) {
+						eleText += (eleText.length ? ';' : '') + text
+					}
+					items = eleText.split(';')
+					$.each(items, function(k, v) {
+								if (typeof that.map[v] != 'undefined') {
+									selectItems.push(v)
+								}
+							})
+
+					$.each(selectItems, function(k, v) {
+								temp[v] = 1
+							})
+					// unselected li
+					for (var i = 0; i < unselect.length; i++) {
+						temp[$('a', $(unselect[i])).text()] = 0
+					}
+
+					$.each(temp, function(k, v) {
+								if (temp[k]) {
+									outText.push(k)
+									dataValues.push(that.map[k])
+								}
+							})
+
+					console.log(unselect, selectItems, temp, outText)
+					this.$element.val(outText.join(';'))
 				}
 				this.$target.val(dataValues)
-				this.$element.val(text)
-				console.log('dataValues', dataValues)
-				console.log('text', text)
-				console.log('res', this.$target.val())
 				this.$target.trigger('change')
 				this.$container.addClass('combobox-selected')
-
-				// this.$target.val(this.map[val])
-
 				this.selected = true
-				return // this.hide()
+				return
 			} else {
 
 				console.log('select', val)
@@ -330,13 +360,24 @@
 			this.$menu.hide()
 			this.shown = false
 			return this
-		}
-		// modified typeahead function removing the blank handling
-		,
+		},
+		getLastWord : function(text) {
+			var idx = text.lastIndexOf(';')
+			return text.slice(idx == -1 ? 0 : idx + 1)
+		},
+		getSelectedWord : function(text) {
+			var idx = text.lastIndexOf(';')
+			if (idx === -1)
+				return ''
+			return text.slice(0, idx)
+		},
 		lookup : function(oldVal) {
 			var that = this, items, q
 
-			this.query = this.$element.val()
+			if (typeof oldVal == 'undefined')
+				oldVal = that.$element.val()
+
+			this.query = this.getLastWord(this.$element.val())
 
 			items = $.grep(this.source, function(item) {
 						if (that.matcher(item))
@@ -353,7 +394,7 @@
 			this.$menu.find('li').removeClass('active')
 					.removeClass('li-selected')
 
-			console.log('lookup')
+			// console.log('lookup')
 
 			if (this.multiSelect) {
 
@@ -368,7 +409,7 @@
 					// .removeClass('icon-check-empty').addClass('icon-check')
 					activeLi.addClass('li-selected')
 
-					console.log('select291', arr[i])
+					// console.log('select291', arr[i])
 				}
 
 			} else {
@@ -506,7 +547,7 @@
 				case 36 : // home
 				case 35 : // end
 				case 16 : // shift
-				break
+					break
 
 				case 9 : // tab
 				case 13 : // enter
@@ -514,14 +555,14 @@
 						return
 
 					this.select()
-				break
+					break
 
 				case 27 : // escape
 					if (!this.shown)
 						return
 
 					this.hide()
-				break
+					break
 
 				/*case 38 : // up arrow
 					//e.preventDefault()
@@ -596,7 +637,29 @@
 			var that = this
 			console.log(573, 'blur')
 			if (this.multiSelect) {
+				var text = that.$element.val().replace(/;$/,''), temp = text.split(';'), outText = [],output, dataValues = []
+					,tempMap ={}
+				
+					$.each(temp, function(k, v) {
+								tempMap[v] = 1
+							})
+							
+				$.each(tempMap, function(k, v) {
+							if (typeof that.map[k] != 'undefined') {
+								outText.push(k)
+								dataValues.push(that.map[k])
+							}
+						})
+				output= outText.join(';')
+				that.$element.val(output)
+				
+				that.$target.val(dataValues)
+				that.$target.trigger('change')
+				/*if(text.length!=output.length){
+					this.$target.trigger('change')
+				}*/
 				// console.log('hide - 441')
+
 				/*
 				 * setTimeout(function() {
 				 * 
@@ -774,7 +837,7 @@
 	}
 
 	$.fn.combobox.multiDefaults = {
-		template : '<div class="combobox-container pull-left"><input type="text" readonly><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span style="background:#EEE;" class="combobox-clear">×</span></div>',
+		template : '<div class="combobox-container pull-left"><input type="text"><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><i class="icon-sort-down"></i></span><span class="combobox-clear">×</span></div>',
 		menu : '<ul class="combobox-menu typeahead typeahead-long dropdown-menu multi-combobox"></ul>',
 		item : '<li><i class="icon-check-empty"/><a href="#"></a></li>',
 		placeholder : null

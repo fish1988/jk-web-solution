@@ -135,7 +135,7 @@
 			var dateStr = v[0], a = dateStr.split(" "), d = a[0].split("-"), t = a[1]
 					.split(":")
 			return new XDate(d[0], (d[1] - 1), d[2], t[0], t[1], t[2])
-					.toString('yy-M-d HH:mm')
+					.toString('M-d HH:mm')
 		}
 		
 		$.jRenderer.timeAndPersonChange = function(v){
