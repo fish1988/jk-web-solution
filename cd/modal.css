@@ -1,7 +1,0 @@
-/* CSS crunched with Crunch - http://crunchapp.net/ */
-div.modal.fade.in{top:50%;}
-.modal-backdrop,.modal-backdrop.fade.in{opacity:0.5;filter:alpha(opacity=50);}
-.modal .modal-body{max-height:424px;}
-.modal form{margin:0;}
-.narrow-modal{width:370px;top:30%;margin:0 0 0 -200px;}
-.modal-header .loader{height:16px;width:16px;margin-right:10px;display:none;float:left;background:no-repeat scroll url('../img/ajax-loader.gif') center center;}
