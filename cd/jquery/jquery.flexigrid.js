@@ -732,9 +732,14 @@
 
 				}
 				var template = '<li><a href="#" page-index="{0}">{0}</a><li>', pageArr = []
+				
 				for (var i = leftPos; i <= rightPos; i++) {
 					pageArr.push($.jString.format(template, i))
 				}
+				/*if(totalPage > rightPos){
+					pageArr.push($.jString.format(template, totalPage))
+				}*/
+				
 				pageHtml = pageArr.join('')
 				$('.pagination .page-numbers', this.pDiv).html(pageHtml)
 				$('.pagination .page-numbers a[page-index=' + curPage + ']',
@@ -887,9 +892,10 @@
 							success : function(data) {
 								setTimeout(function() {
 											g.addData(data)
-										}, 0);
+											me.checkToolBarStat()
+										}, 0)
 								// console.log(p.rendererCache)
-								me.checkToolBarStat()
+								
 								// $.jPopover.hideTrPopover()
 								// p.allowPreview = true
 								if (p.checkbox)
@@ -1943,7 +1949,7 @@
 				});
 	} // end flexigrid
 	$.fn.flexReload = function(p) { // function to reload grid
-		console.log('reload')
+		//console.log('reload')
 		return this.each(function() {
 					if (this.grid && this.p.url)
 						this.grid.populate();

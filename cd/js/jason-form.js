@@ -363,9 +363,9 @@
 
 				if (data && !data.success) {
 					$.jAlert
-							.alert('操作失败' + data.msg ? ', 出错信息' + data.msg : '')
+							.alert('操作失败' + data.msg ? ', 出错信息' + $.jMsg[data.msg] : '')
 				} else {
-					$.jAlert.alert('操作成功')
+					$.jAlert.msg('操作成功')
 				}
 				// callback reload
 				$(f.attr('grid-reload')).flexReload()

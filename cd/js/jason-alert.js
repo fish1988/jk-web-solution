@@ -11,11 +11,24 @@
 	$(function() {
 		// alert box
 		if ($('#jason-alert').length === 0) {
-			$(document.body).append($('<div id="jason-alert"></div>'))
+			$(document.body).append('<div id="jason-alert"></div>')
 		}
-
+		// msg box
+		if ($('#jason-notify').length === 0) {
+			$(document.body)
+					.append('<div id="jason-notify" class="hidden"><span class="msg"></span></div>')
+		}
 		// object
 		$.jAlert = {}
+
+		$.jAlert.msg = function(msg) {
+
+			$('#jason-notify .msg').text(msg)
+			$('#jason-notify').removeClass('hidden')
+			$.jTimer.addTimer('#jason-notify', function() {
+						$('#jason-notify').addClass('hidden')
+					}, 3000)
+		}
 		$.jAlert.alert = function(msg, t, url, callback) {
 
 			var template = '<div class="modal narrow-modal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><span class="loader"></span><h4>提示</h4></div><div class="modal-body">'
@@ -47,6 +60,7 @@
 											$('.loader', me).hide()
 											if (callback)
 												callback()
+												
 											$.jAlert.alert($.jMsg[data.msg
 													? data.msg
 													: 'success'])
