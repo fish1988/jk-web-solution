@@ -36,8 +36,12 @@
 		this.matcher = this.options.matcher || this.matcher
 		this.sorter = this.options.sorter || this.sorter
 		this.highlighter = this.options.highlighter || this.highlighter
-		// this.$menu = $(this.options.menu).appendTo('body')
-		this.$menu = $(this.options.menu).appendTo(this.$container)
+		this.outside = $(element).attr('outside')
+
+		if (this.outside)
+			this.$menu = $(this.options.menu).appendTo('body')
+		else
+			this.$menu = $(this.options.menu).appendTo(this.$container)
 		this.$menu.width(this.width + 11)
 
 		this.initValue = this.options.initValue // default width
@@ -333,13 +337,18 @@
 		show : function() {
 			var pos = $.extend({}, this.$element.offset(), {
 						height : this.$element[0].offsetHeight
-					})
+					}), me = this
 
-			this.$menu.css({
-				top : pos.height
-					// ,
-					// left : pos.left
-				})
+			if (this.outside) {
+				this.$menu.css({
+							top : pos.top + pos.height,
+							left : pos.left
+						})
+			} else {
+				this.$menu.css({
+					top : pos.height
+					})
+			}
 
 			if ($.browser.msie && parseInt($.browser.version, 10) <= 7) {
 				$('.combobox-container').css({
@@ -637,29 +646,28 @@
 			var that = this
 			console.log(573, 'blur')
 			if (this.multiSelect) {
-				var text = that.$element.val().replace(/;$/,''), temp = text.split(';'), outText = [],output, dataValues = []
-					,tempMap ={}
-				
-					$.each(temp, function(k, v) {
-								tempMap[v] = 1
-							})
-							
+				var text = that.$element.val().replace(/;$/, ''), temp = text
+						.split(';'), outText = [], output, dataValues = [], tempMap = {}
+
+				$.each(temp, function(k, v) {
+							tempMap[v] = 1
+						})
+
 				$.each(tempMap, function(k, v) {
 							if (typeof that.map[k] != 'undefined') {
 								outText.push(k)
 								dataValues.push(that.map[k])
 							}
 						})
-				output= outText.join(';')
+				output = outText.join(';')
 				that.$element.val(output)
-				
+
 				that.$target.val(dataValues)
 				that.$target.trigger('change')
 				/*if(text.length!=output.length){
 					this.$target.trigger('change')
 				}*/
 				// console.log('hide - 441')
-
 				/*
 				 * setTimeout(function() {
 				 * 

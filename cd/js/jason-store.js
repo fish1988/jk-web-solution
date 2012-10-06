@@ -23,7 +23,8 @@
 					software:'data/software.json?pid=',
 					resolution:'data/resolution.json?pid=',
 					network:'data/network.json?pid=',
-					model:'data/modelselect.json?pid='
+					model:'data/modelselect.json?pid=',
+					link:'data/linkselect.json?pid='
 				}
 					
 				$.jStore.getUrl = function(id){

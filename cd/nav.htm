@@ -14,6 +14,7 @@
 <link href="css/nav-list.css" rel="stylesheet">
 <link href="css/navbar.css" rel="stylesheet">
 <link href="css/modal.css" rel="stylesheet">
+<link href="css/combobox.css" rel="stylesheet">
 <!-- IE styles -->
 
 <!--[if lt IE 9]>
@@ -189,10 +190,9 @@
 				<div class="control-group">
 					<label class="control-label" for="itemName">选择系统</label>
 					<div class="controls">
-						<select id="itemName" name="itemName">
-							<option value="1">爱享运营系统</option>
-							<option value="2">XX系统</option>
-							<option value="1">测试系统</option>
+						<select id="itemName" name="itemName" class="combobox" width="200"
+							autoload="true" data-url="link" outside="true">
+							<option class="fixed" val=""></option>
 						</select>
 					</div>
 				</div>
@@ -224,14 +224,18 @@
 
 	<!-- javascript libs -->
 	<script src="js/lib/xdate.js"></script>
+<!-- 	<script src="js/lib/async.min.js"></script> -->
+
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
 	<script src="jquery/jquery-ui-1.8.21.custom.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/bootstrap/bootstrap-tour.js"></script>
-	<script src="js/jason-base.js"></script>
 	<script src="js/jason-const.js"></script>
+	<!-- 	<script src="js/bootstrap/bootstrap-tour.js"></script> -->
+	<script src="js/jason-base.js"></script>
+	<script src="js/jason-store.js"></script>
+	<script src="js/jason-combobox.js"></script>
 	<!-- 	<script src="js/jason-tour.js"></script> -->
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>
@@ -239,25 +243,25 @@
 
 	<script>
 		$(function() {
-			var navMap = {
-				"1" : {
-					name : '分享系统',
-					url : 'http://www.aa.com'
-				},
-				"2" : {
-					name : '分享X系统',
-					url : 'http://www.aacc.com'
+			var navMap, userData, liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn editCategory" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn deleteCategory" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn addItem" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>', saveAction = 'data/save.json'
+
+			function asycCallback() {
+				if (userData && navMap) {
+					render()
+					listen()
 				}
 			}
+			// get navMap and userNavData
+			$.getJSON('data/navmap.json', function(data) {
+				navMap = data
+				asycCallback()
+			})
 
-			var userData = $.cookie('woc_nav') ? $.parseJSON($
-					.cookie('woc_nav')) : null
-			//console.log(userData)
+			$.getJSON('data/nav.json', function(data) {
+				userData = data
+				asycCallback()
+			})
 
-			var liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn editCategory" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn deleteCategory" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn addItem" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>'
-
-			render()
-			listen()
 			// html render
 			function render() {
 				if (userData) {
@@ -287,6 +291,7 @@
 				return liArr.join('')
 			}
 
+			// listener
 			function listen() {
 				// location detecting
 				if (location.hash !== '#!edit') {
@@ -370,13 +375,17 @@
 										nav.push(ul)
 										//console.log(ul)
 									})
-
-							$.cookie('woc_nav', $.stringifyJSON(nav), {
+							$.get(saveAction, {
+								nav : $.stringifyJSON(nav)
+							}, function() {
+								alert('保存成功')
+								window.location.href = 'nav.htm?save=true'
+							}, 'json')
+							/* $.cookie('woc_nav', $.stringifyJSON(nav), {
 								expires : 7,
 								path : '/'
-							});
+							}); */
 							//console.log($.cookie('woc_nav'), nav)
-							window.location.href = 'nav.htm?save=true'
 						})
 
 				// add cat
@@ -417,6 +426,9 @@
 							//console.log($target)
 							if ($target) {
 								var id = $('#itemName', $('#addItem')).val()
+								if(id.length == 0){
+									alert('请选择网站')
+								}
 
 								$target.append($($.jString.format(liTemp,
 										navMap[id].name, navMap[id].url, id)))
