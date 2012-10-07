@@ -121,7 +121,7 @@
 			// form.find('.combobox-container input:text').val('请选择')
 			var combos = $('.combobox', form)
 			for (var i = 0; i < combos.length; i++) {
-				$.combobox[$(combos[i]).attr('id')].reset()
+				$.combobox[$(combos[i]).attr('real-id')].reset()
 			}
 
 			if (type) {
@@ -150,6 +150,7 @@
 		$.jForm.loadRecord = function(form, record) { // !!!
 
 			for (var i in record) {
+				
 				// normal input / select (1)
 				var input = $(
 						'input[name="' + i + '"],select[name="' + i + '"]',
@@ -196,31 +197,37 @@
 			// combobox //!!!
 			var combos = $('.combobox', form).not('.not-set-value')
 			var valMap = {}
-			console.log(combos.length)
+			//console.log(combos.length)
 			// return
 			if (combos.length) {
 				for (var i = 0; i < combos.length; i++) {
-					var combo = combos[i]
-					var comboId = $(combo).attr('id')
-					valMap[comboId] = []
-
+					var combo = combos[i],comboId = $(combo).attr('id'), comboRealId = $(combo).attr('real-id')
+					valMap[comboRealId] = []
+					
+					// combo
 					if (record[comboId]) {
-						// console.log(record[comboId])
+						console.log(record[comboId])
 
-						valMap[comboId].push($(combo).attr('multiple')
+						valMap[comboRealId].push($(combo).attr('multiple')
 								? record[comboId].toString().replace(/;/, ',')
 								: record[comboId].toString())
 					}
 
+					// combo children
 					if ($(combo).attr('child-id')) {
-
+						
 						var target = $('#' + $(combo).attr('child-id'), form)
+						//console.log(216,$(combo),target)
+
+						
 						// valMap
 						while (target.length > 0) {
 
-							var child = $(target[0], form)
-							if (record[child.attr('id')]) {
-								valMap[comboId].push(child.attr('multiple')
+							var child = $(target[0])
+							
+							//console.log(225,child)
+							if (typeof record[child.attr('id')] != 'undefined') {
+								valMap[comboRealId].push(child.attr('multiple')
 										? record[child.attr('id')].toString()
 												.replace(/;/, ',')
 										: record[child.attr('id')].toString())
@@ -228,8 +235,7 @@
 								break
 							}
 							if ($('#' + child.attr('child-id')).length) {
-								target = $($('#' + child.attr('child-id'))[0],
-										form)
+								target = $($('#' + child.attr('child-id'))[0])
 							} else {
 								break
 							}
@@ -239,11 +245,12 @@
 					}
 				}
 			}
-			// console.log(valMap)
+			//console.log(243,valMap)
 			for (var i in valMap) {
-				if (valMap[i].length)
+				if (valMap[i].length){
 					$.combobox[i].setValue(valMap[i].join(';'))
-				console.log(i, valMap[i].join(';'), ' gogo')
+				}
+				//console.log(i, valMap[i].join(';'), ' gogo')
 			}
 
 		}

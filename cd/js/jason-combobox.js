@@ -7,6 +7,7 @@
 	'use strict'
 	$.combobox = {}
 	$.combobox.initValues = []
+
 	var Combobox = function(element, options) {
 		this.multiSelect = ($(element).attr('multiple') === 'multiple' || $(element)
 				.attr('multiple') === 'true')
@@ -61,6 +62,16 @@
 
 		constructor : Combobox,
 
+		buildComboboxIds : function($el) {
+			var form = $el.parents('form'), formPre = 'form-'
+			if (form.length > 0 && $(form[0]).attr('id')) {
+				formPre = $(form[0]).attr('id') + '-'
+			}
+			$el.attr('real-id', formPre + $el.attr('id'))
+
+			if ($el.attr('child-id'))
+				$el.attr('real-child-id', formPre + $el.attr('child-id'))
+		},
 		clearMenus : function() {
 			this.$menu.hide()
 			this.shown = false
@@ -106,7 +117,9 @@
 			if (arrValues.length) {
 				var i = 0;
 				var parent = '#'
-				var id = this.$target.attr('id')
+				var id = this.$target.attr('real-id')
+
+				// console.log(122,'------------',id)
 				while (arrValues.length - i) {
 					if (id) {
 						$.combobox.initValues.push({
@@ -117,9 +130,11 @@
 											? true
 											: false
 								})
+					} else {
+						break
 					}
 					parent = id
-					id = $('#' + id).attr('child-id')
+					id = $('[real-id="' + id + '"]').attr('real-child-id')
 				}
 
 			}
@@ -164,6 +179,7 @@
 		},
 		setup : function(element) {
 			var select = $(element), combobox = $(this.options.template)
+			this.buildComboboxIds(select)
 			select.before(combobox)
 			select.detach()
 			combobox.append(select)
@@ -200,10 +216,8 @@
 				this.$element.val('').focus()
 				if (this.multiSelect) {
 					console.log('multi', v)
-
 				} else {
-
-					this.clearTarget()
+					//this.clearTarget()
 				}
 				this.lookup(v)
 				this.$element.val(v)
@@ -346,8 +360,8 @@
 						})
 			} else {
 				this.$menu.css({
-					top : pos.height
-					})
+							top : pos.height
+						})
 			}
 
 			if ($.browser.msie && parseInt($.browser.version, 10) <= 7) {
@@ -463,10 +477,10 @@
 								}, 300)
 					})*/
 
-			var child = this.$target.attr('child-id')
+			var child = this.$target.attr('real-child-id')
 			if (child) {
 				this.$target.on('change', function() {
-							console.log($(this).attr('id') + ' change');
+							console.log($(this).attr('real-id') + ' change');
 							var combo = $.combobox[child]
 
 							if (!combo)
@@ -511,7 +525,7 @@
 						me.$menu.hide()
 
 						me.shown = false
-						console.log('clear ' + me.$target.attr('id'))
+						console.log('clear ' + me.$target.attr('real-id'))
 						var val = me.$target.val();
 
 						var val2 = me.$element.val();
@@ -556,7 +570,7 @@
 				case 36 : // home
 				case 35 : // end
 				case 16 : // shift
-					break
+				break
 
 				case 9 : // tab
 				case 13 : // enter
@@ -564,14 +578,14 @@
 						return
 
 					this.select()
-					break
+				break
 
 				case 27 : // escape
 					if (!this.shown)
 						return
 
 					this.hide()
-					break
+				break
 
 				/*case 38 : // up arrow
 					//e.preventDefault()
@@ -677,9 +691,6 @@
 			} else {
 
 				setTimeout(function() {
-
-							// that.hide()
-							// that.shown = false;
 							if (that.$element.val() == '') {
 								// console.log('not found',
 								// that.$element.val(''))
@@ -690,15 +701,8 @@
 
 							if (!that.findText(that.$element.val())) {
 								that.setSingleValue('')
-								// that.$target.trigger('change')
 							}
-						}, 150)
-				/*else
-					setTimeout(function() {
-								if (that.$element.val() == ''
-										|| !that.findText(that.$element.val()))
-									$.jPlaceholder.val(that.$element,that.placeholder)
-							}, 150)*/
+						}, 100)
 			}
 
 			e.stopPropagation()
@@ -788,7 +792,7 @@
 					if (initValues && arrValues.length) {
 						var i = 0;
 						var parent = '#'
-						var id = $this.attr('id')
+						var id = $this.attr('real-id')
 						while (arrValues.length - i) {
 							if (id) {
 								// var valueObj = {};
@@ -802,9 +806,12 @@
 													: false
 										})
 								// console.log(id);
+							} else {
+								break
 							}
 							parent = id;
-							id = $('#' + id).attr('child-id');
+							id = $('[real-id="' + id + '"]')
+									.attr('real-child-id');
 
 						}
 
@@ -812,8 +819,8 @@
 					// console.log($.combobox.initValues);
 
 					// console.log(combo);
-					if ($this.attr('id')) {
-						$.combobox[$this.attr('id')] = combo;
+					if ($this.attr('real-id')) {
+						$.combobox[$this.attr('real-id')] = combo;
 					}
 
 					if ($this.attr('data-url')) {

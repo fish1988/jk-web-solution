@@ -243,7 +243,7 @@
 
 	<script>
 		$(function() {
-			var navMap, userData, liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn editCategory" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn deleteCategory" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn addItem" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>', saveAction = 'data/save.json'
+			var navMap= {}, userData, liTemp = '<li data-value="{2}"><a href="{1}" target="_blank">{0}</a><span class="add-on li-remove" title="删除"><i class="icon-remove"></i></span></li>', navTemplate = '<div class="nav-container"><div class="navbar nav-title"><div class="navbar-inner"><a class="brand" href="#">{0}</a><div class="add-li btn-group"><a class="btn editCategory" data-toggle="modal" href="#editCategory" title="编辑"><i class="icon-edit"></i></a> <a class="btn deleteCategory" data-toggle="modal" href="#deleteCategory"  title="删除"> <i class="icon-trash"></i></a> <a class="btn addItem" data-toggle="modal" href="#addItem" title="增加网站"><i class="icon-plus"></i></a></div></div></div><ul class="list">{1}</ul></div>', saveAction = 'data/save.json'
 
 			function asycCallback() {
 				if (userData && navMap) {
@@ -252,8 +252,12 @@
 				}
 			}
 			// get navMap and userNavData
-			$.getJSON('data/navmap.json', function(data) {
-				navMap = data
+			$.getJSON('data/linkselect.json', function(data) {
+				if(data && data.length){
+					$.each(data,function(i,val){
+						navMap[val.id] = val
+					})
+				}
 				asycCallback()
 			})
 
