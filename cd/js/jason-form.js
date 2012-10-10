@@ -150,7 +150,10 @@
 		$.jForm.loadRecord = function(form, record) { // !!!
 
 			for (var i in record) {
-				
+				if (record[i] === null || typeof record[i] === 'undefined') {
+					continue
+				}
+
 				// normal input / select (1)
 				var input = $(
 						'input[name="' + i + '"],select[name="' + i + '"]',
@@ -176,9 +179,9 @@
 					continue
 				}
 
-				var checkboxVal = record[i] === true
+				var checkboxVal = (record[i] === true
 						? '1'
-						: record[i] === false ? '0' : record[i]
+						: record[i] === false ? '0' : record[i])
 				if (!$.isArray(checkboxVal)
 						&& checkboxVal.toString().indexOf(';') !== -1) {
 					checkboxVal = checkboxVal.split(';')
@@ -197,13 +200,14 @@
 			// combobox //!!!
 			var combos = $('.combobox', form).not('.not-set-value')
 			var valMap = {}
-			//console.log(combos.length)
+			// console.log(combos.length)
 			// return
 			if (combos.length) {
 				for (var i = 0; i < combos.length; i++) {
-					var combo = combos[i],comboId = $(combo).attr('id'), comboRealId = $(combo).attr('real-id')
+					var combo = combos[i], comboId = $(combo).attr('id'), comboRealId = $(combo)
+							.attr('real-id')
 					valMap[comboRealId] = []
-					
+
 					// combo
 					if (record[comboId]) {
 						console.log(record[comboId])
@@ -215,18 +219,17 @@
 
 					// combo children
 					if ($(combo).attr('child-id')) {
-						
-						var target = $('#' + $(combo).attr('child-id'), form)
-						//console.log(216,$(combo),target)
 
-						
+						var target = $('#' + $(combo).attr('child-id'), form)
+						// console.log(216,$(combo),target)
+
 						// valMap
 						while (target.length > 0) {
 
 							var child = $(target[0])
-							
+
 							//console.log(225,child)
-							if (typeof record[child.attr('id')] != 'undefined') {
+							if (typeof record[child.attr('id')] != 'undefined' && record[child.attr('id')]!==null) {
 								valMap[comboRealId].push(child.attr('multiple')
 										? record[child.attr('id')].toString()
 												.replace(/;/, ',')
@@ -247,29 +250,27 @@
 			}
 			//console.log(243,valMap)
 			for (var i in valMap) {
-				if (valMap[i].length){
+				if (valMap[i].length) {
 					$.combobox[i].setValue(valMap[i].join(';'))
 				}
 				//console.log(i, valMap[i].join(';'), ' gogo')
 			}
 
 		}
-		
-		
+
 		// bug form-params handler
-		$.jForm.getParams = function($f){
-			var params = $f.serializeObject(),queryObject={}
+		$.jForm.getParams = function($f) {
+			var params = $f.serializeObject(), queryObject = {}
 			$.each(params, function(key, val) {
-								if (typeof key == 'string' && key.charAt(0) === '_') {
-									queryObject[key.slice(1)] = val
-								} else {
-									queryObject[key] = val
-								}
-							})
+						if (typeof key == 'string' && key.charAt(0) === '_') {
+							queryObject[key.slice(1)] = val
+						} else {
+							queryObject[key] = val
+						}
+					})
 			return queryObject
 		}
-		
-		
+
 		// clear form
 		$('.clear-form').click(function() {
 			var $this = $(this), formSelector = $this.attr('target-form')
@@ -281,7 +282,6 @@
 					.search('clearItems')
 		})
 
-		
 		// submit form
 		$('.submit-form.btn').click(function() {
 			var $this = $(this), formSelector = $this.attr('target-form')
@@ -305,7 +305,7 @@
 									}
 								}
 							})
-					console.log('left', leftNavParams)
+					//console.log('left', leftNavParams)
 					if ($form.parent().hasClass('query-detail')) {
 						$form.parent().addClass('hidden')
 					}
@@ -354,30 +354,41 @@
 									}
 								}
 							})
-					//console.log('left', leftNavParams, f.serializeObject())
+					// console.log('left', leftNavParams, f.serializeObject())
 
 					$(f.attr('grid-reload')).flexOptions({
 
-								params : $.extend($.jForm.getParams(f), leftNavParams)
+								params : $.extend($.jForm.getParams(f),
+										leftNavParams)
 							}).flexReload()
 					return false
 				}).trigger('submit')
 			}
 
 			// default actions
-			f.ajaxForm(function(data) {
-				f.parents('.modal').modal('hide')
+			f.ajaxForm({
+						type : 'POST',
+						data : {
+							from : 'bootstrap',
+							timeStamp : new Date().getTime()
+						},
+						success : function(data) {
+							console.log(379,typeof $.jForm.getParams(f).status == 'undefined'
+									&& f.find('#status').length ? 0 : 1)
+							f.parents('.modal').modal('hide')
 
-				if (data && !data.success) {
-					$.jAlert
-							.alert('操作失败' + data.msg ? ', 出错信息' + $.jMsg[data.msg] : '')
-				} else {
-					$.jAlert.msg('操作成功')
-				}
-				// callback reload
-				$(f.attr('grid-reload')).flexReload()
+							if (data && !data.success) {
+								$.jAlert.alert('操作失败'
+										+ (data.message ? ', 出错信息：'
+												+ $.jMsg[data.message] : ''))
+							} else {
+								$.jAlert.msg('操作成功')
+							}
+							// callback reload
+							$(f.attr('grid-reload')).flexReload()
 
-			});
+						}
+					})
 
 		})
 

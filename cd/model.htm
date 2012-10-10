@@ -51,50 +51,9 @@
 </head>
 <body>
 	<div class="navbar navbar-inverse global-nav">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a>
-				<div class="btn-group pull-right">
-					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
-						href="#"> <i class="icon-user"></i> <span
-						class="const-userName" style="width: 40px;"></span> <span
-						class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">个人信息</a></li>
-						<li class="divider"></li>
-						<li><a href="#">注销登录</a></li>
-					</ul>
-				</div>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li><a href="nav.htm" style="padding-left: 5px;">首页</a></li>
-						<li><a href="borrow.htm">借用申请</a></li>
-						<li><a href="myproperty.htm">个人资产</a></li>
-						<li><a href="workflow.htm">流程管理</a></li>
-						<li><a href="phone.htm">手机管理</a></li>
-						<li class="active"><a href="model.htm">机型库</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">字典管理<b class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li ><a href="link.htm">系统网址</a></li>
-								<li class="divider"></li>
-								<li><a href="platform.htm">平台</a></li>
-								<li><a href="software.htm">平台版本</a></li>
-								<li><a href="resolution.htm">分辨率</a></li>
-								<li class="divider"></li>
-								<li><a href="brand.htm">品牌</a></li>
-								<li><a href="network.htm">网络制式</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				</div>
-			</div>
-		</div>
+		<div class="navbar-inner" active="model"></div>
 	</div>
+
 	<div class="well form-search main-search">
 		<div style="float: left; width: 120px;">
 			<img class="search-logo" src="img/property.png" width="120"
@@ -105,9 +64,8 @@
 			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#model-form">
 		<div class="query-detail hidden clickOutHide">
-			<form id="model-form" action="data/save.json"
-				style="margin-bottom: 5px;" class="form-query highlight"
-				grid-reload="#modelGrid">
+			<form id="model-form" style="margin-bottom: 5px;"
+				class="form-query highlight" grid-reload="#modelGrid">
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 				<fieldset>
 					<div class="control-group">
@@ -174,11 +132,11 @@
 		<ul data-type="status"
 			class="nav nav-list nav-left-choose active-switch">
 			<li data-id="1" class="selected"><a href="#">有效</a></li>
-			<li data-id="2"><a href="#">无效</a></li>
+			<li data-id="0"><a href="#">无效</a></li>
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
-		<label class="left-nav-label">创建时间</label>
+		<label class="left-nav-label">更新时间</label>
 		<ul data-type="dateRange"
 			class="nav nav-list nav-left-choose active-switch">
 			<li data-id="" class="selected"><a class="hide-switch"
@@ -215,7 +173,8 @@
 				<a class="grid-one btn toolbar-icon-btn j-tooltip-b" title="编辑"
 					modal-title="修改机型" href="#myModal"><i class="icon-edit"></i></a> <a
 					class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
-					msg="确认删除{0}项?" url="data/op.json"><i class="icon-trash"></i></a>
+					msg="确认删除{0}项?" url="phoneModel/delete.html"><i
+					class="icon-trash"></i></a>
 			</div>
 			<div class="btn-group">
 				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
@@ -229,44 +188,49 @@
 			</div>
 			<div class="grid-result-stat"></div>
 		</div>
-		<table id="modelGrid" class="grid" data-url="data/model.json"
+		<table id="modelGrid" class="grid" data-url="phoneModel/list.html"
 			row-id="modelId" sort-name="lastModifyTime" sort-order="desc"
 			checkbox="true" resizable="false" grid-height="auto">
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="modelName" data-render="modalChange" sortable="true"
+					<th name="modelName" data-render="tipsChange" sortable="true"
 						width="150" align="left">机型名称</th>
 					<th name="modelId" hidden sortable="true" width="50" align="left">序号</th>
-					<th name="brandName" sortable="true" width="100" align="left">品牌</th>
-					<th name="platformName" sortable="true" width="100" align="left">平台</th>
+					<th name="brandName" hidden sortable="true" width="100"
+						align="left">品牌</th>
+					<th name="platformName" hidden sortable="true" width="100"
+						align="left">平台</th>
 					<th name="softwareName" sortable="true" width="100" align="left">平台版本</th>
 					<th name="screenSize" sortable="true" width="100" align="left">屏幕尺寸</th>
-					<th name="resolutionName" sortable="true" width="100" align="left">分辨率</th>
+					<th name="resolutionName" hidden sortable="true" width="100"
+						align="left">分辨率</th>
 					<th name="cpuCount" hidden width="80" align="left">核心数</th>
-					<th name="cpuSpeed" hidden width="80" align="left">CPU频率</th>
-					<th name="ramSize" width="100" align="left">内存大小</th>
-					<th name="romSize" sortable="true" width="100" align="left">存储大小</th>
-					<th name="canTouch" data-render="yesNoChange" width="100" align="left">是否触屏</th>
-					<th name="hasKeybord" data-render="hasOrNotChange" width="100" align="left">有无键盘</th>
+					<th name="cpuSpeed" data-render="addCPUChange" hidden width="80"
+						align="left">CPU频率</th>
+					<th name="ramSize" data-render="addMemoryChange" hidden width="100"
+						align="left">内存大小</th>
+					<th name="romSize" data-render="addMemoryChange" hidden
+						sortable="true" width="100" align="left">存储大小</th>
+					<th name="canTouch" data-render="yesNoChange" width="100"
+						align="left">是否触屏</th>
+					<th name="hasKeybord" hidden data-render="hasOrNotChange"
+						width="100" align="left">有无键盘</th>
 					<th name="networkStandardNames" width="100" align="left">网络制式</th>
-					<th name="publishTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">上市时间</th>
-					<th name="createTime" data-render="shortDateTimeChange" hidden
-						sortable="true" width="100" align="left">创建时间</th>
+					<th name="createTime" hidden data-render="shortDateTimeChange"
+						hidden sortable="true" width="100" align="left">创建时间</th>
 					<th name="createUser" hidden sortable="true" width="100"
 						align="left">创建人</th>
 					<th name="lastModifyTime" data-render="shortDateTimeChange"
 						sortable="true" width="100" align="left">修改时间</th>
-					<th name="lastModifyUser" hidden sortable="true" width="100"
-						align="left">修改人</th>
+					<th name="lastModifyUser" sortable="true" width="100" align="left">修改人</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
 	<div id="myModal" class="modal hide fade wide-modal">
-		<form id="model-form" action="data/save.json" grid-reload="#modelGrid"
-			class="highlight form-horizontal">
+		<form id="model-form" action="phoneModel/save.html"
+			grid-reload="#modelGrid" class="highlight form-horizontal">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
 				<h3>新机型</h3>
@@ -296,7 +260,7 @@
 						<label class="control-label" for="platformId">平台</label>
 						<div class="controls">
 							<select id="platformId" name="platformId" class="combobox"
-								width="200" required child-id="softwareId" data-url="platform" 
+								width="200" required child-id="softwareId" data-url="platform"
 								autoload="true">
 								<option value="" class="fixed"></option>
 							</select>
@@ -317,9 +281,9 @@
 						<div class="controls">
 							<div class="input-append">
 								<input type="text"
-									class="positive-float span2 j-tooltip-r input-xlarge"
-									name="screenSize" id="screenSize" max="8" title="只能输入数字哦"
-									required> <span class="add-on">英寸</span>
+									class="positive-float j-tooltip-r input-xlarge"
+									style="width: 190px;" name="screenSize" id="screenSize" max="8"
+									title="只能输入数字哦" required> <span class="add-on">英寸</span>
 							</div>
 						</div>
 					</div>
@@ -336,9 +300,9 @@
 						<label class="control-label" for="cpuCount">CPU个数</label>
 						<div class="controls">
 							<div class="input-append">
-								<input type="text" class="positive-integer span2 j-tooltip-r"
-									name="cpuCount" id="cpuCount" value="1" max="16"
-									title="只能输入数字哦" required> <span class="add-on">个</span>
+								<input type="text" class="positive-integer j-tooltip-r"
+									style="width: 198px;" name="cpuCount" id="cpuCount" value="1"
+									max="16" title="只能输入数字哦" required> <span class="add-on">个</span>
 							</div>
 						</div>
 					</div>
@@ -347,9 +311,9 @@
 						<div class="controls">
 							<div class="input-append">
 								<input type="text"
-									class="positive-float span2 j-tooltip-r input-xlarge"
-									name="cpuSpeed" id="cpuSpeed" title="只能输入数字哦" required><span
-									class="add-on">GHz</span>
+									class="positive-float j-tooltip-r input-xlarge"
+									style="width: 190px;" name="cpuSpeed" id="cpuSpeed"
+									title="只能输入数字哦" required><span class="add-on">GHz</span>
 							</div>
 						</div>
 					</div>
@@ -357,9 +321,9 @@
 						<label class="control-label" for="ramSize">内存大小</label>
 						<div class="controls">
 							<div class="input-append">
-								<input type="text" class="positive-integer span2 j-tooltip-r"
-									name="ramSize" id="ramSize" max="10000" title="只能输入数字哦"
-									required><span class="add-on">M</span>
+								<input type="text" class="positive-integer j-tooltip-r"
+									style="width: 198px;" name="ramSize" id="ramSize" max="10000"
+									title="只能输入数字哦" required><span class="add-on">M</span>
 							</div>
 						</div>
 					</div>
@@ -368,8 +332,9 @@
 						<div class="controls">
 							<div class="input-append">
 								<input type="text" title="只能输入数字哦"
-									class="positive-integer span2 j-tooltip-r" name="romSize"
-									id="romSize" max="10000" required><span class="add-on">M</span>
+									class="positive-integer j-tooltip-r" style="width: 198px;"
+									name="romSize" id="romSize" max="10000" required><span
+									class="add-on">M</span>
 							</div>
 						</div>
 					</div>
@@ -385,6 +350,13 @@
 						<div class="controls remote-checkbox check-one-least"
 							target-name="networkStandardIds" data-url="network"></div>
 					</div>
+					<div class="control-group">
+						<label class="control-label" for="status">是否有效</label>
+						<div class="controls">
+							<label class="checkbox inline"><input type="checkbox"
+								name="status" id="status" value="1" checked>是 </label>
+						</div>
+					</div>
 				</fieldset>
 			</div>
 			<div class="modal-footer">
@@ -396,8 +368,10 @@
 	</div>
 	<script src="js/lib/xdate.js"></script>
 	<script src="jquery/jquery.min.js"></script>
+	<script src="js/jason-navbar.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
+	<script src="js/jason-auth.js"></script>
 	<script src="jquery/jquery.mask.js"></script>
 	<script src="jquery/jquery.form.js"></script>
 	<script src="jquery/jquery.numeric.js"></script>
@@ -407,7 +381,6 @@
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
-	<script src="js/jason-auth.js"></script>
 	<script src="js/jason-const.js"></script>
 	<script src="js/jason-loading.js"></script>
 	<script src="js/jason-datepicker.js"></script>

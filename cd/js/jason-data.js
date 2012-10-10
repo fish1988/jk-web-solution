@@ -14,13 +14,17 @@
 	$(function() {
 		// add-on data
 		$.ajaxSetup({
-					method : 'GET',
+					method : 'POST',
 					data : {
-						currentUser : 'jason',
 						from : 'bootstrap',
 						timeStamp: new Date().getTime()
 					},
 					dataType : 'json',
+					complete:function(xhr,status){
+						if(xhr.responseText == 'session_timeout'){
+							location.href = 'nav.htm'
+						}
+					},
 					error : function(request, status, error) {
 						console.log('内部错误');
 					}

@@ -119,7 +119,7 @@
 				var parent = '#'
 				var id = this.$target.attr('real-id')
 
-				// console.log(122,'------------',id)
+				console.log(122, '------------', arrValues, id)
 				while (arrValues.length - i) {
 					if (id) {
 						$.combobox.initValues.push({
@@ -217,7 +217,7 @@
 				if (this.multiSelect) {
 					console.log('multi', v)
 				} else {
-					//this.clearTarget()
+					// this.clearTarget()
 				}
 				this.lookup(v)
 				this.$element.val(v)
@@ -711,9 +711,9 @@
 		}
 
 		,
-		load : function(needLoad, ids, initValue) {
+		load : function(needLoad, parentId, initValue) {
 
-			var combo = this;
+			var combo = this, ids = '#'
 
 			var url = $.jStore.getUrl(combo.$target.attr('data-url'))
 			if (typeof url === 'undefined' || url.length === 0) {
@@ -726,14 +726,21 @@
 				// remove unfixed items
 				combo.$target.find('option:not(.fixed)').remove();
 
-				if (ids && ids.length > 0) {
+				if (parentId && parentId.length > 0) {
+					if (parentId !== '#') {
+						// console.log(731,ids,$('[real-id="'+ids+'"]'),$('[real-id="'+ids+'"]').val())
+						var tempValue = $('[real-id="' + parentId + '"]').val()
+						ids = $.isArray(tempValue)
+								? tempValue.join(';')
+								: tempValue
+					}
 					url += ids;
 				} else {
 					return;
 				}
 
 				// get data
-				$.get(url, function(data) {
+				$.post(url, function(data) {
 							// console.log(combo.$target.attr('id') + '
 							// ' + url);
 							combo.$target.find('option:not(.fixed)').remove()

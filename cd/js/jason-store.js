@@ -18,13 +18,14 @@
 					combo2 : 'data/data2.txt?pid=',
 					combo3 : 'data/data.txt?pid=',
 					
-					brand :'data/brand.json?pid=',
-					platform:'data/platform.json?pid=',
-					software:'data/software.json?pid=',
-					resolution:'data/resolution.json?pid=',
-					network:'data/network.json?pid=',
-					model:'data/modelselect.json?pid=',
-					link:'data/linkselect.json?pid='
+					brand :'dropdown/brand.html?pid=',
+					platform:'dropdown/platform.html?pid=',
+					software:'dropdown/software.html?pid=',
+					resolution:'dropdown/resolution.html?pid=',
+					network:'dropdown/networkStandard.html?pid=',
+					model:'dropdown/phoneModel.html?pid=',
+					link:'dropdown/cdlink.html?pid=',
+					workflow:'data/opstatus.json?pid='
 				}
 					
 				$.jStore.getUrl = function(id){

@@ -50,51 +50,11 @@
 </head>
 <body>
 	<div class="navbar navbar-inverse global-nav">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a>
-				<div class="btn-group pull-right">
-					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
-						href="#"> <i class="icon-user"></i> <span
-						class="const-userName" style="width: 40px;"></span><span
-						class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">个人信息</a></li>
-						<li><a href="#">注销登录</a></li>
-					</ul>
-				</div>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li><a href="nav.htm" style="padding-left: 5px;">首页</a></li>
-						<li class="active"><a href="borrow.htm">借用申请</a></li>
-						<li><a href="myproperty.htm">个人资产</a></li>
-						<li><a href="workflow.htm">流程管理</a></li>
-						<li><a href="phone.htm">手机管理</a></li>
-						<li><a href="model.htm">机型库</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">字典管理<b class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li><a href="link.htm">系统网址</a></li>
-								<li class="divider"></li>
-								<li><a href="platform.htm">平台</a></li>
-								<li><a href="software.htm">平台版本</a></li>
-								<li><a href="resolution.htm">分辨率</a></li>
-								<li class="divider"></li>
-								<li><a href="brand.htm">品牌</a></li>
-								<li><a href="network.htm">网络制式</a></li>
-							</ul></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<div class="navbar-inner" active="borrow"></div>
 	</div>
 
 	<div class="container">
-		<form id="borrow-form" action="data.aspx"
+		<form id="borrow-form" action="data/save.json"
 			class="highlight form-horizontal">
 			<legend> 借用申请 </legend>
 
@@ -125,11 +85,12 @@
 					</div>
 				</div>
 
-				<div class="control-group">
+				<div class="control-group hidden">
 					<label class="control-label" for="leaderName">直接上级</label>
 					<div class="controls">
-						<input type="text" class="input-xlarge typeahead-user" name="leaderName"
-							id="leaderName" required data-provide="typeahead" data-items="4">
+						<input type="text" class="input-xlarge typeahead-user"
+							name="leaderName" id="leaderName" required
+							data-provide="typeahead" data-items="4">
 					</div>
 				</div>
 
@@ -164,8 +125,6 @@
 						</table>
 					</div>
 				</div>
-
-
 
 			</fieldset>
 
@@ -214,8 +173,10 @@
 
 	<script src="js/lib/xdate.js"></script>
 	<script src="jquery/jquery.min.js"></script>
+	<script src="js/jason-navbar.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
+	<script src="js/jason-auth.js"></script>
 	<script src="jquery/jquery.mask.js"></script>
 	<script src="jquery/jquery.form.js"></script>
 	<script src="jquery/jquery.validate.js"></script>
@@ -296,6 +257,16 @@
 					$('#deleteModels').addClass('disabled')
 				})
 			})
+
+			// submit
+			$('#borrow-form').ajaxForm(function(data) {
+				if (data && data.success) {
+					alert('成功提交')
+					location.href = "workflow.htm"
+				}
+
+			})
+
 		})
 	</script>
 </body>

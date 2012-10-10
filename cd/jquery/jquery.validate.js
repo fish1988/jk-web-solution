@@ -710,7 +710,11 @@ $.extend($.validator, {
 						this.settings.errorPlacement(label, $(element) );
 					} else {
 						//label.insertAfter(element);
-						$(element).parents('.controls').append(label)
+						var control = $(element).parents('.controls')
+						if(control.length && control.find('.combobox,.add-on').length)
+							control.append(label)
+						else
+							label.insertAfter(element)
 					}
 				}
 			}

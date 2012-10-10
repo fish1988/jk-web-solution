@@ -56,7 +56,7 @@
 					$('.btn-primary', me).addClass('disabled')
 
 					setTimeout(function() {
-								$.getJSON(url, function(data) {
+								$.post(url, function(data) {
 											$('.loader', me).hide()
 											if (callback)
 												callback()
@@ -65,7 +65,7 @@
 													? data.msg
 													: 'success'])
 										})
-							}, 500)
+							}, 300)
 				})
 			} else if (t == 'confirmOnly') {
 

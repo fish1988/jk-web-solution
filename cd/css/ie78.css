@@ -1,6 +1,5 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
 .well>.checkbox{clear:both;}
-.btn:active,.btn.active{filter:progid:dximagetransform.microsoft.gradient(startColorstr=#555555, endColorstr=#000000, GradientType=0);color:#ffffff;border-color:#555555;}
 .btn{filter:progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#eeeeee, GradientType=0);border:1px solid #CCC;border-bottom-color:#BBB;}.btn:hover{filter:none;}
 .btn-primary{filter:progid:dximagetransform.microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);border-color:#0064cd #0064cd #003f81;}
 .btn-success{filter:progid:dximagetransform.microsoft.gradient(startColorstr='#62c462', endColorstr='#57a957', GradientType=0);border-color:#57a957 #57a957 #3d773d;}

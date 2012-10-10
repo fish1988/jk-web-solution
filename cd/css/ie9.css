@@ -2,3 +2,6 @@
 .query-form-display{display:inline;position:absolute;}
 .query-container .query-input #query-txt{height:22px;}
 .query-container .query-input .query-trigger{right:-10px;}
+.query-container .query-input .query-clear{right:10px;}
+@charset "UTF-8";
+.flexigrid div.bDiv{height:630px;}

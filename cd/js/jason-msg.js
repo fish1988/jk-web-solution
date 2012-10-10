@@ -43,6 +43,7 @@
 					qqnum_validation_error : 'QQ号未登录',
 					qqnum_not_exist_error : '该用户不存在',
 					app_name_duplicated_error : '应用名称不能重复',
+					error_duplicate_name :'名称重复',
 					packMsg : function(msg) {
 						return msg
 								.replace('channels_not_exist_error', '渠道号不存在')

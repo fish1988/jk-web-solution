@@ -109,12 +109,13 @@
 				newH = false;
 				if (!newH)
 					newH = $(g.bDiv).height();
-				var hdHeight = $(this.hDiv).height(),maxHeight = $(g.bDiv).height()
-				
-				
+				var hdHeight = $(this.hDiv).height(), maxHeight = $(g.bDiv)
+						.height()
+
 				$('div', this.cDrag).each(function() {
-					$(this).height((newH + hdHeight > maxHeight ? maxHeight : newH
-							+ hdHeight));
+					$(this).height((newH + hdHeight > maxHeight
+							? maxHeight
+							: newH + hdHeight));
 						// console.log(108,newH + hdHeight)
 				});
 				var nd = parseInt($(g.nDiv).height());
@@ -482,7 +483,8 @@
 				if (p.total == 0) {
 					$('tr, a, td, div', t).unbind();
 					$(t).empty();
-					$(t).html('<tr><td><div>没有记录</div></td></tr>')
+					$(t).html('<tr><td><div class="empty">没有记录</div></td></tr>')
+					$(t).find('.empty').width($(g.bDiv).width()-50)
 					p.pages = 1;
 					p.page = 1;
 					$('.pagination', g.pDiv).addClass('hidden')
@@ -732,14 +734,14 @@
 
 				}
 				var template = '<li><a href="#" page-index="{0}">{0}</a><li>', pageArr = []
-				
+
 				for (var i = leftPos; i <= rightPos; i++) {
 					pageArr.push($.jString.format(template, i))
 				}
 				/*if(totalPage > rightPos){
 					pageArr.push($.jString.format(template, totalPage))
 				}*/
-				
+
 				pageHtml = pageArr.join('')
 				$('.pagination .page-numbers', this.pDiv).html(pageHtml)
 				$('.pagination .page-numbers a[page-index=' + curPage + ']',
@@ -895,7 +897,7 @@
 											me.checkToolBarStat()
 										}, 0)
 								// console.log(p.rendererCache)
-								
+
 								// $.jPopover.hideTrPopover()
 								// p.allowPreview = true
 								if (p.checkbox)
@@ -1583,7 +1585,15 @@
 					height : (p.height == 'auto') ? 'auto' : p.height + "px"
 				}).scroll(function(e) {
 					g.scroll()
-				}).append(t);
+				}).append(t)
+
+	/*	if ($.browser.msie) {
+			if (parseInt($.browser.version, 10) == 9)
+				$(g.bDiv).css({
+							'height' : '600px'
+						})
+		}*/
+
 		if (p.height == 'auto') {
 			$('table', g.bDiv).addClass('autoht');
 		}
@@ -1792,10 +1802,10 @@
 					// var cthch = $('<input type="checkbox"/>');
 					var cthch = $('<i class="icon-check-empty"/>')
 					cthch.click(function() {
-								
+
 								if ($(this).hasClass('icon-check-empty')) {
 									$('tbody tr', g.bDiv).each(function() {
-										
+
 										$.jCheckbox.check($(this)
 												.addClass('trSelected')
 												.find('i:first'))
@@ -1949,7 +1959,7 @@
 				});
 	} // end flexigrid
 	$.fn.flexReload = function(p) { // function to reload grid
-		//console.log('reload')
+		// console.log('reload')
 		return this.each(function() {
 					if (this.grid && this.p.url)
 						this.grid.populate();

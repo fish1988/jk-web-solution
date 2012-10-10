@@ -46,6 +46,10 @@
 			var dataIndex = v
 			if (typeof type == 'undefined')
 				type = 'equal'
+				
+			if (typeof dataIndex == 'undefined'){
+				return ''
+			}
 			if (v.constructor === Array) {
 				dataIndex = v[0]
 			}
@@ -61,8 +65,9 @@
 				}
 				case 'equal' : {
 					for (var i in rules) {
-						if (i == dataIndex)
+						if (i == dataIndex){
 							return $.jString.format(rules[i], v)
+						}
 					}
 					break
 				}
@@ -92,7 +97,7 @@
 			}
 			return $.jRenderer.valueChange(v, rules)
 		}
-		
+
 		$.jRenderer.hasOrNotChange = function(v) {
 			var rules = {
 				0 : '有',
@@ -100,7 +105,7 @@
 			}
 			return $.jRenderer.valueChange(v, rules)
 		}
-		
+
 		$.jRenderer.statusClsChange = function(v) {
 			var rules = {
 				1 : 'td-err',
@@ -108,17 +113,15 @@
 			}
 			return $.jRenderer.classChange(v, rules)
 		}
-		
-		
-		
-		
+
+		// download link
 		$.jRenderer.downloadChange = function(v) {
 			var template = '<a href="{0}">{1}</a>'
 			return $.jRenderer.valueChange(v, template, 'format')
 		}
 
+		// deleted or not
 		$.jRenderer.cmdChange = function(v) {
-
 			return $.jRenderer.valueChange(v, {
 				0 : '<span class="cmd j-opacity6" title="已无效"><i class="icon-trash"></i></span>',
 				1 : ''
@@ -126,22 +129,57 @@
 
 		}
 
-		$.jRenderer.modalChange = function(v) {
+		// show tips on hover
+		$.jRenderer.tipsChange = function(v) {
 			var template = '<a href="#">{0}</a>'
 			return $.jRenderer.valueChange(v, template, 'format')
 		}
 
+		// short time change
 		$.jRenderer.shortDateTimeChange = function(v) {
-			var dateStr = v[0], a = dateStr.split(" "), d = a[0].split("-"), t = a[1]
+			
+			var dateStr = v[0]
+			if(!dateStr || !dateStr.length){
+				return ''
+			}
+			var a = dateStr.split(" "), d = a[0].split("-"), t = a[1]
 					.split(":")
 			return new XDate(d[0], (d[1] - 1), d[2], t[0], t[1], t[2])
 					.toString('M-d HH:mm')
 		}
-		
-		$.jRenderer.timeAndPersonChange = function(v){
-			return $.jRenderer.shortDateTimeChange(v) + ' by '+v[1]
+
+		$.jRenderer.timeAndPersonChange = function(v) {
+			return $.jRenderer.shortDateTimeChange(v) + ' by ' + v[1]
 		}
 
+		// modal change
+		$.jRenderer.modalChange = function(v) {
+			var text = $.jRenderer.valueChange(v[0], {
+						1 : '待审批',
+						2 : '审批通过'
+					})
+			var template = '<a class="td-action" href="#workflowModal" title="{0}">{0}</a>'
+
+			return $.jRenderer.valueChange(text, template, 'format')
+		}
+		
+		// name concat change
+		$.jRenderer.concatChange = function(v){
+			var template = '{1} {0}'
+			return $.jRenderer.valueChange(v, template, 'format')
+		}
+		
+		// add Memory Unit (M)
+		$.jRenderer.addMemoryChange = function(v){
+			var template = '{0}M'
+			return $.jRenderer.valueChange(v, template, 'format')
+		}
+		
+		// add cpu speed unit (G)
+		$.jRenderer.addCPUChange = function(v){
+			var template = '{0}GHZ'
+			return $.jRenderer.valueChange(v, template, 'format')
+		}
 	});
 
 }(window.jQuery);

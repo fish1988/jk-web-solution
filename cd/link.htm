@@ -51,49 +51,7 @@
 </head>
 <body>
 	<div class="navbar navbar-inverse global-nav">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a>
-				<div class="btn-group pull-right">
-					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown"
-						href="#"> <i class="icon-user"></i> <span
-						class="const-userName" style="width: 40px;"></span><span
-						class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">个人信息</a></li>
-						<li class="divider"></li>
-						<li><a href="#">注销登录</a></li>
-					</ul>
-				</div>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li><a href="nav.htm" style="padding-left: 5px;">首页</a></li>
-						<li><a href="borrow.htm">借用申请</a></li>
-						<li><a href="myproperty.htm">个人资产</a></li>
-						<li><a href="workflow.htm">流程管理</a></li>
-						<li><a href="phone.htm">手机管理</a></li>
-						<li><a href="model.htm">机型库</a></li>
-						<li class="dropdown active"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown">字典管理<b
-								class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li><a href="link.htm">系统网址</a></li>
-								<li class="divider"></li>
-								<li><a href="platform.htm">平台</a></li>
-								<li><a href="software.htm">平台版本</a></li>
-								<li><a href="resolution.htm">分辨率</a></li>
-								<li class="divider"></li>
-								<li><a href="brand.htm">品牌</a></li>
-								<li><a href="network.htm">网络制式</a></li>
-							</ul></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<div class="navbar-inner" active="dict"></div>
 	</div>
 	<div class="well form-search main-search">
 		<div style="float: left; width: 120px;">
@@ -105,7 +63,7 @@
 			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#link-form">
 		<div class="query-detail hidden clickOutHide">
-			<form id="link-form" action="data/link.json"
+			<form id="link-form" action="cdLink/list.html"
 				style="margin-bottom: 5px;" class="form-query highlight"
 				grid-reload="#linkGrid">
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
@@ -158,7 +116,7 @@
 		<ul data-type="status"
 			class="nav nav-list nav-left-choose active-switch">
 			<li class="selected" data-id="1"><a href="#">有效</a></li>
-			<li data-id="2"><a href="#">无效</a></li>
+			<li data-id="0"><a href="#">无效</a></li>
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
@@ -197,9 +155,9 @@
 			</div>
 			<div class="btn-group">
 				<a class="grid-one btn toolbar-icon-btn j-tooltip-b" title="编辑"
-					modal-title="修改机型" href="#linkModal"><i class="icon-edit"></i></a>
+					modal-title="修改网址" href="#linkModal"><i class="icon-edit"></i></a>
 				<a class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
-					msg="确认删除{0}项?" url="data/op.json"><i class="icon-trash"></i></a>
+					msg="确认删除{0}项?" url="cdLink/delete.html"><i class="icon-trash"></i></a>
 			</div>
 			<div class="btn-group">
 				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
@@ -213,7 +171,7 @@
 			</div>
 			<div class="grid-result-stat"></div>
 		</div>
-		<table id="linkGrid" class="grid" data-url="data/link.json"
+		<table id="linkGrid" class="grid" data-url="cdLink/list.html"
 			row-id="cdLinkId" sort-name="lastModifyTime" sort-order="desc"
 			checkbox="true" resizable="false" grid-height="auto">
 			<thead>
@@ -234,7 +192,7 @@
 		</table>
 	</div>
 	<div id="linkModal" class="modal hide fade wide-modal">
-		<form id="link-form" action="data/save.json" grid-reload="#linkGrid"
+		<form id="link-form" action="cdLink/save.html" grid-reload="#linkGrid"
 			class="highlight form-horizontal">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
@@ -285,6 +243,7 @@
 	</div>
 	<script src="js/lib/xdate.js"></script>
 	<script src="jquery/jquery.min.js"></script>
+	<script src="js/jason-navbar.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
 	<script src="jquery/jquery.mask.js"></script>
@@ -296,6 +255,7 @@
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
+	<script src="js/jason-auth.js"></script>
 	<script src="js/jason-loading.js"></script>
 	<script src="js/jason-datepicker.js"></script>
 	<script src="js/jason-radio.js"></script>

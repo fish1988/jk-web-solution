@@ -10,6 +10,7 @@
 		this.$element = $(element)
 		this.options = $.extend({}, $.fn.search.defaults, options)
 		this.targetForm = this.options.formId
+		this.$addOn = this.options.addOn
 		this.$container = this.setup(element)
 
 		$('.query-params', this.$container).click(function() {
@@ -21,7 +22,7 @@
 		this.updater = this.options.updater || this.updater
 		this.$menu = $(this.options.menu).appendTo('body')
 		// this.$menu = $(this.options.menu).appendTo(this.$container)
-		this.$addOn = this.options.addOn
+		
 
 		if (this.options.menuWidth) {
 			this.$menu.css('width', this.options.menuWidth)
@@ -91,11 +92,11 @@
 				}
 				// console.log(51, $(this).parent())
 				$(this).parent().remove()
-
+				
 				me.adjust()
 			})
 		},
-		adjust : function() {
+		adjust : function(tag) {
 			var search = this.$container
 			var offsetX = search.find('.query-params').width()
 
@@ -116,7 +117,9 @@
 
 			$('ul.search.dropdown-menu').css({
 						width : inputWidth
-					})
+					})		
+			if(typeof tag == 'undefined')
+				$(this.targetForm).submit()
 			// console.log(97, $('ul.search.dropdown-menu').css('width'))
 		},
 		setup : function(element) {
@@ -132,6 +135,7 @@
 			$('.query-clear .search-clear').click(function() {
 						$('.query-item', search).remove()
 						$.jForm.reset($(me.targetForm))
+						//$('.submit-form[target-form="#'+$(this.targetForm).attr('id')+'"]')[0].click()
 						input.val('')
 						me.adjust()
 					})
@@ -139,8 +143,12 @@
 			// form bind
 
 			// inputs
-			var inputs = $('input.j-search-item', $(this.targetForm))
+			var inputs = $('input.j-search-item', $(this.targetForm)),selects = $('select', $(this.targetForm)),count = inputs.length +  selects.length
 
+			if(count < 4){
+				//console.log(149,me.$addOn)
+				me.$addOn = me.options.addOn.replace('style=""','style="max-width:200px;"').replace('style=";"','style="max-width:135px;"')
+			}
 			inputs.each(function(i, input) {
 						$(input).on('change', function() {
 							// console.log('change', $(input))
@@ -171,11 +179,10 @@
 								// add item
 								me.addItemRemoveListener()
 							}
-							me.adjust()
+							me.adjust(0)
 						})
 					})
 			// combos
-			var selects = $('select', $(this.targetForm))
 			selects.each(function(i, select) {
 						$(select).on('change', function() {
 							// console.log('change 107', $(this))
@@ -217,7 +224,8 @@
 								// add item
 								me.addItemRemoveListener()
 							}
-							me.adjust()
+							me.adjust(0)
+							
 						})
 					})
 			return search
@@ -255,7 +263,7 @@
 						record[label.attr('data-type')] = label.attr('data-id')
 					})
 			$.jForm.loadRecord($(this.targetForm), record)
-			// console.log(record, 'remove')
+
 			return this.hide()
 		}
 
@@ -283,7 +291,7 @@
 			var me = this, el = this.$element
 			this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
 					$.proxy(this.keypress, this)).on('keyup',
-					$.proxy(this.keyup, this)).on('focus', function() {
+					$.proxy(this.keyup, this)).on('focus blur', function() {
 						/*if (el.val() == ''
 								|| el.val() == el.attr('placeholder')) {*/
 						if ($('.query-item', me.$container).length == 0) {
@@ -331,7 +339,7 @@
 			if (!items.length) {
 				return this.shown ? this.hide() : this
 			}
-			this.adjust()
+			this.adjust(0)
 			// console.log(81, items)
 
 			return this.render(items.slice(0, this.options.items)).show()
@@ -426,7 +434,7 @@
 	$.fn.search.defaults = {
 		source : {},
 		items : 8,
-		addOn : '<div class="query-item"><span data-id="{1}" data-type="{2}" data-value="{0}" title="{0}" class="query-item-label"><i class="{3} hidden"></i> <span class="jlabel-inner">{0}</span></span><span class="query-item-clear" title="移除">×</span></div>',
+		addOn : '<div class="query-item" style=""><span data-id="{1}" data-type="{2}" data-value="{0}" title="{0}" class="query-item-label" style=";"><i class="{3} hidden"></i> <span class="jlabel-inner">{0}</span></span><span class="query-item-clear" title="移除">×</span></div>',
 		template : '<div class="query-container"><div class="query-params"></div><div class="query-input"><div class="query-clear"><div class="search-clear hidden show-hide-switch" title="移除所有条件" show-hide="search-clear" >×</div></div><div rel="tooltip" title="更多选择..." class="j-tooltip-l query-trigger show-hide-switch" show-hide="query-detail"></div></div></div>',
 		menu : '<ul class="search dropdown-menu"></ul>',
 		item : '<li><a href="#"></a></li>'

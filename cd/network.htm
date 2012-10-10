@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="public,max-age=31536000">
-<title>手机管理</title>
+<title>网络制式</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -51,59 +51,33 @@
 </head>
 <body>
 	<div class="navbar navbar-inverse global-nav">
-		<div class="navbar-inner" active="phone"></div>
+		<div class="navbar-inner" active="dict"></div>
 	</div>
 	<div class="well form-search main-search">
 		<div style="float: left; width: 120px;">
 			<img class="search-logo" src="img/property.png" width="120"
 				height="45" style="margin-top: -10px;">
 		</div>
-		<input title="请输入资产编号、品牌、imei..." id="query-txt" name="query-txt"
+		<input title="请输入网络制式、创建人、修改人..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#link-form">
 		<div class="query-detail hidden clickOutHide">
-			<form id="link-form" action="data/link.json"
+			<form id="link-form" action="networkStandard/list.html"
 				style="margin-bottom: 5px;" class="form-query highlight"
 				grid-reload="#linkGrid">
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label" for="propertyName">资产编号</label>
+						<label class="control-label" for="networkStandardName">网络制式</label>
 						<div class="controls">
-							<input type="text" class="j-search-item input-xlarge"
-								title="资产编号" id="propertyName" name="propertyName"
-								style="width: 92%;">
+							<input class="j-search-item" title="网络制式" id=""
+								networkStandardName""
+								name=""
+								networkStandardName"" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="imei">imei</label>
-						<div class="controls">
-							<input type="text" class="j-search-item" name="imei" id="imei"
-								title="imei" style="width: 92%;">
-						</div>
-					</div>
-
-					<div class="control-group half-line">
-						<label class="control-label" for="brandId">品牌</label>
-						<div class="controls">
-							<select id="brandId" name="brandId" class="combobox" width="220"
-								autoload="true" data-url="brand" child-id="modelId">
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group half-line">
-						<label class="control-label" for="modelId">机型</label>
-						<div class="controls">
-							<select id="modelId" name="modelId" class="combobox" width="220"
-								data-url="model">
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-
-					<!-- 					<div class="control-group">
 						<label class="control-label" for="createUser">创建人</label>
 						<div class="controls">
 							<input class="j-search-item" title="创建人" id="createUser"
@@ -116,7 +90,7 @@
 							<input class="j-search-item" title="修改人" id="lastModifyUser"
 								name="lastModifyUser" style="width: 92%;">
 						</div>
-					</div> -->
+					</div>
 				</fieldset>
 				<div class="simple-form-actions">
 					<button title="点击查询"
@@ -138,7 +112,7 @@
 	</div>
 	<div class="left-nav span2" grid-reload="#linkGrid">
 		<div class="page-title">
-			<a href="#">手机管理</a>
+			<a href="#">网络制式</a>
 		</div>
 
 		<ul data-type="status"
@@ -148,7 +122,7 @@
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
-		<label class="left-nav-label">入库时间</label>
+		<label class="left-nav-label">创建时间</label>
 		<ul data-type="dateRange"
 			class="nav nav-list nav-left-choose active-switch">
 			<li data-id="" class="selected"><a class="hide-switch"
@@ -183,9 +157,10 @@
 			</div>
 			<div class="btn-group">
 				<a class="grid-one btn toolbar-icon-btn j-tooltip-b" title="编辑"
-					modal-title="修改手机参数" href="#linkModal"><i class="icon-edit"></i></a>
+					modal-title="修改网络制式" href="#linkModal"><i class="icon-edit"></i></a>
 				<a class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
-					msg="确认删除{0}项?" url="data/op.json"><i class="icon-trash"></i></a>
+					msg="确认删除{0}项?" url="networkStandard/delete.html"><i
+					class="icon-trash"></i></a>
 			</div>
 			<div class="btn-group">
 				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
@@ -199,114 +174,54 @@
 			</div>
 			<div class="grid-result-stat"></div>
 		</div>
-		<table id="linkGrid" class="grid" data-url="data/link.json"
-			row-id="propertyId" sort-name="lastModifyTime" sort-order="desc"
-			checkbox="true" resizable="false" grid-height="auto">
+		<table id="linkGrid" class="grid" data-url="networkStandard/list.html"
+			row-id="networkStandardId" sort-name="lastModifyTime"
+			sort-order="desc" checkbox="true" resizable="false"
+			grid-height="auto">
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="propertyName" sortable="true" width="110" align="left">资产编号</th>
-					<th name="propertyId" hidden sortable="true" width="50"
+					<th name="networkStandardName" sortable="true" width="180"
+						align="left">网络制式</th>
+					<th name="networkStandardId" hidden sortable="true" width="50"
 						align="left">序号</th>
-					<th name="modelId" hidden sortable="true" width="50" align="left">机型ID</th>
-					<th name="brandName" width="60" align="left">品牌</th>
-					<th name="modelName" width="110" align="left">机型</th>
-					<!-- <th name="color" width="50" align="left">颜色</th> -->
-					<th name="imei" hidden width="50" align="left">imei</th>
-					<th name="platformName" width="50" align="left">平台</th>
-					<th name="softwareName" hidden width="50" align="left">平台版本</th>
-					<th name="isLicensed" width="50" align="left">是否行货</th>
-					<th name="otherFitting" width="150" align="left">其他配件</th>
 					<th name="desc" hidden width="150" align="left">描述</th>
-					<th name="createTime" hidden data-render="shortDateTimeChange"
+					<th name="createTime" data-render="shortDateTimeChange"
 						sortable="true" width="150" align="left">创建时间</th>
-					<th name="createUser" hidden sortable="true" width="150"
-						align="left">创建人</th>
+					<th name="createUser" sortable="true" width="150" align="left">创建人</th>
 					<th name="lastModifyTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">修改时间</th>
-					<th name="lastModifyUser" sortable="true" width="100" align="left">修改人</th>
+						sortable="true" width="150" align="left">修改时间</th>
+					<th name="lastModifyUser" sortable="true" width="150" align="left">修改人</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
 	<div id="linkModal" class="modal hide fade wide-modal">
-		<form id="modal-form" action="data/save.json" grid-reload="#linkGrid"
-			class="highlight form-horizontal">
+		<form id="link-form" action="networkStandard/save.html"
+			grid-reload="#linkGrid" class="highlight form-horizontal">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
-				<h3>手机入库</h3>
+				<h3>增加网络制式</h3>
 			</div>
 			<div class="modal-body">
 				<fieldset>
 					<div class="control-group hidden">
-						<input type="hidden" id="propertyId" name="propertyId">
+						<input type="hidden" id="networkStandardId"
+							name="networkStandardId">
 					</div>
-					<div class="control-group edit-hide">
-						<label class="control-label" for="propertyName">资产编号</label>
+					<div class="control-group">
+						<label class="control-label" for="networkStandardName">网络制式</label>
 						<div class="controls">
-							<label class="display-text">自动生成</label>
-						</div>
-					</div>
-					<div class="control-group edit-show">
-						<label class="control-label" for="propertyName">资产编号</label>
-						<div class="controls">
-							<input type="text" name="propertyName" id="propertyName" readonly>
+							<input type="text" class="input-xlarge"
+								name="networkStandardName" id="networkStandardName"
+								maxlength="40" required>
+							<p class="help-block">例如:GSM</p>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="brandId">品牌</label>
-						<div class="controls">
-							<select id="brandId" name="brandId" class="combobox" width="200"
-								autoload="true" data-url="brand" child-id="modelId" required>
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="modelId">机型</label>
-						<div class="controls">
-							<select id="modelId" name="modelId" class="combobox" width="200"
-								data-url="model" required>
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="imei">imei</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="imei" id="imei"
-								required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="isLicensed">是否行货</label>
-						<div class="controls">
-							<label class="checkbox inline"><input type="checkbox"
-								name="isLicensed" id="isLicensed" value="1" checked>是 </label>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="otherFitting">其他配件</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" name="otherFitting"
-								id="otherFitting" required>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="count">数量</label>
-						<div class="controls">
-							<div class="input-append">
-								<input type="text"
-									class="positive-float span2 j-tooltip-r input-xlarge" value="1"
-									name="count" id="count" title="只能输入数字哦" required max="100"><span
-									class="add-on">个</span>
-							</div>
-						</div>
-					</div>
-					<div class="control-group hidden">
 						<label class="control-label" for="desc">描述</label>
 						<div class="controls">
-							<textarea class="input-xlarge" name="desc" id="desc" rows="2"
+							<textarea class="input-xlarge" name="desc" id="desc" rows="4"
 								maxlength="200"></textarea>
 						</div>
 					</div>
@@ -327,14 +242,11 @@
 			</div>
 		</form>
 	</div>
-
 	<script src="js/lib/xdate.js"></script>
 	<script src="jquery/jquery.min.js"></script>
 	<script src="js/jason-navbar.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
-	<script src="js/jason-auth.js"></script>
-
 	<script src="jquery/jquery.mask.js"></script>
 	<script src="jquery/jquery.form.js"></script>
 	<script src="jquery/jquery.validate.js"></script>
@@ -344,6 +256,7 @@
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
+	<script src="js/jason-auth.js"></script>
 	<script src="js/jason-loading.js"></script>
 	<script src="js/jason-datepicker.js"></script>
 	<script src="js/jason-radio.js"></script>

@@ -12,7 +12,7 @@
 	// like datetime or cookies
 	$.jConst = {}
 	$.jConst.pageInit = function() {
-		var date = new XDate(), userName = $.cookie('userName'), leaderName, nowTime = date
+		var date = new XDate(), userName = $.cookie('user_login_name'), leaderName, nowTime = date
 				.toString('yyyy-MM-dd HH:mm:ss'), nowDate = date
 				.toString('yyyy-MM-dd'), yearBefore = date.addYears(-1)
 				.toString('yyyy-MM-dd')

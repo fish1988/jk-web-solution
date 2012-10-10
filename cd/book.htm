@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="public,max-age=31536000">
-<title>手机管理</title>
+<title>图书管理</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -58,7 +58,7 @@
 			<img class="search-logo" src="img/property.png" width="120"
 				height="45" style="margin-top: -10px;">
 		</div>
-		<input title="请输入资产编号、品牌、imei..." id="query-txt" name="query-txt"
+		<input title="请输入资产编号、书名、ISBN..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#link-form">
@@ -77,31 +77,21 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="imei">imei</label>
+						<label class="control-label" for="bookName">书名</label>
 						<div class="controls">
-							<input type="text" class="j-search-item" name="imei" id="imei"
+							<input type="text" class="j-search-item" name="bookName" id="bookName"
 								title="imei" style="width: 92%;">
 						</div>
 					</div>
-
-					<div class="control-group half-line">
-						<label class="control-label" for="brandId">品牌</label>
+					
+					<div class="control-group">
+						<label class="control-label" for="isbn">ISBN</label>
 						<div class="controls">
-							<select id="brandId" name="brandId" class="combobox" width="220"
-								autoload="true" data-url="brand" child-id="modelId">
-								<option value="" class="fixed"></option>
-							</select>
+							<input type="text" class="j-search-item" name="isbn" id="isbn"
+								title="ISBN" style="width: 92%;">
 						</div>
 					</div>
-					<div class="control-group half-line">
-						<label class="control-label" for="modelId">机型</label>
-						<div class="controls">
-							<select id="modelId" name="modelId" class="combobox" width="220"
-								data-url="model">
-								<option value="" class="fixed"></option>
-							</select>
-						</div>
-					</div>
+					
 
 					<!-- 					<div class="control-group">
 						<label class="control-label" for="createUser">创建人</label>
@@ -138,7 +128,7 @@
 	</div>
 	<div class="left-nav span2" grid-reload="#linkGrid">
 		<div class="page-title">
-			<a href="#">手机管理</a>
+			<a href="#">图书管理</a>
 		</div>
 
 		<ul data-type="status"
@@ -208,15 +198,8 @@
 					<th name="propertyName" sortable="true" width="110" align="left">资产编号</th>
 					<th name="propertyId" hidden sortable="true" width="50"
 						align="left">序号</th>
-					<th name="modelId" hidden sortable="true" width="50" align="left">机型ID</th>
-					<th name="brandName" width="60" align="left">品牌</th>
-					<th name="modelName" width="110" align="left">机型</th>
-					<!-- <th name="color" width="50" align="left">颜色</th> -->
-					<th name="imei" hidden width="50" align="left">imei</th>
-					<th name="platformName" width="50" align="left">平台</th>
-					<th name="softwareName" hidden width="50" align="left">平台版本</th>
-					<th name="isLicensed" width="50" align="left">是否行货</th>
-					<th name="otherFitting" width="150" align="left">其他配件</th>
+					<th name="bookId" hidden sortable="true" width="50" align="left">图书ID</th>
+					<th name="bookName" width="160" align="left">书名</th>
 					<th name="desc" hidden width="150" align="left">描述</th>
 					<th name="createTime" hidden data-render="shortDateTimeChange"
 						sortable="true" width="150" align="left">创建时间</th>
