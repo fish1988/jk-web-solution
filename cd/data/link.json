@@ -6,7 +6,19 @@
 				"cdLinkName" : "软件分发系统",
 				"platformId" : 1,
 				"platformName" : "Android",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
+				"desc" : "aaa",
+				"orderId" : 111,
+				"createTime" : "2012-9-25 00:00:00",
+				"createUser" : "jasonkou",
+				"lastModifyTime" : "2012-9-25 00:00:00",
+				"lastModifyUser" : "jasonkou",
+				"orderStatus" : 1,
+				"status" : true
+			}, {
+				"cdLinkId" : 1,
+				"cdLinkName" : "软件分发系统",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -16,7 +28,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -26,7 +38,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -36,7 +48,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -46,7 +58,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -56,7 +68,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -66,7 +78,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -76,7 +88,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -86,7 +98,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -96,7 +108,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -106,7 +118,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -116,7 +128,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -126,7 +138,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -136,7 +148,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -146,7 +158,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -156,7 +168,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -166,7 +178,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -176,7 +188,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",
@@ -186,17 +198,7 @@
 			}, {
 				"cdLinkId" : 1,
 				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
-				"desc" : "",
-				"createTime" : "2012-9-25 00:00:00",
-				"createUser" : "jasonkou",
-				"lastModifyTime" : "2012-9-25 00:00:00",
-				"lastModifyUser" : "jasonkou",
-				"status" : true
-			}, {
-				"cdLinkId" : 1,
-				"cdLinkName" : "软件分发系统",
-				"url" : "hz.wcd.qq.com",
+				"url" : "http://hz.wcd.qq.com",
 				"desc" : "",
 				"createTime" : "2012-9-25 00:00:00",
 				"createUser" : "jasonkou",

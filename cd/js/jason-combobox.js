@@ -119,7 +119,7 @@
 				var parent = '#'
 				var id = this.$target.attr('real-id')
 
-				console.log(122, '------------', arrValues, id)
+				//console.log(122, '------------', arrValues, id)
 				while (arrValues.length - i) {
 					if (id) {
 						$.combobox.initValues.push({
@@ -496,8 +496,7 @@
 
 							if ($(this).val() !== '' && $(this).val() !== null) {
 								me.$clear.show()
-								combo.load(true, me.multiSelect ? $(this).val()
-												.join(';') : $(this).val());
+								combo.load(true,  $(this).attr('real-id'));
 							} else {
 								console.log('remove')
 								combo.$target.find('option:not(.fixed)')
@@ -727,8 +726,8 @@
 				combo.$target.find('option:not(.fixed)').remove();
 
 				if (parentId && parentId.length > 0) {
-					if (parentId !== '#') {
-						// console.log(731,ids,$('[real-id="'+ids+'"]'),$('[real-id="'+ids+'"]').val())
+					if (parentId != '#') {
+						console.log(731,parentId,$('[real-id="'+parentId+'"]'),$('[real-id="'+parentId+'"]').val())
 						var tempValue = $('[real-id="' + parentId + '"]').val()
 						ids = $.isArray(tempValue)
 								? tempValue.join(';')

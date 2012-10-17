@@ -36,8 +36,7 @@
 						<li id="borrow"><a href="borrow.htm">借用申请</a></li>
 						<li id="myproperty"><a href="myproperty.htm">个人资产</a></li>
 						<li id="workflow"><a href="workflow.htm">流程管理</a></li>
-						<li id="phone"><a href="phone.htm">手机管理</a></li>
-						<li id="book"><a href="book.htm">手机管理</a></li>
+						<li id="phone"><a href="phone.htm">手机入库</a></li>
 						<li id="model"><a href="model.htm">机型库</a></li>
 						<li id="dict" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">字典管理<b class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -50,6 +49,11 @@
 								<li><a href="brand.htm">品牌</a></li>
 								<li><a href="network.htm">网络制式</a></li>
 								<li class="divider"></li>
+								<li><a href="usetype.htm">借用用途</a></li>
+								<li><a href="ordertype.htm">申请类型</a></li>
+								<li><a href="workflowstatus.htm">流程状态</a></li>
+								<li><a href="workflowinfo.htm">工作流</a></li>
+								<li class="divider"></li>
 								<li><a href="booktype.htm">图书类别</a></li>
 							</ul></li>
 					</ul>
@@ -57,11 +61,16 @@
 			</div>*/
 	}
 
-	var $navTemplate = $($.jNavbar.getNavString(navTemplateStringFunc))
-
-	$navTemplate.find('#'+$('.global-nav .navbar-inner').attr('active')).addClass('active')
 	
-	console.log(62,$('.global-nav .navbar-inner').attr('active'))
-	$('.global-nav .navbar-inner').append($navTemplate)
+				var $navTemplate = $($.jNavbar
+						.getNavString(navTemplateStringFunc))
+
+				$navTemplate.find('#'
+						+ $('.global-nav .navbar-inner').attr('active'))
+						.addClass('active')
+
+				//console.log(62, $('.global-nav .navbar-inner').attr('active'))
+				$('.global-nav .navbar-inner').append($navTemplate)
+			
 
 }(window.jQuery);

@@ -6,5 +6,6 @@
 .grid-result-stat{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:absolute;right:103px;padding-top:10px;display:inline-block;}
 .grid-result-pager{position:absolute;right:0px;}
 #jPopover.popover.right .arrow{top:50%;}
+#jPopover.popover .popover-content p{line-height:15px;}
 html{overflow-x:hidden;}
 .nav-container .navbar{position:static;z-index:-1;}

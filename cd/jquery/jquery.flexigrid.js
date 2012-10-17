@@ -483,8 +483,9 @@
 				if (p.total == 0) {
 					$('tr, a, td, div', t).unbind();
 					$(t).empty();
-					$(t).html('<tr><td><div class="empty">没有记录</div></td></tr>')
-					$(t).find('.empty').width($(g.bDiv).width()-50)
+					$(t)
+							.html('<tr><td><div class="empty">没有记录</div></td></tr>')
+					$(t).find('.empty').width($(g.bDiv).width() - 50)
 					p.pages = 1;
 					p.page = 1;
 					$('.pagination', g.pDiv).addClass('hidden')
@@ -761,10 +762,10 @@
 					$('.prev-page', $clearPager).addClass('disabled')
 				}
 				if (curPage === totalPage) {
-					$('.pagination .next-page', g.pDiv).addClass('hidden')
+					$('.pagination .next-page', g.pDiv).addClass('disabled')
 					$('.next-page', $clearPager).addClass('disabled')
 				} else {
-					$('.pagination .next-page', g.pDiv).removeClass('hidden')
+					$('.pagination .next-page', g.pDiv).removeClass('disabled')
 					$('.next-page', $clearPager).removeClass('disabled')
 				}
 
@@ -806,6 +807,8 @@
 							}
 						})
 				$('.pagination .next-page a', this.pDiv).click(function() {
+							if ($(this).parents('ul').hasClass('disabled'))
+								return
 							window.scrollTo(0)
 							me.changePageNum(p.page + 1)
 							if (p.page < p.pages) {
@@ -880,11 +883,19 @@
 					query : p.query,
 					qtype : p.qtype
 				}
+				// delete start & limit
+				if (!p.usepager) {
+					delete param['start']
+					delete param['limit']
+				}
+
 				if (p.params) {
 					for (var i in p.params) {
 						param[i] = p.params[i]
 					}
 				}
+
+				param.timeStamp = new Date().getTime()
 
 				$.ajax({
 							type : p.method,
@@ -1043,7 +1054,7 @@
 				var s = new Date().getTime()
 				$('tbody tr', g.bDiv).each(function() {
 					var $td, $link, $div, $thead = $('thead tr:last', me.hDiv), $tr = $(this)
-					$('td:nth(1) a', $tr).hover(function() {
+					$('td:nth(1) a.td-action', $tr).hover(function() {
 						if (!p.allowPreview)
 							return
 
@@ -1587,12 +1598,12 @@
 					g.scroll()
 				}).append(t)
 
-	/*	if ($.browser.msie) {
-			if (parseInt($.browser.version, 10) == 9)
-				$(g.bDiv).css({
-							'height' : '600px'
-						})
-		}*/
+		/*	if ($.browser.msie) {
+				if (parseInt($.browser.version, 10) == 9)
+					$(g.bDiv).css({
+								'height' : '600px'
+							})
+			}*/
 
 		if (p.height == 'auto') {
 			$('table', g.bDiv).addClass('autoht');

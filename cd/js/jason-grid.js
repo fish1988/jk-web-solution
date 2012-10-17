@@ -59,6 +59,9 @@
 						showToggleBtn : grid.attr('show-column') === 'false'
 								? false
 								: true,
+						usepager : grid.attr('use-pager') === 'false'
+								? false
+								: true,
 						width : parseInt(grid.attr('grid-width')),
 						height : parseInt(grid.attr('grid-height')),
 						sortname : grid.attr('sort-name'),
@@ -118,36 +121,43 @@
 				var grid = $.jgrid.getGrid(dom), rows = (typeof innerTr == 'undefined'
 						? grid.find('.trSelected')
 						: $(dom).parents('tr'))
-				// console.log(rows)
-				if (typeof innerTr !== 'undefined' && rows.length !== 1) {
+				
+				if (typeof innerTr == 'undefined' && rows.length !== 1) {
 					$.jAlert
 							.alert(rows.length === 0 ? '请选择记录' : '只能选择一条记录进行修改')
 					return
 				}
-				var modal = $(dom).attr('href')
+				var modal = $(dom).attr('href'),$modal
+				
+				modal = modal.slice(modal.lastIndexOf('#'))  // fix IE 7 href bug
 				if (modal) {
+					
+					$modal = $(modal)
 					// load record or proxy used in .modal shown
 					var url = $(dom).attr('url')
 					if (typeof url === 'undefined' || url == null
-							|| url.length < 1) {
-						$(modal).attr('record', $(rows[0]).attr('record'))
-						//console.log(133,$(rows[0]),$(rows[0]).attr('record'))
-					} else
-						$(modal).attr(
+							|| url.length < 1) {	
+						$modal.attr('record', $(rows[0]).attr('record'))
+						
+					} else{
+						$modal.attr(
 								'data-url',
 								(url.indexOf('?') === -1 ? url + '?' : url
 										+ '&')
 										+ 'id=' + $(rows[0]).attr('row-id'))
+					}
 
-					$(modal).attr('modal-title', $(dom).attr('modal-title'))
-					$(modal).modal('show')
+					$modal.attr('modal-title', $(dom).attr('modal-title'))
+					$modal.modal('show')
 				}
 			}
 
 			// grid tr action
-			$('.grid').on('click.tr-action', 'tr .td-action', function(e) {
-						var $dom = $(e.target)
-						$.jgrid.oneGridItemFn($dom,'inner')
+			$('.grid').on('click.tr-action', '.td-action', function(e) {
+						
+						//var $dom = $(e.target)
+						//console.log($dom)
+						$.jgrid.oneGridItemFn(e.target,'inner')
 					})
 
 			$('.grid-toolbar .btn').click(function() {

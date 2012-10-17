@@ -22,7 +22,6 @@
 		this.updater = this.options.updater || this.updater
 		this.$menu = $(this.options.menu).appendTo('body')
 		// this.$menu = $(this.options.menu).appendTo(this.$container)
-		
 
 		if (this.options.menuWidth) {
 			this.$menu.css('width', this.options.menuWidth)
@@ -92,7 +91,7 @@
 				}
 				// console.log(51, $(this).parent())
 				$(this).parent().remove()
-				
+
 				me.adjust()
 			})
 		},
@@ -117,9 +116,11 @@
 
 			$('ul.search.dropdown-menu').css({
 						width : inputWidth
-					})		
-			if(typeof tag == 'undefined')
+					})
+			if (typeof tag == 'undefined') {
 				$(this.targetForm).submit()
+			}
+
 			// console.log(97, $('ul.search.dropdown-menu').css('width'))
 		},
 		setup : function(element) {
@@ -135,7 +136,7 @@
 			$('.query-clear .search-clear').click(function() {
 						$('.query-item', search).remove()
 						$.jForm.reset($(me.targetForm))
-						//$('.submit-form[target-form="#'+$(this.targetForm).attr('id')+'"]')[0].click()
+						// $('.submit-form[target-form="#'+$(this.targetForm).attr('id')+'"]')[0].click()
 						input.val('')
 						me.adjust()
 					})
@@ -143,11 +144,15 @@
 			// form bind
 
 			// inputs
-			var inputs = $('input.j-search-item', $(this.targetForm)),selects = $('select', $(this.targetForm)),count = inputs.length +  selects.length
+			var inputs = $('input.j-search-item', $(this.targetForm)), selects = $(
+					'select', $(this.targetForm)), count = inputs.length
+					+ selects.length
 
-			if(count < 4){
-				//console.log(149,me.$addOn)
-				me.$addOn = me.options.addOn.replace('style=""','style="max-width:200px;"').replace('style=";"','style="max-width:135px;"')
+			if (count < 4) {
+				// console.log(149,me.$addOn)
+				me.$addOn = me.options.addOn.replace('style=""',
+						'style="max-width:200px;"').replace('style=";"',
+						'style="max-width:135px;"')
 			}
 			inputs.each(function(i, input) {
 						$(input).on('change', function() {
@@ -225,7 +230,7 @@
 								me.addItemRemoveListener()
 							}
 							me.adjust(0)
-							
+
 						})
 					})
 			return search
@@ -253,8 +258,6 @@
 				search.find('.query-params').append(addOn)
 				me.addItemRemoveListener()
 			}
-			this.adjust()
-			this.$element.val('')// .change()
 
 			// form record
 			var record = {}
@@ -263,7 +266,8 @@
 						record[label.attr('data-type')] = label.attr('data-id')
 					})
 			$.jForm.loadRecord($(this.targetForm), record)
-
+			this.adjust()
+			this.$element.val('')// .change()
 			return this.hide()
 		}
 
@@ -292,18 +296,20 @@
 			this.$element.on('blur', $.proxy(this.blur, this)).on('keypress',
 					$.proxy(this.keypress, this)).on('keyup',
 					$.proxy(this.keyup, this)).on('focus blur', function() {
-						/*if (el.val() == ''
-								|| el.val() == el.attr('placeholder')) {*/
-						if ($('.query-item', me.$container).length == 0) {
-							// console.log(190, el.val())
-							$('.search-clear', me.$container)
-									.addClass('hidden')
+				/*if (el.val() == ''
+						|| el.val() == el.attr('placeholder')) {*/
 
-						} else {
-							$('.search-clear', me.$container)
-									.removeClass('hidden')
-						}
-					})
+				$('.search-clear', me.$container).removeClass('hidden')
+					/*if ($('.query-item', me.$container).length == 0) {
+				// console.log(190, el.val())
+				$('.search-clear', me.$container)
+					.addClass('hidden')
+
+				} else {
+				$('.search-clear', me.$container)
+					.removeClass('hidden')
+				}*/
+				})
 
 			if ($.browser.webkit || $.browser.msie) {
 				this.$element.on('keydown', $.proxy(this.keypress, this))

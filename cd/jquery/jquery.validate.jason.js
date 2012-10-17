@@ -36,7 +36,7 @@ $.validator.addMethod("require_from_group", function(value, element, param) {
 			var validator = this;
 			var selector = param[1];
 
-			var length = $(selector, element.form).filter(function() {
+			var length = $(selector, $(element).parents('.controls')).filter(function() {
 						return validator.elementValue(this);
 					}).length;
 
@@ -67,6 +67,9 @@ var $formValidators = {
 	},
 	demoJs : {
 		require_from_group : [1, '.use-one', '请输入演示地址或上传代码']
+	},
+	imei :{
+		regex : [/^\d{15}$/, '格式不正确', '15位数字']
 	}
 }
 

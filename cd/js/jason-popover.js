@@ -31,20 +31,26 @@
 							+ $htmlVal[0].outerHTML + '</p>')
 				}
 			}
-			
-			template = template.replace('{0}',content.join(''))
+
+			template = template.replace('{0}', content.join(''))
 			// console.log(content.join(''))
 
+			if ($('.modal:visible').length) {
+				console.log(39 + ' ', $('.modal:visible').length)
+				return
+			}
 			$tdLink.popover({
 						title : $tdLink.text(),
 						trigger : 'click',
 						template : template,
-						placement: 'right'
+						placement : 'right'
 					}).popover('show')
-			if($('.popover').offset().left < 200){
-				$('.popover').css({'left':'200px'})
+			if ($('.popover').offset().left < 200) {
+				$('.popover').css({
+							'left' : '200px'
+						})
 			}
-					
+
 			// add data
 			$('.popover-content', $('.popover')).html(content.join(''))
 
@@ -52,22 +58,83 @@
 			$('.close', $('.popover')).click(function() {
 						$('.popover').remove()
 					})
-			
 
 		}
 		$.jPopover.hideTrPopover = function() {
 			$('.popover').remove()
 			// $tdLink.popover('hide').popover('destroy')
 		}
-		
-		$('html').on('click.popover', function(e) {
-					if($(e.target).closest('.popover').length && !$(e.target).hasClass('close') )
-					//if($(e.target).parent().hasClass('popover') || $(e.target).parent().parent().hasClass('popover') || $(e.target).parent().parent().parent().hasClass('popover'))
-						return false
-					//$('[rel="popover"]').popover('hide')
-					 $('.popover').remove()
 
-					})
+		// model text renderer
+		$.jPopover.modelRender = function(model, type) {
+			var rules = {}, arr = []
+			switch (type) {
+				case 'model' : {
+					rules = {
+						modelName : '机型名称',
+						brandName : '品牌',
+						platformName : '系统',
+						softwareName : '系统版本',
+						screenSize : '屏幕尺寸',
+						resolutionName : '分辨率',
+						networkStandardNames : '网络制式'
+					}
+
+					$.each(model, function(k, v) {
+								if (!rules[k]) {
+									return
+								}
+								arr.push('<p>' + rules[k] + ':' + v + '</p>')
+							})
+
+				}
+
+				break
+				default :
+				break
+			}
+			return arr.join('')
+		}
+
+		// remote popover
+		$('html').on('mouseenter.popover', 'td .remote-popover', function(e) {
+			var template = '<div id="jPopover" class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><a class="close" style="position:absolute;right:5px;top:3px;" title="关闭">×</a><div class="popover-content">{0}</div></div></div>', $this = $(e.target)
+			$.jTimer.addTimer($this, function() {
+						$('.popover').remove()
+
+						$.post($this.attr('data-url'), function(data) {
+									var model = data
+									// console.log($.jPopover.modelRender(model,'model'))
+									template = template.replace('{0}',
+											$.jPopover.modelRender(model,
+													'model'))
+									$this.popover({
+												title : $this.text(),
+												trigger : 'click',
+												template : template,
+												placement : 'right'
+											}).popover('show')
+
+									$('.popover-content', $('.popover'))
+											.html($.jPopover.modelRender(model,
+													'model'))
+								})
+
+					}, 200)
+
+		})
+
+		$('html').on('click.popover', function(e) {
+			if ($(e.target).closest('.popover').length
+					&& !$(e.target).hasClass('close'))
+				// if($(e.target).parent().hasClass('popover') ||
+				// $(e.target).parent().parent().hasClass('popover') ||
+				// $(e.target).parent().parent().parent().hasClass('popover'))
+				return false
+			// $('[rel="popover"]').popover('hide')
+			$('.popover').remove()
+
+		})
 
 	})
 

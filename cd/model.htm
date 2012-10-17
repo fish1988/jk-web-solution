@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="public,max-age=31536000">
 <title>机型库</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -28,6 +27,7 @@
 <link href="css/modal.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href="css/scrollbar.css" rel="stylesheet">
+<link href="css/label.css" rel="stylesheet">
 <!--[if IE 9]> 
 	<link href="css/ie9.css" rel="stylesheet">
 <![endif]-->
@@ -51,7 +51,8 @@
 </head>
 <body>
 	<div class="navbar navbar-inverse global-nav">
-		<div class="navbar-inner" active="model"></div>
+		<div class="navbar-inner" active="model">
+		</div>
 	</div>
 
 	<div class="well form-search main-search">
@@ -71,28 +72,28 @@
 					<div class="control-group">
 						<label class="control-label" for="modelId">机型ID</label>
 						<div class="controls j-tooltip-b" title="只能填数字哦">
-							<input class="positive-integer j-search-item" title="机型ID"
+							<input type="text" class="positive-integer j-search-item" title="机型ID"
 								id="modelId" name="modelId" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="modelName">机型名称</label>
 						<div class="controls">
-							<input class="j-search-item" title="机型名称" id="modelName"
+							<input type="text" class="j-search-item" title="机型名称" id="modelName"
 								name="modelName" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="createUser">创建人</label>
 						<div class="controls">
-							<input class="j-search-item" title="创建人" id="createUser"
+							<input type="text"  class="j-search-item" title="创建人" id="createUser"
 								name="createUser" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="lastModifyUser">修改人</label>
 						<div class="controls">
-							<input class="j-search-item" title="修改人" id="lastModifyUser"
+							<input type="text" class="j-search-item" title="修改人" id="lastModifyUser"
 								name="lastModifyUser" style="width: 92%;">
 						</div>
 					</div>
@@ -136,7 +137,7 @@
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
 		</ul>
-		<label class="left-nav-label">更新时间</label>
+		<label class="left-nav-label">创建时间</label>
 		<ul data-type="dateRange"
 			class="nav nav-list nav-left-choose active-switch">
 			<li data-id="" class="selected"><a class="hide-switch"
@@ -243,8 +244,8 @@
 					<div class="control-group">
 						<label class="control-label" for="modelName">机型</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="modelName"
-								id="modelName" required>
+							<input type="text" style="width:229px;" class="input-xlarge" name="modelName"
+								id="modelName" maxlength="40" required>
 						</div>
 					</div>
 					<div class="control-group">
@@ -283,7 +284,7 @@
 								<input type="text"
 									class="positive-float j-tooltip-r input-xlarge"
 									style="width: 190px;" name="screenSize" id="screenSize" max="8"
-									title="只能输入数字哦" required> <span class="add-on">英寸</span>
+									title="只能输入数字哦"> <span class="add-on">英寸</span>
 							</div>
 						</div>
 					</div>
@@ -313,7 +314,7 @@
 								<input type="text"
 									class="positive-float j-tooltip-r input-xlarge"
 									style="width: 190px;" name="cpuSpeed" id="cpuSpeed"
-									title="只能输入数字哦" required><span class="add-on">GHz</span>
+									title="只能输入数字哦"><span class="add-on">GHz</span>
 							</div>
 						</div>
 					</div>
@@ -323,7 +324,7 @@
 							<div class="input-append">
 								<input type="text" class="positive-integer j-tooltip-r"
 									style="width: 198px;" name="ramSize" id="ramSize" max="10000"
-									title="只能输入数字哦" required><span class="add-on">M</span>
+									title="只能输入数字哦"><span class="add-on">M</span>
 							</div>
 						</div>
 					</div>
@@ -333,7 +334,7 @@
 							<div class="input-append">
 								<input type="text" title="只能输入数字哦"
 									class="positive-integer j-tooltip-r" style="width: 198px;"
-									name="romSize" id="romSize" max="10000" required><span
+									name="romSize" id="romSize" max="1000000"><span
 									class="add-on">M</span>
 							</div>
 						</div>
@@ -347,7 +348,7 @@
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="networkStandardIds">网络制式</label>
-						<div class="controls remote-checkbox check-one-least"
+						<div class="controls remote-checkbox"
 							target-name="networkStandardIds" data-url="network"></div>
 					</div>
 					<div class="control-group">
@@ -382,6 +383,7 @@
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
 	<script src="js/jason-const.js"></script>
+	<script src="js/jason-label.js"></script>
 	<script src="js/jason-loading.js"></script>
 	<script src="js/jason-datepicker.js"></script>
 	<script src="js/jason-numberfield.js"></script>
@@ -406,7 +408,6 @@
 	<script src="js/jason-form.js"></script>
 	<script src="js/jason-tooltip.js"></script>
 	<script src="js/jason-timer.js"></script>
-	<script src="js/jason-label.js"></script>
 
 	<!--[if lt IE 9]>
 		<script src="js/ie.js"></script>

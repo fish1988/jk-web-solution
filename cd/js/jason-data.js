@@ -16,13 +16,12 @@
 		$.ajaxSetup({
 					method : 'POST',
 					data : {
-						from : 'bootstrap',
-						timeStamp: new Date().getTime()
+						from : 'bootstrap'
 					},
 					dataType : 'json',
 					complete:function(xhr,status){
 						if(xhr.responseText == 'session_timeout'){
-							location.href = 'nav.htm'
+							location.href = 'login.html'
 						}
 					},
 					error : function(request, status, error) {

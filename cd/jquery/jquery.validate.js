@@ -711,7 +711,7 @@ $.extend($.validator, {
 					} else {
 						//label.insertAfter(element);
 						var control = $(element).parents('.controls')
-						if(control.length && control.find('.combobox,.add-on').length)
+						if(control.length && control.find('.combobox,.add-on,.fill-one').length)
 							control.append(label)
 						else
 							label.insertAfter(element)

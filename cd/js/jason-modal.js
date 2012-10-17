@@ -30,7 +30,12 @@
 			html.scrollTop(oldScrollTop) // necessary for Firefox
 			$("#simplemodal-overlay").width(newBodyOuterWidth)
 		}
-
+		
+		$('.modal').on('shown', function() {
+			 $('.popover').remove()
+		})
+		
+		
 		$('.modal').on('show', function() {
 			var me = $(this)
 

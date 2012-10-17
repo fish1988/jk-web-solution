@@ -111,13 +111,14 @@
 		$.jForm.reset = function(form, type) { // type --: new/init
 
 			//
+			form[0].reset()
 			form
 					.find('input:text, input:password, input:file,select, textarea')
 					.val('')
 			form.find('input:radio,input:checkbox').removeAttr('checked')
 					.removeAttr('selected')
 			form.find(':file.image-preview').imagepreview('reset')
-			$(form)[0].reset()
+			
 			// form.find('.combobox-container input:text').val('请选择')
 			var combos = $('.combobox', form)
 			for (var i = 0; i < combos.length; i++) {
@@ -149,52 +150,54 @@
 
 		$.jForm.loadRecord = function(form, record) { // !!!
 
-			for (var i in record) {
-				if (record[i] === null || typeof record[i] === 'undefined') {
-					continue
-				}
+			$.each(record, function(i, k) {
 
-				// normal input / select (1)
-				var input = $(
-						'input[name="' + i + '"],select[name="' + i + '"]',
-						form).not(':checkbox').not(':radio').not('.combobox')
-				if (input.length) {
-					input.val(record[i])
-					continue
-				}
+						if (k === null || typeof k === 'undefined') {
+							return
+						}
 
-				// displayfield / textarea (2)
-				var display = $('span[name="' + i + '"],textarea[name="' + i
-								+ '"]', form)
-				if (display.length) {
-					display.text(record[i])
-					continue
-				}
+						// normal input / select (1)
+						var input = $(
+								'input[name="' + i + '"],select[name="' + i
+										+ '"]', form).not(':checkbox')
+								.not(':radio').not('.combobox')
+						if (input.length) {
+							input.val(k)
+							return
+						}
 
-				// checkbox/radios (3) Mark:checkbox-value = [1,2] or "1;2"
-				var radio = $('input[name="' + i + '"][value="' + record[i]
-								+ '"]:radio', form)
-				if (radio.length) {
-					radio.attr('checked', true)
-					continue
-				}
+						// displayfield / textarea (2)
+						var display = $('span[name="' + i
+										+ '"],textarea[name="' + i + '"]', form)
+						if (display.length) {
+							display.text(k)
+							return
+						}
 
-				var checkboxVal = (record[i] === true
-						? '1'
-						: record[i] === false ? '0' : record[i])
-				if (!$.isArray(checkboxVal)
-						&& checkboxVal.toString().indexOf(';') !== -1) {
-					checkboxVal = checkboxVal.split(';')
-				}
-				for (var j = 0; j < checkboxVal.length; j++) {
-					var check = $('input[name="' + i + '"][value="'
-									+ checkboxVal[j] + '"]:checkbox', form)
-					if (check.length) {
-						check.attr('checked', true)
-					}
-				}
+						// checkbox/radios (3) Mark:checkbox-value = [1,2] or
+						// "1;2"
+						var radio = $('input[name="' + i + '"][value="' + k
+										+ '"]:radio', form)
+						if (radio.length) {
+							radio.attr('checked', true)
+							return
+						}
 
-			}
+						var checkboxVal = (k === true ? '1' : k === false
+								? '0'
+								: k)
+						if (!$.isArray(checkboxVal)) {
+							checkboxVal = checkboxVal.toString().split(';')
+						}
+						for (var j = 0; j < checkboxVal.length; j++) {
+							var check = $('input[name="' + i + '"][value="'
+											+ checkboxVal[j] + '"]:checkbox',
+									form)
+							if (check.length) {
+								check.attr('checked', true)
+							}
+						}
+					})
 
 			// special component ??
 			// combobox //!!!
@@ -228,8 +231,9 @@
 
 							var child = $(target[0])
 
-							//console.log(225,child)
-							if (typeof record[child.attr('id')] != 'undefined' && record[child.attr('id')]!==null) {
+							// console.log(225,child)
+							if (typeof record[child.attr('id')] != 'undefined'
+									&& record[child.attr('id')] !== null) {
 								valMap[comboRealId].push(child.attr('multiple')
 										? record[child.attr('id')].toString()
 												.replace(/;/, ',')
@@ -248,12 +252,12 @@
 					}
 				}
 			}
-			//console.log(243,valMap)
+			// console.log(243,valMap)
 			for (var i in valMap) {
 				if (valMap[i].length) {
 					$.combobox[i].setValue(valMap[i].join(';'))
 				}
-				//console.log(i, valMap[i].join(';'), ' gogo')
+				// console.log(i, valMap[i].join(';'), ' gogo')
 			}
 
 		}
@@ -305,7 +309,7 @@
 									}
 								}
 							})
-					//console.log('left', leftNavParams)
+					// console.log('left', leftNavParams)
 					if ($form.parent().hasClass('query-detail')) {
 						$form.parent().addClass('hidden')
 					}
@@ -373,16 +377,20 @@
 							timeStamp : new Date().getTime()
 						},
 						success : function(data) {
-							console.log(379,typeof $.jForm.getParams(f).status == 'undefined'
-									&& f.find('#status').length ? 0 : 1)
+
 							f.parents('.modal').modal('hide')
 
 							if (data && !data.success) {
-								$.jAlert.alert('操作失败'
-										+ (data.message ? ', 出错信息：'
-												+ $.jMsg[data.message] : ''))
+								$.jAlert
+										.alert($.jMsg.getMsg(data.message,
+														data.value))
 							} else {
-								$.jAlert.msg('操作成功')
+								if (f.attr('success-alert')) {
+									$.jAlert.alert($.jMsg.getMsg(data.message,
+													data.value))
+								} else
+									$.jAlert.msg($.jMsg.getMsg(data.message,
+													data.value))
 							}
 							// callback reload
 							$(f.attr('grid-reload')).flexReload()

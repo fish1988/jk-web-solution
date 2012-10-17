@@ -1,5 +1,7 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
+html{overflow-x:hidden;}
 body{font-size:13px;font-family:"Helvetica Neue","lucida Grande",Verdana;overflow-x:hidden;}
+.legend{display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;line-height:40px;color:#333;border:0;border-bottom:1px solid #E5E5E5;}
 .space-search{height:22px;top:5px;margin-left:40px;width:620px;}
 .hidden{display:none;visibility:hidden;}
 .page-loading{position:absolute;z-index:1000;top:0px;left:600px;display:none;}.page-loading span{color:white;background:#C44;font-size:75%;padding:2px 16px;}

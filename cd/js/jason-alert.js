@@ -60,10 +60,9 @@
 											$('.loader', me).hide()
 											if (callback)
 												callback()
-												
-											$.jAlert.alert($.jMsg[data.msg
-													? data.msg
-													: 'success'])
+
+											$.jAlert.alert($.jMsg.getMsg(
+													data.message, data.value))
 										})
 							}, 300)
 				})

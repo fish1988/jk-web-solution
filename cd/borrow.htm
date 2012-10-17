@@ -56,8 +56,7 @@
 	<div class="container">
 		<form id="borrow-form" action="data/save.json"
 			class="highlight form-horizontal">
-			<legend> 借用申请 </legend>
-
+			<div class="legend"> 借用申请 </div>
 			<fieldset>
 
 				<div class="control-group">
@@ -85,13 +84,19 @@
 					</div>
 				</div>
 
-				<div class="control-group hidden">
+				<div class="control-group">
 					<label class="control-label" for="leaderName">直接上级</label>
 					<div class="controls">
 						<input type="text" class="input-xlarge typeahead-user"
-							name="leaderName" id="leaderName" required
-							data-provide="typeahead" data-items="4">
+							name="leaderName" id="leaderName" data-provide="typeahead"
+							data-items="4">
 					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="useTypeIds">借用用途</label>
+					<div class="check-one-least controls remote-radio"
+						target-name="useTypeIds" data-url="usetype"></div>
 				</div>
 
 
@@ -105,19 +110,20 @@
 									class="icon-plus"></i></a>
 							</div>
 							<div class="btn-group">
-								<a id="deleteModels" class="btn toolbar-icon-btn j-tooltip-b"
-									title="全部删除"> <i class="icon-trash"></i></a>
+								<a id="deleteProperties"
+									class="btn toolbar-icon-btn j-tooltip-b" title="全部删除"> <i
+									class="icon-trash"></i></a>
 							</div>
 
 						</div>
-						<table id="modelTable" class="table">
+						<table id="propertyTable" class="table">
 							<thead>
 								<tr>
 									<th></th>
+									<th>资产编号</th>
 									<th>品牌</th>
 									<th>机型</th>
 									<th>平台</th>
-									<th>申请数量</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -138,26 +144,37 @@
 	<div id="myModal" class="modal hide fade" style="width: 670px;">
 		<div class="modal-header">
 			<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
-			<h3>选择机型</h3>
+			<h3>选择手机</h3>
 		</div>
 		<div class="modal-body">
 			<form class="form-inline form-query" style="margin-bottom: 4px;"
 				grid-reload="#modelGrid">
-				<!--<legend>查询</legend>-->
-				品牌：<input id="brandName" name="brandName" type="text"
-					class="input-small"> 机型： <input id="modelName"
-					name="modelName" type="text" class="input-small">
-				<button type="submit" class="btn btn-primary btn-search">查
-					询</button>
+
+				<div class="control-group">
+					<label class="control-label" for="modelId"
+						style="float: left; margin-top: 3px; margin-right: 10px;">机型</label>
+					<div class="controls" style="display: inline;">
+						<select id="modelId" name="modelId" class="combobox" width="200"
+							data-url="model" autoload="true">
+							<option value="" class="fixed"></option>
+						</select>
+						<button type="submit" class="btn btn-primary btn-search">查
+							询</button>
+					</div>
+
+				</div>
+
 			</form>
-			<table id="modelGrid" class="grid" data-url="data/model.json"
-				row-id="modelId" sort-name="modelName" sort-order="asc"
+			<table id="modelGrid" class="grid" data-url="phoneModel/list.html"
+				row-id="modelId" sort-name="modelName" sort-order="asc" use-pager="false"
 				checkbox="true" resizable="false" grid-height="auto"
 				show-column="false">
 				<thead>
 					<tr>
-						<th name="modelName" sortable="true" width="150" align="left">机型名称</th>
-						<th name="modelId" sortable="true" width="50" align="left">序号</th>
+						<th name="propertyName" sortable="true" width="150" align="left">资产编号</th>
+						<th name="modelName" sortable="true" width="100" align="left">机型名称</th>
+						<th name="propertyId" hidden sortable="true" width="50"
+							align="left">序号</th>
 						<th name="brandName" sortable="true" width="100" align="left">品牌</th>
 						<th name="platformName" sortable="true" width="100" align="left">平台</th>
 					</tr>
@@ -218,7 +235,7 @@
 
 	<script>
 		$(function() {
-			var modelTemplate = '<tr data-value="{0}"><td><a style="cursor:pointer;" class="remove-item" href="#" title="移除"><i class="icon-trash"></i></a></td><td>{1}</td><td>{2}</td><td>{3}</td><td><input class="span1" type="text" value="1" /></td></tr>'
+			var modelTemplate = '<tr data-value="{0}"><td><a style="cursor:pointer;" class="remove-item" href="#" title="移除"><i class="icon-trash"></i></a></td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>'
 
 			$('body').on('click.removeItem', '.remove-item', function(e) {
 				var $tr = $(e.target).parents('tr')
@@ -226,35 +243,48 @@
 			})
 
 			// select models
-			$('#myModal .modal-footer .btn-primary').click(
-					function() {
-						$('#myModal').modal('hide')
-						var selectItems = [], model, isExist = false
-						$('th .icon-check').parents('tr').each(
-								function(i, tr) {
-									model = $.parseJSON($(tr).attr('record'))
-									if ($('#modelTable tbody tr[data-value="'
-											+ model.modelId + '"]').length) {
-										isExist = true
-									} else
+			$('#myModal .modal-footer .btn-primary')
+					.click(
+							function() {
+								$('#myModal').modal('hide')
+								var selectItems = [], property, isExist = false
+								$('th .icon-check')
+										.parents('tr')
+										.each(
+												function(i, tr) {
+													property = $
+															.parseJSON($(tr)
+																	.attr(
+																			'record'))
+													if ($('#propertyTable tbody tr[data-value="'
+															+ property.propertyId
+															+ '"]').length) {
+														isExist = true
+													} else
 
-										selectItems.push($.jString.format(
-												modelTemplate, model.modelId,
-												model.modelName,
-												model.modelName,
-												model.platformName))
-								})
-						//console.log($('#modelTable'), selectItems)
-						$('#modelTable tbody').append(selectItems.join(''))
-						if (selectItems.length)
-							$('#deleteModels').removeClass('disabled')
-						isExist ? $.jAlert.alert('部分机型已存在，无须重复选择') : ''
-					})
+														selectItems
+																.push($.jString
+																		.format(
+																				modelTemplate,
+																				property.propertyId?property.propertyId:1,
+																				property.propertyName?property.propertyName:'',
+																				property.brandName,
+																				property.modelName,
+																				property.platformName))
+												})
+								//console.log($('#propertyTable'), selectItems)
+								$('#propertyTable tbody').append(
+										selectItems.join(''))
+								if (selectItems.length)
+									$('#deleteProperties').removeClass(
+											'disabled')
+								isExist ? $.jAlert.alert('部分手机已存在，无须重复选择') : ''
+							})
 
-			$('#deleteModels').click(function() {
+			$('#deleteProperties').click(function() {
 				$.jAlert.alert('全部删除?', 'confirmOnly', '', function() {
-					$('#modelTable tbody tr').remove()
-					$('#deleteModels').addClass('disabled')
+					$('#propertyTable tbody tr').remove()
+					$('#deleteProperties').addClass('disabled')
 				})
 			})
 

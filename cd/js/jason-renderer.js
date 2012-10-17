@@ -84,17 +84,19 @@
 
 		$.jRenderer.statusChange = function(v) {
 			var rules = {
-				0 : '有效',
-				1 : '无效'
+				1 : '有效',
+				0 : '无效'
 			}
 			return $.jRenderer.valueChange(v, rules)
 		}
 
 		$.jRenderer.yesNoChange = function(v) {
 			var rules = {
-				0 : '是',
-				1 : '否'
+				1 : '是',
+				0 : '否'
 			}
+
+			console.log(v,$.jRenderer.valueChange(v, rules))
 			return $.jRenderer.valueChange(v, rules)
 		}
 
@@ -108,8 +110,8 @@
 
 		$.jRenderer.statusClsChange = function(v) {
 			var rules = {
-				1 : 'td-err',
-				0 : 'td-ok'
+				0 : 'td-err',
+				1 : 'td-ok'
 			}
 			return $.jRenderer.classChange(v, rules)
 		}
@@ -131,7 +133,7 @@
 
 		// show tips on hover
 		$.jRenderer.tipsChange = function(v) {
-			var template = '<a href="#">{0}</a>'
+			var template = '<a class="td-action" title="{0}" href="#myModal">{0}</a>'
 			return $.jRenderer.valueChange(v, template, 'format')
 		}
 
@@ -178,6 +180,12 @@
 		// add cpu speed unit (G)
 		$.jRenderer.addCPUChange = function(v){
 			var template = '{0}GHZ'
+			return $.jRenderer.valueChange(v, template, 'format')
+		}
+		
+		// remote popover
+		$.jRenderer.remotePopoverChange = function(v){
+			var template =  '<a class="remote-popover" href="#" title="{0}" data-url="data/onemodel.json?id={1}">{0}</a>'
 			return $.jRenderer.valueChange(v, template, 'format')
 		}
 	});
