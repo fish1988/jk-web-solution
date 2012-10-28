@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="public,max-age=31536000">
-<title>流程管理</title>
+<title>资产类型</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -52,36 +52,42 @@
 </head>
 <body>
 	<div class="navbar navbar-inverse global-nav">
-		<div class="navbar-inner" active="workflow"></div>
+		<div class="navbar-inner" active="dict"></div>
 	</div>
 	<div class="well form-search main-search">
 		<div style="float: left; width: 120px;">
 			<img class="search-logo" src="img/property.png" width="120"
 				height="45" style="margin-top: -10px;">
 		</div>
-		<input title="请输入单号、申请人..." id="query-txt" name="query-txt"
+		<input title="请输入资产类型、创建人、修改人..." id="query-txt" name="query-txt"
 			autocomplete="off"
 			class="space-search j-tooltip-b search input-medium search-query valid no-radius pull-left"
 			target-form="#link-form">
 		<div class="query-detail hidden clickOutHide">
-			<form id="link-form" action="data/link.json"
+			<form id="link-form" action="propertyType/list.html"
 				style="margin-bottom: 5px;" class="form-query highlight"
 				grid-reload="#linkGrid">
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label" for="borrowBillId">工单编号</label>
+						<label class="control-label" for="propertyTypeName">资产类型</label>
 						<div class="controls">
-							<input type="text"
-								class="positive-integer j-search-item input-xlarge" title="工单编号"
-								id="borrowBillId" name="borrowBillId" style="width: 92%;">
+							<input class="j-search-item" title="资产类型" id="propertyTypeName"
+								name="propertyTypeName" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="orderPerson">申请人</label>
+						<label class="control-label" for="createUser">创建人</label>
 						<div class="controls">
-							<input class="j-search-item" title="申请人" id="orderPerson"
-								name="orderPerson" style="width: 92%;">
+							<input class="j-search-item" title="创建人" id="createUser"
+								name="createUser" style="width: 92%;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="lastModifyUser">修改人</label>
+						<div class="controls">
+							<input class="j-search-item" title="修改人" id="lastModifyUser"
+								name="lastModifyUser" style="width: 92%;">
 						</div>
 					</div>
 				</fieldset>
@@ -105,26 +111,16 @@
 	</div>
 	<div class="left-nav span2" grid-reload="#linkGrid">
 		<div class="page-title">
-			<a href="#">流程管理</a>
+			<a href="#">资产类型</a>
 		</div>
 
-		<!-- 		<ul data-type="status"
+		<ul data-type="status"
 			class="nav nav-list nav-left-choose active-switch">
 			<li class="selected" data-id="1"><a href="#">有效</a></li>
-			<li data-id="2"><a href="#">无效</a></li>
+			<li data-id="0"><a href="#">无效</a></li>
 			<li data-id=""><a href="#">所有状态</a></li>
 			<li class="divider"></li>
-		</ul> -->
-
-		<label class="left-nav-label">类型</label>
-		<ul data-type="listTp"
-			class="nav nav-list nav-left-choose active-switch">
-			<!-- <li class="selected" data-id=""><a href="#">不限</a></li> -->
-			<li data-id="1" id="listTp-my-order" class="selected"><a href="#">本人申请</a></li>
-			<li data-id="0"><a href="#">待办</a></li>
-			<li class="divider"></li>
 		</ul>
-
 		<label class="left-nav-label">创建时间</label>
 		<ul data-type="dateRange"
 			class="nav nav-list nav-left-choose active-switch">
@@ -153,14 +149,17 @@
 	<div class="search-result span10">
 		<div class="btn-toolbar grid-toolbar page-toolbar"
 			grid-target="#linkGrid">
-			<!-- <div class="btn-group">
-				<a class="grid-more btn toolbar-icon-btn j-tooltip-b" title="批量通过"
-					msg="确认通过{0}项?" url="phoneModel/approve.html"><i class="icon-ok"></i></a> <a
-					class="grid-more btn toolbar-icon-btn j-tooltip-b" title="批量拒绝"
-					msg="确认拒绝{0}项?" url="phoneModel/approve.html"><i
-					class="icon-ban-circle"></i></a>
+			<div class="btn-group">
+				<a data-toggle="modal" href="#linkModal"
+					class="btn toolbar-icon-btn j-tooltip-b" title="新建"> <i
+					class="icon-plus"></i></a>
 			</div>
- -->
+			<div class="btn-group">
+				<a class="grid-one btn toolbar-icon-btn j-tooltip-b" title="编辑"
+					modal-title="修改类型" href="#linkModal"><i class="icon-edit"></i></a>
+				<a class="grid-more btn toolbar-icon-btn j-tooltip-b" title="无效"
+					msg="确认删除{0}项?" url="propertyType/delete.html"><i class="icon-trash"></i></a>
+			</div>
 			<div class="btn-group">
 				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
 					class="icon-repeat"></i></a>
@@ -173,60 +172,58 @@
 			</div>
 			<div class="grid-result-stat"></div>
 		</div>
-		<table id="linkGrid" class="grid" data-url="borrow/list.html"
-			row-id="borrowBillId" sort-name="lastModifyTime" sort-order="desc"
+		<table id="linkGrid" class="grid" data-url="propertyType/list.html"
+			row-id="propertyTypeId" sort-name="lastModifyTime" sort-order="desc"
 			checkbox="true" resizable="false" grid-height="auto">
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="borrowBillId" sortable="true" width="70" align="left">工单编号</th>
-					<th name="flowStatusName;finalStatus" data-render="modalChange" width="100"
-						align="left">工单状态</th>
-					<th name="propertyNames" width="180" align="left">资产编号</th>
-					<th name="propertyIds" hidden width="150" align="left">资产ID</th>
+					<th name="propertyTypeName" sortable="true" width="120" align="left">资产类型</th>
+					<th name="propertyTypeId"  sortable="true" width="30" align="right">序号</th>
 					<th name="desc" hidden width="150" align="left">描述</th>
-					<th name="useTypeName" width="80" align="left">借用用途</th>
-					<th name="orderTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">申请时间</th>
-					<th name="orderPerson" sortable="true" width="100" align="left">申请人</th>
+					<th name="createTime" data-render="shortDateTimeChange"
+						sortable="true" width="150" align="left">创建时间</th>
+					<th name="createUser" sortable="true" width="150" align="left">创建人</th>
 					<th name="lastModifyTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">最后处理时间</th>
-					<th name="lastModifyUser" hidden sortable="true" width="100" align="left">最后处理人</th>
+						sortable="true" width="150" align="left">修改时间</th>
+					<th name="lastModifyUser" sortable="true" width="150" align="left">修改人</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
-	<div id="workflowModal" class="modal hide fade wide-modal">
-		<form id="modal-form" action="borrow/approve.html" grid-reload="#linkGrid" no-reset="true"
+	<div id="linkModal" class="modal hide fade wide-modal">
+		<form id="link-form" action="propertyType/save.html" grid-reload="#linkGrid"
 			class="highlight form-horizontal">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a> <span class="loader"></span>
-				<h3>流程管理</h3>
+				<h3>添加类型</h3>
 			</div>
 			<div class="modal-body">
 				<fieldset>
-					<div class="control-group">
-						<input type="hidden" id="borrowBillId" name="borrowBillId">
+					<div class="control-group hidden">
+						<input type="hidden" id="propertyTypeId" name="propertyTypeId">
 					</div>
-
 					<div class="control-group">
-						<label class="control-label" for="result">操作</label>
+						<label class="control-label" for="propertyTypeName">资产类型</label>
 						<div class="controls">
-							<label class="radio inline"> <input type="radio" class="fill-one checkOne"
-								name="result" id="result" value="1" checked="checked">通过
-							</label><label class="radio inline"> <input type="radio"
-								name="result"  class="fill-one checkOne" id="result" value="2">不通过
-							</label>
+							<input type="text" class="input-xlarge" name="propertyTypeName"
+								id="propertyTypeName" maxlength="40" required>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="desc">描述</label>
 						<div class="controls">
-							<textarea class="input-xlarge" name="desc" id="desc" rows="2"
+							<textarea class="input-xlarge" name="desc" id="desc" rows="4"
 								maxlength="200"></textarea>
 						</div>
 					</div>
-
+					<div class="control-group">
+						<label class="control-label" for="canTouch">是否有效</label>
+						<div class="controls">
+							<label class="checkbox inline"><input type="checkbox"
+								name="status" id="status" value="1" checked>是 </label>
+						</div>
+					</div>
 
 				</fieldset>
 			</div>
@@ -237,14 +234,11 @@
 			</div>
 		</form>
 	</div>
-
 	<script src="js/lib/xdate.js"></script>
 	<script src="jquery/jquery.min.js"></script>
 	<script src="js/jason-navbar.js"></script>
 	<script src="jquery/jquery.json.js"></script>
 	<script src="jquery/jquery.cookie.js"></script>
-	<script src="js/jason-auth.js"></script>
-
 	<script src="jquery/jquery.mask.js"></script>
 	<script src="jquery/jquery.form.js"></script>
 	<script src="jquery/jquery.validate.js"></script>
@@ -254,7 +248,8 @@
 	<script src="js/bootstrap/bootstrap-datepicker.js"></script>
 	<script src="js/bootstrap/bootstrap-inputmask.js"></script>
 	<script src="js/bootstrap/bootstrap-tour.js"></script>
-
+	<script src="js/jason-auth.js"></script>
+	<script src="js/jason-label.js"></script>
 	<script src="js/jason-loading.js"></script>
 	<script src="js/jason-datepicker.js"></script>
 	<script src="js/jason-radio.js"></script>

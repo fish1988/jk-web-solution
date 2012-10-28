@@ -727,13 +727,14 @@
 
 				if (parentId && parentId.length > 0) {
 					if (parentId != '#') {
-						console.log(731,parentId,$('[real-id="'+parentId+'"]'),$('[real-id="'+parentId+'"]').val())
+						//console.log(731,parentId,$('[real-id="'+parentId+'"]'),$('[real-id="'+parentId+'"]').val())
 						var tempValue = $('[real-id="' + parentId + '"]').val()
 						ids = $.isArray(tempValue)
 								? tempValue.join(';')
 								: tempValue
 					}
 					url += ids;
+					console.log(737,initValue,$('[real-id="' + parentId + '"]').val(),parentId,ids,url)
 				} else {
 					return;
 				}

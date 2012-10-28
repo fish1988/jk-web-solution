@@ -97,7 +97,7 @@
 					<div class="control-group half-line">
 						<label class="control-label" for="modelId">机型</label>
 						<div class="controls">
-							<select id="modelId" name="modelId" class="combobox" width="220"
+							<select id="modelId" name="modelId" class="combobox not-set-value" width="220"
 								data-url="model">
 								<option value="" class="fixed"></option>
 							</select>
@@ -206,8 +206,7 @@
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="propertyName" data-render="tipsChange" sortable="true"
-						width="110" align="left">资产编号</th>
+					<th name="propertyName" data-render="tipsChange" width="110" align="left">资产编号</th>
 					<th name="propertyId" hidden sortable="true" width="50"
 						align="left">序号</th>
 					<th name="modelId" hidden sortable="true" width="50" align="left">机型ID</th>
@@ -215,11 +214,12 @@
 					<th name="modelName" width="110" align="left">机型</th>
 					<!-- <th name="color" width="50" align="left">颜色</th> -->
 					<th name="imei" hidden width="50" align="left">imei</th>
-					<th name="platformName" width="50" align="left">平台</th>
+					<th name="platformName" width="100" align="left">平台</th>
 					<th name="softwareName" hidden width="50" align="left">平台版本</th>
-					<th name="isLicensed" width="50" align="left">是否行货</th>
-					<th name="otherFitting" width="150" align="left">其他配件</th>
+					<th name="isLicensed" data-render="yesNoChange" width="50" align="left">是否行货</th>
+					<th name="otherFitting"  width="80" align="left">其他配件</th>
 					<th name="desc" hidden width="150" align="left">描述</th>
+					<th name="propertyStatusName" hidden width="100" align="left">资产状态</th>
 					<th name="createTime" hidden data-render="shortDateTimeChange"
 						sortable="true" width="150" align="left">创建时间</th>
 					<th name="createUser" hidden sortable="true" width="150"
@@ -243,7 +243,7 @@
 					<div class="control-group hidden">
 						<input type="hidden" id="propertyId" name="propertyId"> <input
 							type="hidden" id="phoneId" name="phoneId"> <input
-							type="hidden" id="propertyTypeId" name="propertyTypeId">
+							type="hidden" id="propertyTypeId" name="propertyTypeId" value="1">
 					</div>
 					<div class="control-group edit-hide">
 						<label class="control-label">资产编号</label>

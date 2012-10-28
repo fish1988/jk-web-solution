@@ -118,7 +118,7 @@
 			form.find('input:radio,input:checkbox').removeAttr('checked')
 					.removeAttr('selected')
 			form.find(':file.image-preview').imagepreview('reset')
-			
+
 			// form.find('.combobox-container input:text').val('请选择')
 			var combos = $('.combobox', form)
 			for (var i = 0; i < combos.length; i++) {
@@ -203,7 +203,7 @@
 			// combobox //!!!
 			var combos = $('.combobox', form).not('.not-set-value')
 			var valMap = {}
-			// console.log(combos.length)
+			console.log(combos, combos.length)
 			// return
 			if (combos.length) {
 				for (var i = 0; i < combos.length; i++) {
@@ -213,7 +213,7 @@
 
 					// combo
 					if (record[comboId]) {
-						console.log(record[comboId])
+						// console.log(record[comboId])
 
 						valMap[comboRealId].push($(combo).attr('multiple')
 								? record[comboId].toString().replace(/;/, ',')
@@ -252,7 +252,7 @@
 					}
 				}
 			}
-			// console.log(243,valMap)
+			console.log(243, valMap)
 			for (var i in valMap) {
 				if (valMap[i].length) {
 					$.combobox[i].setValue(valMap[i].join(';'))
@@ -364,7 +364,19 @@
 
 								params : $.extend($.jForm.getParams(f),
 										leftNavParams)
-							}).flexReload()
+							})/*.flexOptions({
+						callbackFn : function() {
+							// e... for workflow ....
+							if ($('ul[data-type="listTp"] .my-order.selected').length) {
+								$('a.td-action[href="#workflowModal"]').each(
+										function(k, v) {
+											$(v).replaceWith($(v).text())
+										})
+							}
+						}
+
+					})*/.flexReload()
+
 					return false
 				}).trigger('submit')
 			}
@@ -381,16 +393,15 @@
 							f.parents('.modal').modal('hide')
 
 							if (data && !data.success) {
-								$.jAlert
-										.alert($.jMsg.getMsg(data.message,
-														data.value))
+								$.jAlert.alert($.jMsg.getMsg(data.message,
+										data.value))
 							} else {
 								if (f.attr('success-alert')) {
 									$.jAlert.alert($.jMsg.getMsg(data.message,
-													data.value))
+											data.value))
 								} else
 									$.jAlert.msg($.jMsg.getMsg(data.message,
-													data.value))
+											data.value))
 							}
 							// callback reload
 							$(f.attr('grid-reload')).flexReload()

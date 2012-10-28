@@ -25,9 +25,10 @@
 					network:'dropdown/networkStandard.html?pid=',
 					model:'dropdown/phoneModel.html?pid=',
 					link:'dropdown/cdlink.html?pid=',
-					workflow:'data/opstatus.json?pid=',
-					ordertype:'data/opstatus.json?pid=',
-					usetype:'data/usetype.json?pid='
+					workflow:'dropdown/flowStatus.html?pid=',
+					ordertype:'dropdown/orderType.html?pid=',
+					usetype:'dropdown/useType.html?pid=',
+					approve:'data/opstatus.json?pid='
 				}
 					
 				$.jStore.getUrl = function(id){

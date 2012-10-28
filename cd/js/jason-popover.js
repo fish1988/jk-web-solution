@@ -100,27 +100,31 @@
 		$('html').on('mouseenter.popover', 'td .remote-popover', function(e) {
 			var template = '<div id="jPopover" class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><a class="close" style="position:absolute;right:5px;top:3px;" title="关闭">×</a><div class="popover-content">{0}</div></div></div>', $this = $(e.target)
 			$.jTimer.addTimer($this, function() {
-						$('.popover').remove()
+				$('.popover').remove()
 
-						$.post($this.attr('data-url'), function(data) {
-									var model = data
-									// console.log($.jPopover.modelRender(model,'model'))
-									template = template.replace('{0}',
-											$.jPopover.modelRender(model,
-													'model'))
-									$this.popover({
-												title : $this.text(),
-												trigger : 'click',
-												template : template,
-												placement : 'right'
-											}).popover('show')
+				$.post($this.attr('data-url'), function(data) {
+							if (!data || !data.items || data.items.length == 0) {
+								console.log('没有找到相应机型 ,链接 : '+$this.attr('data-url'))
+								return false
+							}
 
-									$('.popover-content', $('.popover'))
-											.html($.jPopover.modelRender(model,
-													'model'))
-								})
+							var model = data.items[0]
+							// console.log($.jPopover.modelRender(model,'model'))
+							template = template.replace('{0}', $.jPopover
+											.modelRender(model, 'model'))
+							$this.popover({
+										title : $this.text(),
+										trigger : 'click',
+										template : template,
+										placement : 'right'
+									}).popover('show')
 
-					}, 200)
+							$('.popover-content', $('.popover'))
+									.html($.jPopover
+											.modelRender(model, 'model'))
+						})
+
+			}, 200)
 
 		})
 

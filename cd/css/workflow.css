@@ -1,0 +1,6 @@
+/* CSS crunched with Crunch - http://crunchapp.net/ */
+.main-nav-container-body .workflow-node{width:200px;height:50px;border:1px solid;margin-bottom:30px;cursor:move;}.main-nav-container-body .workflow-node .name{color:#9d261d;font-weight:bold;}
+.main-nav-container-body .workflow-node .user{overflow:hidden;display:inline;cursor:pointer;white-space:nowrap;text-overflow:ellipsis;}
+.main-nav-container-body .workflow-node .action{margin-left:210px;width:200px;margin-top:-20px;}
+.main-nav-container-body .workflow-node .node-arrow{width:100px;border-right:1px solid;height:30px;}
+.main-nav-container-body .workflow-node:last-child .node-arrow{border:none;}

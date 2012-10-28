@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>流程配置</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- styles -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="css/nav-list.css" rel="stylesheet">
+<link href="css/navbar.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
+<link href="css/combobox.css" rel="stylesheet">
+<link href="css/workflow.css" rel="stylesheet">
+<link href="css/label.css" rel="stylesheet">
+<!-- IE styles -->
+
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="js/respond.min.js"></script>
+		<link href="css/ie.css" rel="stylesheet">
+    <![endif]-->
+<!--[if (IE 8)|(IE 7)]> 
+		<link href="css/ie78.css" rel="stylesheet">
+	<![endif]-->
+<!--[if IE 7]>   
+		<link href="css/ie7.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 6]>   
+		<link href="css/ie6.css" rel="stylesheet">
+    <![endif]-->
+<!--[if IE 7]>
+  <link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.css">
+<![endif]-->
+<!--[if IE 7]>   
+	<style>
+	   div.arrow{
+	   	margin-top:10px;
+	   }
+	</style>
+ <![endif]-->
+
+
+</head>
+
+<body>
+	<div class="navbar navbar-inverse global-nav">
+		<div class="navbar-inner" active="workflownodes"></div>
+	</div>
+	<div class="container main-nav-container">
+		<div class="page-header" style="margin-bottom: 0;">
+			<h2 class="nav-title" style="width: 360px;">
+				借用审批流程 <a class="btn workflow-save j-tooltip-b"  title="保存当前配置" href="#"><i
+					class="icon-ok"></i> </a> <a data-toggle="modal" href="#addNode"
+					class="btn add-node j-tooltip-b"  title="增加节点"> <i class="icon-plus"></i>
+				</a>
+
+			</h2>
+		</div>
+
+		<div class="main-nav-container-body" style="margin: 60px;">
+			<!-- 			<div class="workflow-node" data-id="1" data-name="申请"
+				data-user="jason">
+				<span class="name">申请</span><br> 审批人:<span class="user">jason</span>
+				<div class="action">
+					<a data-toggle="modal" href="#addNode" class="btn add-node"
+						title="增加节点"> <i class="icon-plus"></i></a> <a
+						class="btn edit-node" data-toggle="modal" href="#editNode"
+						title="编辑"><i class="icon-edit"></i></a> <a data-toggle="modal"
+						href="#deleteNode" class="btn delete-node" title="删除"><i
+						class="icon-trash"></i></a>
+				</div>
+				<div class="node-arrow"></div>
+			</div> -->
+		</div>
+
+	</div>
+
+	<div id="addNode" class="modal hide fade">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>增加节点</h3>
+		</div>
+		<div class="modal-body">
+			<form class="highlight form-horizontal">
+				<fieldset>
+					<div class="control-group">
+
+						<label class="control-label" for="workflowNodeId">节点名称</label>
+						<div class="controls">
+							<select id="workflowNodeId" name="workflowNodeId"
+								class="combobox" width="200" autoload="true" data-url="workflow"
+								outside="true">
+								<option class="fixed" val=""></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="approveUser">审批人</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge typeahead-user"
+								name="approveUser" id="approveUser" data-provide="typeahead"
+								data-items="4">
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button type="submit" class="btn btn-primary">&nbsp;确
+				&nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+	<div id="editNode" class="modal hide fade">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>编辑节点</h3>
+		</div>
+		<div class="modal-body">
+			<form id="edit-form" class="highlight form-horizontal">
+				<fieldset>
+					<div class="control-group">
+
+						<label class="control-label" for="workflowNodeId">节点名称</label>
+						<div class="controls">
+							<select id="workflowNodeId" name="workflowNodeId"
+								class="combobox" width="200" autoload="true" data-url="workflow"
+								outside="true">
+								<option class="fixed" val=""></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="approveUser">审批人</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge typeahead-user"
+								name="approveUser" id="approveUser" data-provide="typeahead"
+								data-items="4">
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button type="submit" class="btn btn-primary">&nbsp;确
+				&nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+
+
+	<div id="deleteNode" class="modal hide">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>删除节点</h3>
+		</div>
+		<div class="modal-body">
+			<p>确定删除节点？</p>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取 消</button>
+			<button class="btn btn-primary">&nbsp;确 &nbsp;&nbsp;定&nbsp;</button>
+		</div>
+	</div>
+
+	<!-- javascript libs -->
+	<script src="js/lib/xdate.js"></script>
+	<script src="jquery/jquery.min.js"></script>
+	<script src="js/jason-navbar.js"></script>
+	<script src="js/jason-data.js"></script>
+	<script src="jquery/jquery.json.js"></script>
+	<script src="jquery/jquery.cookie.js"></script>
+	<script src="jquery/jquery-ui-1.8.21.custom.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap/bootstrap-typeahead.js"></script>
+	<script src="js/jason-const.js"></script>
+	<script src="js/jason-base.js"></script>
+	<script src="js/jason-tooltip.js"></script>
+	<script src="js/jason-alert.js"></script>
+	<script src="js/jason-store.js"></script>
+	<script src="js/jason-combobox.js"></script>
+	<script src="js/jason-typeahead.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/ie.js"></script>
+    <![endif]-->
+
+	<script>
+		$(function() {
+
+			var saveAction = 'flowdetail/add.html', workflowNodes = [], nodeTemplate = '<div class="workflow-node" data-id="{0}" data-name="{1}" data-user="{2}"><span class="name">{1}</span><br> <span class="user" title="{2}">审批人:{2}</span><div class="action"><a data-toggle="modal" href="#addNode" class="btn add-node" title="增加节点"> <i class="icon-plus"></i></a> <a class="btn edit-node" data-toggle="modal" href="#editNode" title="编辑"><i class="icon-edit"></i></a> <a data-toggle="modal" href="#deleteNode" class="btn delete-node" title="删除"><i class="icon-trash"></i></a></div><div class="node-arrow"></div></div>'
+
+			$.getJSON('flowdetail/list.html?workflowId=1', function(data) {
+				if (data && data.items) {
+					workflowNodes = data.items
+				}
+				console.log(171, data, workflowNodes)
+				render()
+			})
+			listen()
+
+			function render() {
+				if (workflowNodes && workflowNodes.length) {
+					var node, result = []
+
+					for ( var i = 0; i < workflowNodes.length; i++) {
+						node = buildNode(workflowNodes[i])
+						result.push(node)
+					}
+					$('.main-nav-container-body').append(result.join(''))
+					$('.main-nav-container-body').sortable().disableSelection()
+				}
+			}
+
+			// noder builder
+			function buildNode(workflowNode) {
+				return $.jString.format(nodeTemplate, workflowNode.flowStatusId,
+						workflowNode.flowStatusName, workflowNode.approver)
+			}
+
+			// listener
+			function listen() {
+
+				// Disable # links
+				$('body').on('click', 'a[href^=#]', function(e) {
+					e.preventDefault()
+				})
+
+				$('body')
+						.on(
+								'click.edit-node',
+								'.btn.edit-node',
+								function(e) {
+									var $this = $(e.target), $target = $this
+											.parents('.workflow-node'), comboName = $(
+											'#workflowNodeId', $('#editNode'))
+											.attr('real-id'), nodeId = $target
+											.attr('data-id'), nodeUser = $target
+											.attr('data-user'), combo = $.combobox[comboName]
+									combo.setValue(nodeId)
+
+									$('#approveUser', $('#editNode')).val(
+											nodeUser)
+
+									$('#editNode').data('event-from', $target)
+								})
+				$('body').on(
+						'click.delete-node',
+						'.btn.delete-node',
+						function(e) {
+							var $this = $(e.target), $target = $this
+									.parents('.workflow-node')
+							$('#deleteNode').data('event-from', $target)
+						})
+
+				$('body').on(
+						'click.add-node',
+						'.btn.add-node',
+						function(e) {
+							var $this = $(e.target), $target = $this
+									.parents('.workflow-node')
+							$('#addNode').data('event-from', $target)
+						})
+
+				// add node
+				$('.btn-primary', $('#addNode'))
+						.click(
+								function() {
+
+									var nodeId = $('#workflowNodeId',
+											$('#addNode')).val(), nodeName = $(
+											'#workflowNodeId option:selected',
+											$('#addNode')).text(), nodeUser = $(
+											'#approveUser', $('#addNode'))
+											.val(), $target = $('#addNode')
+											.data('event-from')
+
+									if (nodeId.length < 1) {
+										alert('请选择节点')
+										return false
+									}
+									if (nodeUser.length < 1) {
+										alert('请输入审批人')
+										return false
+									}
+									nodeStr = $.jString.format(nodeTemplate,
+											nodeId, nodeName, nodeUser)
+
+									if ($target && $target.length) {
+										$($target[0]).after(nodeStr)
+									} else {
+										$('.main-nav-container-body').append(
+												nodeStr)
+									}
+
+									$('#addNode').modal('hide')
+									//$('#workflowNodeId', $('#addNode')).val('').change()
+									$('#approveUser', $('#addNode')).val('')
+									$('.main-nav-container-body').sortable()
+											.disableSelection()
+								})
+
+				// save node
+				$('.btn-primary', $('#editNode'))
+						.click(
+								function() {
+									var nodeId = $('#workflowNodeId',
+											$('#editNode')).val(), nodeName = $(
+											'#workflowNodeId option:selected',
+											$('#editNode')).text(), nodeUser = $(
+											'#approveUser', $('#editNode'))
+											.val(), $target = $('#editNode')
+											.data('event-from')
+									if (nodeId.length < 1) {
+										alert('请选择节点')
+										return false
+									}
+									if (nodeUser.length < 1) {
+										alert('请输入审批人')
+										return false
+									}
+
+									nodeStr = $.jString.format(nodeTemplate,
+											nodeId, nodeName, nodeUser)
+
+									if ($target && $target.length) {
+										$($target[0]).replaceWith(nodeStr)
+									}
+
+									$('#editNode').modal('hide')
+									//$('#workflowNodeId', $('#addNode')).val('').change()
+									$('#approveUser', $('#editNode')).val('')
+
+									$('.main-nav-container-body').sortable()
+											.disableSelection()
+								})
+
+				// delete node
+				$('.btn-primary', $('#deleteNode')).click(function() {
+					var $target = $('#deleteNode').data('event-from')
+					if ($target) {
+						$target.remove()
+					}
+					$('#deleteNode').modal('hide')
+				})
+
+				// workflow save
+				$('.workflow-save').click(function() {
+					var workflow = []
+					$('.workflow-node').each(function(k, v) {
+
+						var $this = $(this)
+						workflow.push({
+							flowStatusId : parseInt($this.attr('data-id'), 10),
+							approver : $this.attr('data-user')
+						})
+					})
+					$.post(saveAction, {
+						items : $.stringifyJSON(workflow),
+						workflowId : 1
+					}, function(data) {
+						
+						if(data && data.success){
+							$.jAlert.alert('保存成功')
+						}else{
+							$.jAlert.alert($.jMsg.getMsg(data.message, data.value))
+						}
+						
+					}, 'json')
+				})
+			}
+
+		})
+	</script>
+</body>
+</html>

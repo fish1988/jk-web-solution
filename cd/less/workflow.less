@@ -1,0 +1,39 @@
+@import "../bootstrap/less/variables.less";
+.main-nav-container-body{
+    .workflow-node{
+        width: 200px;
+        height: 50px;
+        border: 1px solid;
+        margin-bottom: 30px;
+        cursor:move;
+        .name{
+          color:@red;
+          font-weight:bold;
+        }
+        .user{
+            overflow: hidden;
+            display: inline;
+            cursor:pointer;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .action{
+            margin-left: 210px;
+            width: 200px;
+            margin-top: -20px;
+        }
+        .node-arrow{
+            width: 100px;
+            border-right: 1px solid;
+            height: 30px;
+           // margin-top: 20px;
+        }
+    }
+    
+    
+    .workflow-node:last-child {
+       .node-arrow{
+           border:none;
+       }
+    }
+}

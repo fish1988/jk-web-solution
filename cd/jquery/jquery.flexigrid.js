@@ -64,7 +64,8 @@
 			onChangeSort : false,
 			onSuccess : false,
 			onError : false,
-			onSubmit : false
+			onSubmit : false,
+			callbackFn : null
 				// using a custom populate function
 		}, p);
 		$(t).show() // show if hidden
@@ -898,34 +899,48 @@
 				param.timeStamp = new Date().getTime()
 
 				$.ajax({
-							type : p.method,
-							url : p.url,
-							data : param,
-							dataType : p.dataType,
-							success : function(data) {
-								setTimeout(function() {
-											g.addData(data)
-											me.checkToolBarStat()
-										}, 0)
-								// console.log(p.rendererCache)
+					type : p.method,
+					url : p.url,
+					data : param,
+					dataType : p.dataType,
+					success : function(data) {
+						setTimeout(function() {
+							g.addData(data)
+							me.checkToolBarStat()
 
-								// $.jPopover.hideTrPopover()
-								// p.allowPreview = true
-								if (p.checkbox)
-									$.jCheckbox.uncheck($('i', g.hDiv))
-								// $('i',
-								// g.hDiv).removeClass('icon-check').addClass('icon-check-empty')
-							},
-							error : function(XMLHttpRequest, textStatus,
-									errorThrown) {
-								try {
-									if (p.onError)
-										p.onError(XMLHttpRequest, textStatus,
-												errorThrown);
-								} catch (e) {
-								}
+							if ($('#listTp-my-order.selected').length) {
+
+								$('a.td-action').each(function(k,v){
+								
+									$(v).replaceWith($(v).text())
+								})
+								
 							}
-						});
+						}, 0)
+						// console.log(p.rendererCache)
+
+						// $.jPopover.hideTrPopover()
+						// p.allowPreview = true
+						if (p.checkbox)
+							$.jCheckbox.uncheck($('i', g.hDiv))
+						// $('i',
+						// g.hDiv).removeClass('icon-check').addClass('icon-check-empty')
+
+						/*								if(p.callbackFn !== null){
+															 p.callbackFn()
+															 console.log(921, p.callbackFn)
+														}*/
+
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						try {
+							if (p.onError)
+								p.onError(XMLHttpRequest, textStatus,
+										errorThrown);
+						} catch (e) {
+						}
+					}
+				});
 			},
 			changePageNum : function(pageNum) {
 				if (this.loading) {

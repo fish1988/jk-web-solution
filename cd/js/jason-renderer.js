@@ -53,7 +53,9 @@
 			if (v.constructor === Array) {
 				dataIndex = v[0]
 			}
-
+			if(dataIndex === null || typeof dataIndex == 'undefined')
+				return ''
+			
 			switch (type) {
 				case 'format' : {
 					if (rules.constructor === String) {
@@ -161,7 +163,10 @@
 						2 : '审批通过'
 					})
 			var template = '<a class="td-action" href="#workflowModal" title="{0}">{0}</a>'
-
+			if(typeof v[1] !='undefined' && !!v[1]){
+				template = '{0}'
+			}
+			
 			return $.jRenderer.valueChange(text, template, 'format')
 		}
 		
@@ -185,7 +190,7 @@
 		
 		// remote popover
 		$.jRenderer.remotePopoverChange = function(v){
-			var template =  '<a class="remote-popover" href="#" title="{0}" data-url="data/onemodel.json?id={1}">{0}</a>'
+			var template =  '<a class="remote-popover" href="#" title="{0}" data-url="phoneModel/list.html?modelId={1}">{0}</a>'
 			return $.jRenderer.valueChange(v, template, 'format')
 		}
 	});

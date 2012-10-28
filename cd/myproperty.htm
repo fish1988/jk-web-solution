@@ -136,7 +136,10 @@
 	<div class="search-result span10">
 		<div class="btn-toolbar grid-toolbar page-toolbar"
 			grid-target="#linkGrid">
-
+			<div class="btn-group">
+				<a class="grid-refresh btn toolbar-icon-btn j-tooltip-b" title="刷新"><i
+					class="icon-repeat"></i></a>
+			</div>
 			<div class="grid-result-pager btn-group">
 				<a class="prev-page btn toolbar-icon-btn j-tooltip-b" title="上一页"><i
 					class="icon-chevron-left"></i></a><a
@@ -145,24 +148,24 @@
 			</div>
 			<div class="grid-result-stat"></div>
 		</div>
-		<table id="linkGrid" class="grid" data-url="data/link.json" use-pager="false"
+		<table id="linkGrid" class="grid" data-url="property/list.html" use-pager="false"
 			row-id="propertyId" sort-name="lastModifyTime" sort-order="desc"
 			checkbox="true" resizable="false" grid-height="auto">
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="modelName;modelId" data-render="remotePopoverChange" sortable="true" width="110" align="left">机型名称</th>
-					<th name="brandName" sortable="true" width="110" align="left">品牌</th>
-					<th name="propertyName" sortable="true" width="110" align="left">资产编号</th>
+					<th name="propertyName" sortable="true" width="120" align="left">资产编号</th>
+					<th name="detailName;detailId" data-render="remotePopoverChange" width="110" align="left">机型名称</th>
+					<th name="brandName" hidden width="110" align="left">品牌</th>
+					<th name="propertyStatusName" width="120" align="left">资产状态</th>
 					<th name="propertyId" hidden sortable="true" width="50"
 						align="left">序号</th>
-					<th name="desc" width="200" align="left">描述</th>
-					<th name="createTime" hidden data-render="shortDateTimeChange"
-						sortable="true" width="150" align="left">创建时间</th>
-					<th name="createUser" hidden sortable="true" width="150" align="left">创建人</th>
+					<th name="desc" width="160" align="left">描述</th>
+					<th name="createTime" hidden data-render="shortDateTimeChange"width="150" align="left">创建时间</th>
+					<th name="createUser" hidden width="150" align="left">创建人</th>
 					<th name="lastModifyTime" data-render="shortDateTimeChange"
-						sortable="true" width="100" align="left">修改时间</th>
-					<th name="lastModifyUser" sortable="true" width="100" align="left">修改人</th>
+						sortable="true" width="110" align="left">更新时间</th>
+					<th name="lastModifyUser" sortable="true" width="110" align="left">操作人</th>
 				</tr>
 			</thead>
 		</table>

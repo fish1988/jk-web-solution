@@ -24,7 +24,7 @@
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</a>
 				<div class="btn-group pull-right">
-					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> <span class="const-userName" style="width: 40px;">jasonkou</span> <span class="caret"></span>
+					<a title="当前用户" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <img class="const-avatar" height="20" width="20px" src="http://dayu.oa.com/avatars/avatar.gif"> <span class="const-userName" style="width: 40px;"></span> <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="logout.html">注销登录</a></li>
@@ -49,28 +49,27 @@
 								<li><a href="brand.htm">品牌</a></li>
 								<li><a href="network.htm">网络制式</a></li>
 								<li class="divider"></li>
+								<li><a href="propertytype.htm">资产类型</a></li>
+								<li><a href="propertystatus.htm">资产状态</a></li>
 								<li><a href="usetype.htm">借用用途</a></li>
 								<li><a href="ordertype.htm">申请类型</a></li>
 								<li><a href="workflowstatus.htm">流程状态</a></li>
-								<li><a href="workflowinfo.htm">工作流</a></li>
-								<li class="divider"></li>
-								<li><a href="booktype.htm">图书类别</a></li>
+								<li><a href="workflowinfo.htm">工作流程</a></li>
+								<!--<li class="divider"></li>
+								<li><a href="booktype.htm">图书类别</a></li>-->
 							</ul></li>
+						<li id="workflownodes"><a href="workflownodes.htm">流程配置</a></li>
 					</ul>
 				</div>
 			</div>*/
 	}
 
-	
-				var $navTemplate = $($.jNavbar
-						.getNavString(navTemplateStringFunc))
+	var $navTemplate = $($.jNavbar.getNavString(navTemplateStringFunc))
 
-				$navTemplate.find('#'
-						+ $('.global-nav .navbar-inner').attr('active'))
-						.addClass('active')
+	$navTemplate.find('#' + $('.global-nav .navbar-inner').attr('active'))
+			.addClass('active')
 
-				//console.log(62, $('.global-nav .navbar-inner').attr('active'))
-				$('.global-nav .navbar-inner').append($navTemplate)
-			
+	// console.log(62, $('.global-nav .navbar-inner').attr('active'))
+	$('.global-nav .navbar-inner').append($navTemplate)
 
 }(window.jQuery);

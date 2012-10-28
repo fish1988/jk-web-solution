@@ -1,0 +1,12 @@
+{
+	"success" : true,
+	"items" : [{
+				"flowStatusId" : 1,
+				"flowStatusName" : "申请",
+				"approver" : "jason"
+			}, {
+				"flowStatusId" : 2,
+				"flowStatusName" : "申请",
+				"approver" : "jason"
+			}]
+}

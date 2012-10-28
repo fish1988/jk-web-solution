@@ -53,6 +53,13 @@
 
 			// reset form
 			$('form', me).each(function() {
+				
+						if($(this).attr('no-reset')){
+							$.jForm.reset($(this),'new')
+							// form items change
+							//$.jForm.itemEditChange($(this), 'new')
+							return true
+						}
 						if (me.attr('record') || me.attr('data-url')) {
 							$.jForm.reset($(this))
 

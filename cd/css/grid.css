@@ -17,7 +17,7 @@ td a.cmd{padding:2px 3px;}
 .flexigrid div.nDiv td{padding:2px 1px;cursor:default;}
 .flexigrid div.nDiv tr:hover td,.flexigrid div.nDiv tr.ndcolover td{background:#d5effc;}
 .flexigrid div.nDiv td.ndcol2{padding-right:10px;}
-.flexigrid div.nBtn{position:absolute;height:24px;width:14px;z-index:900;border-left:1px solid #ccc;border-right:1px solid #ccc;top:0px;left:0px;margin-top:1px;cursor:pointer;display:none;}
+.flexigrid div.nBtn{position:absolute;height:24px;width:14px;z-index:10;border-left:1px solid #ccc;border-right:1px solid #ccc;top:0px;left:0px;margin-top:1px;cursor:pointer;display:none;}
 .flexigrid div.nBtn div{height:24px;width:12px;float:left;background:url(../img/ddn.png) no-repeat center;}
 .flexigrid div.mDiv{font-weight:bold;display:block;overflow:hidden;white-space:nowrap;position:relative;}
 .flexigrid div.mDiv div{padding:6px;white-space:nowrap;}
@@ -43,7 +43,7 @@ td a.cmd{padding:2px 3px;}
 .flexigrid div.iDiv{position:absolute;overflow:visible;background:none;}
 .flexigrid div.iDiv input,.flexigrid div.iDiv select,.flexigrid div.iDiv textarea{font-family:Arial,Helvetica,sans-serif;font-size:11px;}
 .flexigrid div.iDiv input.tb{border:0px;padding:0px;width:100%;height:100%;padding:0px;background:none;}
-.flexigrid div.bDiv{background:#fff;overflow-x:auto;overflow-y:hidden;position:relative;}
+.flexigrid div.bDiv{background:#fff;overflow-x:auto;overflow-y:hidden;position:relative;min-height:300px;}
 .flexigrid div.hGrip{position:absolute;top:0px;right:0px;height:5px;width:5px;background:url(../img/line.gif) repeat-x center;margin-right:1px;cursor:col-resize;}
 .flexigrid div.hGrip:hover,.flexigrid div.hGrip.hgOver{margin-right:0px;}
 .flexigrid div.vGrip{height:5px;overflow:hidden;position:relative;background:#fafafa url(../img/wbg.gif) repeat-x 0px -1px;text-align:center;cursor:row-resize;}

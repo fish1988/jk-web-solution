@@ -15,6 +15,7 @@
 	$.jMsg = {
 		success : '操作成功',
 		failure : '操作失败',
+		validation_error : '验证失败',
 		error_duplicate_name : '名称重复',
 		phone_message : '操作成功，资产编号：{0}'
 	}

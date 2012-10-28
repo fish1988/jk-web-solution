@@ -70,10 +70,10 @@
 				<a class="close show-hide-switch" show-hide="query-detail">×</a>
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label" for="workflowInfoName">工作流</label>
+						<label class="control-label" for="workflowName">工作流</label>
 						<div class="controls">
-							<input class="j-search-item" title="工作流" id="workflowInfoName"
-								name="workflowInfoName" style="width: 92%;">
+							<input class="j-search-item" title="工作流" id="workflowName"
+								name="workflowName" style="width: 92%;">
 						</div>
 					</div>
 					<div class="control-group">
@@ -173,13 +173,13 @@
 			<div class="grid-result-stat"></div>
 		</div>
 		<table id="linkGrid" class="grid" data-url="workflowInfo/list.html"
-			row-id="workflowInfoId" sort-name="lastModifyTime" sort-order="desc"
+			row-id="workflowId" sort-name="lastModifyTime" sort-order="desc"
 			checkbox="true" resizable="false" grid-height="auto">
 			<thead>
 				<tr>
 					<th name="status" data-render="cmdChange" width="30" align="right">&nbsp;</th>
-					<th name="workflowInfoName" sortable="true" width="150" align="left">工作流</th>
-					<th name="workflowInfoId" hidden sortable="true" width="50" align="left">序号</th>
+					<th name="workflowName" sortable="true" width="120" align="left">工作流</th>
+					<th name="workflowId" sortable="true" width="30" align="right">序号</th>
 					<th name="desc" hidden width="150" align="left">描述</th>
 					<th name="createTime" data-render="shortDateTimeChange"
 						sortable="true" width="150" align="left">创建时间</th>
@@ -201,13 +201,13 @@
 			<div class="modal-body">
 				<fieldset>
 					<div class="control-group hidden">
-						<input type="hidden" id="workflowInfoId" name="workflowInfoId">
+						<input type="hidden" id="workflowId" name="workflowId">
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="workflowInfoName">工作流</label>
+						<label class="control-label" for="workflowName">工作流</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="workflowInfoName"
-								id="workflowInfoName" maxlength="40" required>
+							<input type="text" class="input-xlarge" name="workflowName"
+								id="workflowName" maxlength="40" required>
 						</div>
 					</div>
 					<div class="control-group">

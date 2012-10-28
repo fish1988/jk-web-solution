@@ -4,8 +4,10 @@
 .modal-body{position:relative;}
 @charset "UTF-8";
 .grid-result-stat{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:absolute;right:103px;padding-top:10px;display:inline-block;}
+.flexigrid div.hDiv th div{position:relative;}.flexigrid div.hDiv th div span{position:absolute;}
 .grid-result-pager{position:absolute;right:0px;}
 #jPopover.popover.right .arrow{top:50%;}
 #jPopover.popover .popover-content p{line-height:15px;}
 html{overflow-x:hidden;}
 .nav-container .navbar{position:static;z-index:-1;}
+.main-nav-container-body .workflow-node .action{margin-left:210px;width:200px;margin-top:-15px;}

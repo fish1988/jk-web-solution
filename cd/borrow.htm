@@ -28,6 +28,7 @@
 <link href="css/modal.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href="css/scrollbar.css" rel="stylesheet">
+<link href="css/label.css" rel="stylesheet">
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<script src="js/respond.min.js"></script>
@@ -54,15 +55,16 @@
 	</div>
 
 	<div class="container">
-		<form id="borrow-form" action="data/save.json"
+		<form id="borrow-form" action="borrow/borrow.html"
 			class="highlight form-horizontal">
-			<div class="legend"> 借用申请 </div>
+			<div class="legend">借用申请</div>
 			<fieldset>
 
 				<div class="control-group">
 					<label class="control-label" for="name">需求单号</label>
 					<div class="controls">
-						<label class="display-text">自动产生</label>
+						<label class="display-text">自动产生</label> <input type="hidden"
+							name="orderType" id="orderType" value="1">
 					</div>
 				</div>
 				<div class="control-group">
@@ -94,20 +96,22 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="useTypeIds">借用用途</label>
+					<label class="control-label" for="useTypeId"><span
+						class="label-required">*</span>借用用途</label>
 					<div class="check-one-least controls remote-radio"
-						target-name="useTypeIds" data-url="usetype"></div>
+						target-name="useTypeId" data-url="usetype"></div>
 				</div>
 
 
 				<div class="control-group">
-					<label class="control-label" for="models">机型选择</label>
+					<label class="control-label" for="models"><span
+						class="label-required">*</span>资产选择</label>
 					<div class="controls">
-						<div class="btn-toolbar">
+						<div class="btn-toolbar" style="margin-top: 5px;">
 							<div class="btn-group">
 								<a data-toggle="modal" href="#myModal"
-									class="btn toolbar-icon-btn j-tooltip-b" title="增加机型"> <i
-									class="icon-plus"></i></a>
+									class="btn toolbar-icon-btn j-tooltip-b add-property"
+									title="增加资产"> <i class="icon-plus"></i></a>
 							</div>
 							<div class="btn-group">
 								<a id="deleteProperties"
@@ -135,7 +139,7 @@
 			</fieldset>
 
 			<div class="form-actions">
-				<button type="submit" id="share-form-submit"
+				<button type="submit" id="borrow-form-submit"
 					class="btn btn-primary btn-large">&nbsp;提
 					&nbsp;&nbsp;交&nbsp;</button>
 			</div>
@@ -160,23 +164,26 @@
 						</select>
 						<button type="submit" class="btn btn-primary btn-search">查
 							询</button>
+						<input type="hidden" name="propertyStatusId" id="propertyStatusId"
+							value="1">
 					</div>
 
 				</div>
 
 			</form>
-			<table id="modelGrid" class="grid" data-url="phoneModel/list.html"
-				row-id="modelId" sort-name="modelName" sort-order="asc" use-pager="false"
-				checkbox="true" resizable="false" grid-height="auto"
-				show-column="false">
+			<table id="modelGrid" class="grid" data-url="phone/list.html"
+				row-id="modelId" sort-name="modelName" sort-order="asc"
+				use-pager="false" checkbox="true" resizable="false"
+				grid-height="auto" show-column="false" style="width: 100%;display:block;">
 				<thead>
 					<tr>
-						<th name="propertyName" sortable="true" width="150" align="left">资产编号</th>
+						<th name="propertyName" sortable="true" width="120" align="left">资产编号</th>
 						<th name="modelName" sortable="true" width="100" align="left">机型名称</th>
-						<th name="propertyId" hidden sortable="true" width="50"
-							align="left">序号</th>
+
 						<th name="brandName" sortable="true" width="100" align="left">品牌</th>
 						<th name="platformName" sortable="true" width="100" align="left">平台</th>
+						<th name="propertyId" hidden sortable="true" width="50"
+							align="left">序号</th>
 					</tr>
 				</thead>
 			</table>
@@ -242,6 +249,20 @@
 				$tr.remove()
 			})
 
+			/* if (!$.cookie('add-property')) {
+				$('.add-property')
+						.popover(
+								{
+									content : '点击可以选择手机哦，亲 <a class="close-tip" style="float:right;font-size:11px;cursor:pointer;">我知道了</a>',
+									placement : 'bottom'
+								}).popover('show')
+
+				$('.popover .close-tip').click(function() {
+					$('.add-property').popover('hide')
+					$.cookie('add-property', true)
+				})
+			} */
+
 			// select models
 			$('#myModal .modal-footer .btn-primary')
 					.click(
@@ -266,8 +287,10 @@
 																.push($.jString
 																		.format(
 																				modelTemplate,
-																				property.propertyId?property.propertyId:1,
-																				property.propertyName?property.propertyName:'',
+																				property.propertyId ? property.propertyId
+																						: 1,
+																				property.propertyName ? property.propertyName
+																						: '',
 																				property.brandName,
 																				property.modelName,
 																				property.platformName))
@@ -289,12 +312,33 @@
 			})
 
 			// submit
-			$('#borrow-form').ajaxForm(function(data) {
-				if (data && data.success) {
-					alert('成功提交')
-					location.href = "workflow.htm"
-				}
+			$('#borrow-form').ajaxForm({
+				data : {
+					form : 'bootstrap'
+				},
+				beforeSubmit : function(arr, $form, options) {
+					var propertyIds = []
+					$('#propertyTable tbody tr').each(function(i, k) {
+						propertyIds.push($(k).attr('data-value'))
+					})
+					if (propertyIds.length < 1) {
+						$.jAlert.alert('请选择资产')
+						return false
+					}
+					arr.push({
+						name : 'propertyIds',
+						value : propertyIds.join(';')
+					})
+				},
+				success : function(data) {
+					if (data && data.success) {
+						alert($.jMsg.getMsg(data.message, data.value))
+						location.href = "workflow.htm"
+					} else {
+						$.jAlert.alert($.jMsg.getMsg(data.message, data.value))
+					}
 
+				}
 			})
 
 		})

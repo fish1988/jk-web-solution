@@ -30,7 +30,7 @@
 									.typeahead({
 												source : data,
 												items : 4,
-												selectItems : 1
+												selectItems : 10
 											})
 						})
 

@@ -75,7 +75,7 @@
 
 		getQueryData : function() {
 			var res = {}
-			if (this.source == null || this.source.length ==0) {
+			if (this.source == null || this.source.length == 0) {
 				var jAjax = (this.ajax.method == "post") ? $.post : $.get
 				jAjax(this.ajax.url, '', function(data) {
 							$.each(data, function(k, v) {
@@ -231,7 +231,7 @@
 			var that = this, items
 
 			this.query = this.getLastWord(this.$element.val())
-			
+
 			if (!this.query) {
 				return this.shown ? this.hide() : this
 			}
@@ -410,6 +410,14 @@
 		},
 
 		blur : function(e) {
+			var that = this
+			setTimeout(function() {
+						that.deleteWrongItems()
+						that.hide()
+					}, 250)
+			// if not in list, kill it
+		},
+		change : function(e) {
 			var that = this
 			setTimeout(function() {
 						that.deleteWrongItems()
